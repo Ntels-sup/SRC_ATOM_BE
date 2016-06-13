@@ -25,8 +25,11 @@ private:
 	int 				m_nStartFlag;
 
 	int 				SetRequestMsg(ST_TRACE_REQUEST *batchrequest_);
+#ifdef TRM_DEBUG	
 	int					CheckRecvMsg();
+#endif
 	int					ProcessCtrl();
+
 public:
     CNMSession() ;
     ~CNMSession() ;
@@ -47,8 +50,10 @@ public:
 	int 				GetResponseMsg(ST_TRACE_RESPONSE *a_traceresponse);
 	int 				GetTraceData(ST_TRACE_RESPONSE *a_traceresponse);
 	int					GetRegistRouteInfo(ST_TRACE_ROUTE *a_traceroute);
+#ifdef TRM_DEBUG	
 	// for test
 	int 				TestWebGetTraceData(double a_oper_no, char* start_date, char* end_date, ST_TRACE_RESPONSE *a_traceresponse);
+#endif
 
 	int					SendInitResponseMsg(int ret, ST_COWORK_INFO *a_coworkinfo, ST_TRACE_REQUEST *batchrequest_);
 	int					SendWSMResponseMsg(ST_COWORK_INFO *a_coworkinfo, ST_TRACE_RESPONSE *a_traceresponse, int a_nOffData, int a_nRet);

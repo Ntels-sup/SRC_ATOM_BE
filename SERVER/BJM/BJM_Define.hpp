@@ -253,7 +253,6 @@ typedef struct
 typedef struct
 {
     char group_name             [BJM_HIST_GROUP_NAME_SIZE +1];
-//	char job_name				[BJM_FLOW_JOB_NAME_SIZE +1];
     char next_job_name          [BJM_FLOW_JOB_NAME_SIZE +1];
 	char prev_job_name			[BJM_FLOW_JOB_NAME_SIZE +1];	//for duplicate check
     int  Count;

@@ -33,10 +33,13 @@
     fprintf(stderr,__VA_ARGS__);\
 }
 #else 
-#define CLC_LOG(_LVL,...){\
-	    CGlobal *inst = NULL;\
-	    inst = CGlobal::GetInstance();\
-	    inst->GetLogP()->ERROR(__VA_ARGS__);\
+#define CLC_LOG(_LVL,_DISP_FLG,...){\
+	CGlobal *inst = NULL;\
+	inst = CGlobal::GetInstance();\
+	inst->GetLogP()->ERROR(__VA_ARGS__);\
+	if((_DISP_FLG) == true){\
+		fprintf(stderr,__VA_ARGS__);\
+	}\
 }
 #endif
 

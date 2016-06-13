@@ -13,7 +13,7 @@
 
 void ErrLogFunc(unsigned int level, char *file, unsigned int line, char *buf)
 {
-	CLC_LOG(CLC_ERR,"%s", buf);
+	CLC_LOG(CLC_ERR,false,"%s", buf);
 }
 
 void DispFunc(char *buf)
@@ -25,7 +25,7 @@ CCli::CCli(int &nRet)
 {
 	nRet = cli_mainInit(&m_stCliCb);
 	if(nRet != CLI_OK){
-		CLC_LOG(CLC_ERR,"Cli init failed(ret=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"Cli init failed(ret=%d)\n",nRet);
 		nRet = CLC_NOK;
 		return;
 	}
@@ -48,7 +48,7 @@ CCli::CCli(int &nRet)
 
 	nRet = LoadDfltCmd();
 	if(nRet != CLC_OK){
-		CLC_LOG(CLC_ERR,"Default command load failed(nRet=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"Default command load failed(nRet=%d)\n",nRet);
 	}
 
 	nRet = CLC_OK;
@@ -60,14 +60,14 @@ CCli::~CCli()
 	if(m_stCliDoc != NULL){
 		nRet = cli_docDstry(m_stCliDoc);
 		if(nRet != CLI_OK){
-			CLC_LOG(CLC_ERR,"Cli doc destory failed(ret=%d)\n",nRet);
+			CLC_LOG(CLC_ERR,false,"Cli doc destory failed(ret=%d)\n",nRet);
 		}
 		m_stCliDoc = NULL;
 	}
 
 	nRet = cli_mainDstry(&m_stCliCb, CLI_TRUE);
 	if(nRet != CLI_OK){
-		CLC_LOG(CLC_ERR,"Cli doc destory failed(ret=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"Cli doc destory failed(ret=%d)\n",nRet);
 	}
 
 	if(m_cDb != NULL){
@@ -106,7 +106,7 @@ int CCli::LoadDfltCmdDispNa(CliPkgCb *pkgCb)
 	
 	nRet = cli_cmdAdd(pkgCb, &cmdCfg, NULL);
 	if(nRet != CLI_OK){
-		CLC_LOG(CLC_ERR,"edit cfg command add failed(nRet=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"edit cfg command add failed(nRet=%d)\n",nRet);
 		return CLC_NOK;
 	}
 
@@ -130,7 +130,7 @@ int CCli::LoadDfltCmdStartNa(CliPkgCb *pkgCb)
 	
 	nRet = cli_cmdAdd(pkgCb, &cmdCfg, NULL);
 	if(nRet != CLI_OK){
-		CLC_LOG(CLC_ERR,"edit cfg command add failed(nRet=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"edit cfg command add failed(nRet=%d)\n",nRet);
 		return CLC_NOK;
 	}
 
@@ -158,7 +158,7 @@ int CCli::LoadDfltCmdStopNa(CliPkgCb *pkgCb)
 	
 	nRet = cli_cmdAdd(pkgCb, &cmdCfg, &cmdCb);
 	if(nRet != CLI_OK){
-		CLC_LOG(CLC_ERR,"stop na command add failed(nRet=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"stop na command add failed(nRet=%d)\n",nRet);
 		return CLC_NOK;
 	}
     
@@ -173,7 +173,7 @@ int CCli::LoadDfltCmdStopNa(CliPkgCb *pkgCb)
 
 	nRet = cli_argAdd(cmdCb, &argCfg, &argCb);
 	if(nRet != CLI_OK){
-		CLC_LOG(CLC_ERR,"Load command argument add failed(nRet=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"Load command argument add failed(nRet=%d)\n",nRet);
 		return CLC_NOK;
 	}
 
@@ -188,7 +188,7 @@ int CCli::LoadDfltCmdStopNa(CliPkgCb *pkgCb)
 
 	nRet = cli_argAdd(cmdCb, &argCfg, &argCb);
 	if(nRet != CLI_OK){
-		CLC_LOG(CLC_ERR,"Load command argument add failed(nRet=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"Load command argument add failed(nRet=%d)\n",nRet);
 		return CLC_NOK;
 	}
 
@@ -202,7 +202,7 @@ int CCli::LoadDfltCmdStopNa(CliPkgCb *pkgCb)
 
 	nRet = cli_argEnumAdd(argCb, &argEnumCfg, NULL);
 	if(nRet != CLI_OK){
-		CLC_LOG(CLC_ERR,"Load command argument enum value add failed(nRet=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"Load command argument enum value add failed(nRet=%d)\n",nRet);
 		return CLC_NOK;
 	}
 
@@ -216,7 +216,7 @@ int CCli::LoadDfltCmdStopNa(CliPkgCb *pkgCb)
 
 	nRet = cli_argEnumAdd(argCb, &argEnumCfg, NULL);
 	if(nRet != CLI_OK){
-		CLC_LOG(CLC_ERR,"Load command argument enum value add failed(nRet=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"Load command argument enum value add failed(nRet=%d)\n",nRet);
 		return CLC_NOK;
 	}
 
@@ -240,7 +240,7 @@ int CCli::LoadDfltCmdEditCfg(CliPkgCb *pkgCb)
 	
 	nRet = cli_cmdAdd(pkgCb, &cmdCfg, NULL);
 	if(nRet != CLI_OK){
-		CLC_LOG(CLC_ERR,"edit cfg command add failed(nRet=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"edit cfg command add failed(nRet=%d)\n",nRet);
 		return CLC_NOK;
 	}
 
@@ -264,7 +264,7 @@ int CCli::LoadDfltCmdDump(CliPkgCb *pkgCb)
 	
 	nRet = cli_cmdAdd(pkgCb, &cmdCfg, NULL);
 	if(nRet != CLI_OK){
-		CLC_LOG(CLC_ERR,"Dump command add failed(nRet=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"Dump command add failed(nRet=%d)\n",nRet);
 		return CLC_NOK;
 	}
 
@@ -293,7 +293,7 @@ int CCli::LoadDfltCmdLoad(CliPkgCb *pkgCb)
 	
 	nRet = cli_cmdAdd(pkgCb, &cmdCfg, &cmdCb);
 	if(nRet != CLI_OK){
-		CLC_LOG(CLC_ERR,"Dump command add failed(nRet=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"Dump command add failed(nRet=%d)\n",nRet);
 		return CLC_NOK;
 	}
 
@@ -307,7 +307,7 @@ int CCli::LoadDfltCmdLoad(CliPkgCb *pkgCb)
 
 	nRet = cli_argAdd(cmdCb, &argCfg, &argCb);
 	if(nRet != CLI_OK){
-		CLC_LOG(CLC_ERR,"Load command argument add failed(nRet=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"Load command argument add failed(nRet=%d)\n",nRet);
 		return CLC_NOK;
 	}
 
@@ -319,7 +319,7 @@ int CCli::LoadDfltCmdLoad(CliPkgCb *pkgCb)
 
 	nRet = cli_argEnumAdd(argCb, &argEnumCfg, NULL);
 	if(nRet != CLI_OK){
-		CLC_LOG(CLC_ERR,"Load command argument enum value add failed(nRet=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"Load command argument enum value add failed(nRet=%d)\n",nRet);
 		return CLC_NOK;
 	}
 
@@ -331,7 +331,7 @@ int CCli::LoadDfltCmdLoad(CliPkgCb *pkgCb)
 
 	nRet = cli_argEnumAdd(argCb, &argEnumCfg, NULL);
 	if(nRet != CLI_OK){
-		CLC_LOG(CLC_ERR,"Load command argument enum value add failed(nRet=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"Load command argument enum value add failed(nRet=%d)\n",nRet);
 		return CLC_NOK;
 	}
 
@@ -347,43 +347,43 @@ int CCli::LoadDfltCmd()
 
     nRet = cli_pkgAdd(&m_stCliCb, CLI_FALSE, m_strDefaultPkgName.c_str(), m_strDefaultPkgName.size(), NULL, &stPkgCb);
     if(nRet != CLI_OK){
-        CLC_LOG(CLC_ERR,"Package add failed(%d)\n",nRet);
+        CLC_LOG(CLC_ERR,false,"Package add failed(%d)\n",nRet);
         return CLC_NOK;
     }
 
     nRet = LoadDfltCmdDump(stPkgCb);
     if(nRet != CLC_OK){
-        CLC_LOG(CLC_ERR,"dump command load failed\n");
+        CLC_LOG(CLC_ERR,false,"dump command load failed\n");
         return CLC_NOK;
     }
 
     nRet = LoadDfltCmdLoad(stPkgCb);
     if(nRet != CLC_OK){
-        CLC_LOG(CLC_ERR,"load command load failed\n");
+        CLC_LOG(CLC_ERR,false,"load command load failed\n");
         return CLC_NOK;
     }
 
     nRet = LoadDfltCmdEditCfg(stPkgCb);
     if(nRet != CLC_OK){
-        CLC_LOG(CLC_ERR,"edit config command load failed\n");
+        CLC_LOG(CLC_ERR,false,"edit config command load failed\n");
         return CLC_NOK;
     }
 
     nRet = LoadDfltCmdDispNa(stPkgCb);
     if(nRet != CLC_OK){
-        CLC_LOG(CLC_ERR,"displaly na command load failed\n");
+        CLC_LOG(CLC_ERR,false,"displaly na command load failed\n");
         return CLC_NOK;
     }
 
     nRet = LoadDfltCmdStopNa(stPkgCb);
     if(nRet != CLC_OK){
-        CLC_LOG(CLC_ERR,"stop na command load failed\n");
+        CLC_LOG(CLC_ERR,false,"stop na command load failed\n");
         return CLC_NOK;
     }
 
     nRet = LoadDfltCmdStartNa(stPkgCb);
     if(nRet != CLC_OK){
-        CLC_LOG(CLC_ERR,"start na command load failed\n");
+        CLC_LOG(CLC_ERR,false,"start na command load failed\n");
         return CLC_NOK;
     }
 
@@ -408,7 +408,7 @@ int CCli::LoadArgEnumParaFromDb(CliArgCb *a_stArgCb, const char *a_szTableName, 
 
 	nRet = m_cDb->Query(&cData, chQuery, nQueryLen);
 	if(nRet < 0){
-		CLC_LOG(CLC_ERR,"DB Query Failed(nRet=%d, err=%s)\n",nRet, m_cDb->GetErrorMsg(nRet));
+		CLC_LOG(CLC_ERR,false,"DB Query Failed(nRet=%d, err=%s)\n",nRet, m_cDb->GetErrorMsg(nRet));
 		return CLC_NOK;
 	}
 
@@ -437,7 +437,7 @@ int CCli::LoadArgEnumParaFromDb(CliArgCb *a_stArgCb, const char *a_szTableName, 
 
 		nRet = cli_argEnumAdd(a_stArgCb, &argEnumCfg, NULL);
 		if(nRet != CLI_OK){
-			CLC_LOG(CLC_ERR,"argument enum add failed(ret=%d)\n",nRet);
+			CLC_LOG(CLC_ERR,false,"argument enum add failed(ret=%d)\n",nRet);
 			continue;
 		}
 	}/* end of while(1) */
@@ -472,7 +472,7 @@ int CCli::LoadArgEnumFromDb(string &a_strPkgName, CliCmdCb *a_stCmdCb, CliArgCb 
 
 	nRet = m_cDb->Query(&cData, chQuery, nQueryLen);
 	if(nRet < 0){
-		CLC_LOG(CLC_ERR,"DB Query Failed(nRet=%d, err=%s)\n",nRet, m_cDb->GetErrorMsg(nRet));
+		CLC_LOG(CLC_ERR,false,"DB Query Failed(nRet=%d, err=%s)\n",nRet, m_cDb->GetErrorMsg(nRet));
 		return CLC_NOK;
 	}
 
@@ -527,7 +527,7 @@ int CCli::LoadArgEnumFromDb(string &a_strPkgName, CliCmdCb *a_stCmdCb, CliArgCb 
 				argEnumCfg.enumValType = CLI_ARG_TYPE_STRING;
 				if((szArgEnumTable[0] == '\0') || 
 						(szArgEnumColumn[0] == '\0')){
-					CLC_LOG(CLC_ERR,"enum table not exit (table=%s, column=%s)\n",
+					CLC_LOG(CLC_ERR,false,"enum table not exit (table=%s, column=%s)\n",
 							szArgEnumTable, szArgEnumColumn);
 					continue;
 				}
@@ -548,7 +548,7 @@ int CCli::LoadArgEnumFromDb(string &a_strPkgName, CliCmdCb *a_stCmdCb, CliArgCb 
 
 		nRet = cli_argEnumAdd(a_stArgCb, &argEnumCfg, &argEnumCb);
 		if(nRet != CLI_OK){
-			CLC_LOG(CLC_ERR,"argument enum add failed(ret=%d)\n",nRet);
+			CLC_LOG(CLC_ERR,false,"argument enum add failed(ret=%d)\n",nRet);
 			continue;
 		}
 
@@ -556,7 +556,7 @@ int CCli::LoadArgEnumFromDb(string &a_strPkgName, CliCmdCb *a_stCmdCb, CliArgCb 
 			cli_argEnumDisable(argEnumCb);
 			nRet = LoadArgEnumParaFromDb(a_stArgCb, szArgEnumTable, szArgEnumColumn, nColumnType);
 			if(nRet != CLC_OK){
-				CLC_LOG(CLC_ERR,"Enum db paremeter load failed(ret=%d)\n",nRet);
+				CLC_LOG(CLC_ERR,false,"Enum db paremeter load failed(ret=%d)\n",nRet);
 			}
 			blnDbUpdateFlag = false;
 		}
@@ -592,7 +592,7 @@ int CCli::LoadArgFromDb(string &a_strPkgName, CliCmdCb *a_stCmdCb)
 
 	nRet = m_cDb->Query(&cData, chQuery, nQueryLen);
 	if(nRet < 0){
-		CLC_LOG(CLC_ERR,"DB Query Failed(nRet=%d, err=%s)\n",nRet, m_cDb->GetErrorMsg(nRet));
+		CLC_LOG(CLC_ERR,false,"DB Query Failed(nRet=%d, err=%s)\n",nRet, m_cDb->GetErrorMsg(nRet));
 		return CLC_NOK;
 	}
 
@@ -650,14 +650,14 @@ int CCli::LoadArgFromDb(string &a_strPkgName, CliCmdCb *a_stCmdCb)
 
 		nRet = cli_argAdd(a_stCmdCb, &argCfg, &stArgCb);
 		if(nRet != CLI_OK){
-			CLC_LOG(CLC_ERR,"Arguemnt add failed(ret=%d)\n",nRet);
+			CLC_LOG(CLC_ERR,false,"Arguemnt add failed(ret=%d)\n",nRet);
 			continue;
 		}
 
 		if(argCfg.argType == CLI_ARG_TYPE_ENUM){
 			nRet = LoadArgEnumFromDb(a_strPkgName, a_stCmdCb, stArgCb);
 			if(nRet != CLC_OK){
-				CLC_LOG(CLC_ERR,"argument enum load failed(ret=%d)\n",nRet);
+				CLC_LOG(CLC_ERR,false,"argument enum load failed(ret=%d)\n",nRet);
 			}
 		}
 	}
@@ -683,13 +683,13 @@ int CCli::LoadPkgFromDb(string &a_strPkgName)
 	CLI_CMD_CFG_INIT(&cmdCfg);
 
 	if(m_blnDbInitFlag != true){
-		CLC_LOG(CLC_ERR,"DB config init first\n");
+		CLC_LOG(CLC_ERR,false,"DB config init first\n");
 		return CLC_NOK;
 	}
 
 	nRet = m_cDb->Connect(m_strDBIp.c_str(), m_nDBPort, m_strDBUser.c_str(), m_strDBPassword.c_str(), m_strDBName.c_str());
 	if(nRet < 0){
-		CLC_LOG(CLC_ERR,"DB Connect failed(%s, %d, %s, %s, %s)\n",
+		CLC_LOG(CLC_ERR,false,"DB Connect failed(%s, %d, %s, %s, %s)\n",
 				m_strDBIp.c_str(), m_nDBPort, m_strDBUser.c_str(), m_strDBPassword.c_str(), m_strDBName.c_str());
 		return CLC_NOK;
 	}
@@ -700,7 +700,7 @@ int CCli::LoadPkgFromDb(string &a_strPkgName)
 
 	nRet = m_cDb->Query(&cData, chQuery, nQueryLen);
 	if(nRet < 0){
-		CLC_LOG(CLC_ERR,"DB Query Failed(nRet=%d, err=%s)\n",nRet, m_cDb->GetErrorMsg(nRet));
+		CLC_LOG(CLC_ERR,false,"DB Query Failed(nRet=%d, err=%s)\n",nRet, m_cDb->GetErrorMsg(nRet));
 		return CLC_NOK;
 	}
 
@@ -713,7 +713,7 @@ int CCli::LoadPkgFromDb(string &a_strPkgName)
 
 	nRet = cli_pkgAdd(&m_stCliCb, CLI_FALSE, a_strPkgName.c_str(), a_strPkgName.size(), NULL, &stPkgCb);
 	if(nRet != CLI_OK){
-		CLC_LOG(CLC_ERR,"Package add failed(%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"Package add failed(%d)\n",nRet);
 		return CLC_NOK;
 	}
 
@@ -732,13 +732,13 @@ int CCli::LoadPkgFromDb(string &a_strPkgName)
 
 		nRet = cli_cmdAdd(stPkgCb, &cmdCfg, &stCmdCb);
 		if(nRet != CLI_OK){
-			CLC_LOG(CLC_ERR,"Command add failed(ret=%d)\n",nRet);
+			CLC_LOG(CLC_ERR,false,"Command add failed(ret=%d)\n",nRet);
 			continue;
 		}
 
 		nRet = LoadArgFromDb(a_strPkgName, stCmdCb);
 		if(nRet != CLC_OK){
-			CLC_LOG(CLC_ERR,"Command arguemnt load failed(nRet=%d, cmdName=%.*s)\n",nRet, cmdCfg.cmdNameLen, cmdCfg.cmdName);
+			CLC_LOG(CLC_ERR,false,"Command arguemnt load failed(nRet=%d, cmdName=%.*s)\n",nRet, cmdCfg.cmdNameLen, cmdCfg.cmdName);
 			continue;
 		}
 	}
@@ -769,23 +769,23 @@ int CCli::LoadFromDb()
 
 	nRet = cli_mainDstry(&m_stCliCb, CLI_TRUE);
 	if(nRet != CLI_OK){
-		CLC_LOG(CLC_ERR,"Cli control block destory failed(ret=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"Cli control block destory failed(ret=%d)\n",nRet);
 		return CLC_NOK;
 	}
 
 	nRet = LoadDfltCmd();
 	if(nRet != CLC_OK){
-		CLC_LOG(CLC_ERR,"Default command load failed(nRet=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"Default command load failed(nRet=%d)\n",nRet);
 	}
 
 	if(m_blnDbInitFlag != true){
-		CLC_LOG(CLC_ERR,"DB config init first\n");
+		CLC_LOG(CLC_ERR,false,"DB config init first\n");
 		return CLC_NOK;
 	}
 
 	blnRet = m_cDb->Connect(m_strDBIp.c_str(), m_nDBPort, m_strDBUser.c_str(), m_strDBPassword.c_str(), m_strDBName.c_str());
 	if(blnRet == false){
-		CLC_LOG(CLC_ERR,"DB Connect failed(%s, %d, %s, %s, %s)\n",
+		CLC_LOG(CLC_ERR,false,"DB Connect failed(%s, %d, %s, %s, %s)\n",
 				m_strDBIp.c_str(), m_nDBPort, m_strDBUser.c_str(), m_strDBPassword.c_str(), m_strDBName.c_str());
 		return CLC_NOK;
 	}
@@ -796,7 +796,7 @@ int CCli::LoadFromDb()
 
 	nRet = m_cDb->Query(&cData, chQuery, nQueryLen);
 	if(nRet < 0){
-		CLC_LOG(CLC_ERR,"DB Query Failed(nRet=%d, err=%s)\n",nRet, m_cDb->GetErrorMsg(nRet));
+		CLC_LOG(CLC_ERR,false,"DB Query Failed(nRet=%d, err=%s)\n",nRet, m_cDb->GetErrorMsg(nRet));
 		return CLC_NOK;
 	}
 
@@ -827,20 +827,20 @@ int CCli::LoadFromDb()
 		if(nRet != CLI_OK){
 			nRet = cli_pkgAdd(&m_stCliCb, CLI_FALSE, strPkgName.c_str(), strPkgName.size(), NULL, &stPkgCb);
 			if(nRet != CLI_OK){
-				CLC_LOG(CLC_ERR,"Package add failed(%d)\n",nRet);
+				CLC_LOG(CLC_ERR,false,"Package add failed(%d)\n",nRet);
 				return CLC_NOK;
 			}
 		}
 
 		nRet = cli_cmdAdd(stPkgCb, &cmdCfg, &stCmdCb);
 		if(nRet != CLI_OK){
-			CLC_LOG(CLC_ERR,"Command add failed(ret=%d)\n",nRet);
+			CLC_LOG(CLC_ERR,false,"Command add failed(ret=%d)\n",nRet);
 			continue;
 		}
 
 		nRet = LoadArgFromDb(strPkgName, stCmdCb);
 		if(nRet != CLC_OK){
-			CLC_LOG(CLC_ERR,"Command arguemnt load failed(nRet=%d, cmdName=%.*s)\n",nRet, cmdCfg.cmdNameLen, cmdCfg.cmdName);
+			CLC_LOG(CLC_ERR,false,"Command arguemnt load failed(nRet=%d, cmdName=%.*s)\n",nRet, cmdCfg.cmdNameLen, cmdCfg.cmdName);
 			continue;
 		}
 	}/* end of while(1) */
@@ -928,17 +928,17 @@ int CCli::LoadArgEnumFromCfg(CliArgCb *a_stArgCb, rabbit::object &a_cRecord)
 
 		nRet = cli_argEnumAdd(a_stArgCb, &stArgEnumCfg, NULL);
 		if(nRet != CLI_OK){
-			CLC_LOG(CLC_ERR,"Enum value add failed(ret=%d)\n",nRet);
+			CLC_LOG(CLC_ERR,false,"Enum value add failed(ret=%d)\n",nRet);
 			return CLC_NOK;
 		}
 	} catch(rabbit::type_mismatch   e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(rabbit::parse_error e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(...) {
-		CLC_LOG(CLC_ERR,"Unknown error\n");
+		CLC_LOG(CLC_ERR,false,"Unknown error\n");
 		return CLC_NOK;
 	}
 
@@ -1049,7 +1049,7 @@ int CCli::LoadArgFromCfg(CliCmdCb *a_stCmdCb, rabbit::object &a_cRecord)
 
 		nRet = cli_argAdd(a_stCmdCb, &stArgCfg, &argCb);
 		if(nRet != CLI_OK){
-			CLC_LOG(CLC_ERR,"Argument add failed(nRet=%d)\n",nRet);
+			CLC_LOG(CLC_ERR,false,"Argument add failed(nRet=%d)\n",nRet);
 			return CLC_NOK;
 		}
 
@@ -1061,20 +1061,20 @@ int CCli::LoadArgFromCfg(CliCmdCb *a_stCmdCb, rabbit::object &a_cRecord)
 
 					nRet = LoadArgEnumFromCfg(argCb, cObject);
 					if(nRet != CLC_OK){
-						CLC_LOG(CLC_ERR,"Argument Enum load failed(ret=%d)\n",nRet);
+						CLC_LOG(CLC_ERR,false,"Argument Enum load failed(ret=%d)\n",nRet);
 						return CLC_NOK;
 					}
 				}
 			}
 		}
 	} catch(rabbit::type_mismatch   e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(rabbit::parse_error e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(...) {
-		CLC_LOG(CLC_ERR,"Unknown error\n");
+		CLC_LOG(CLC_ERR,false,"Unknown error\n");
 		return CLC_NOK;
 	}
 
@@ -1124,7 +1124,7 @@ int CCli::LoadCmdFromCfg(CliPkgCb *a_cPkgCb, rabbit::object &a_cRecord)
 
 		nRet = cli_cmdAdd(a_cPkgCb, &cmdCfg, &cmdCb);
 		if(nRet != CLI_OK){
-			CLC_LOG(CLC_ERR,"Command add faeild(ret=%d)\n",nRet);
+			CLC_LOG(CLC_ERR,false,"Command add faeild(ret=%d)\n",nRet);
 			return CLC_NOK;
 		}
 
@@ -1135,18 +1135,18 @@ int CCli::LoadCmdFromCfg(CliPkgCb *a_cPkgCb, rabbit::object &a_cRecord)
 
 			nRet = LoadArgFromCfg(cmdCb, cObject);
 			if(nRet != CLC_OK){
-				CLC_LOG(CLC_ERR,"Argument load failed(ret=%d)\n",nRet);
+				CLC_LOG(CLC_ERR,false,"Argument load failed(ret=%d)\n",nRet);
 				return CLC_NOK;
 			}
 		}
 	} catch(rabbit::type_mismatch   e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(rabbit::parse_error e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(...) {
-		CLC_LOG(CLC_ERR,"Unknown error\n");
+		CLC_LOG(CLC_ERR,false,"Unknown error\n");
 		return CLC_NOK;
 	}
 
@@ -1179,7 +1179,7 @@ int CCli::LoadPkgFromCfg(rabbit::object &a_cRecord)
 
 		nRet = cli_pkgAdd(&m_stCliCb, nDefaultFlag, strPkgName.c_str(), strPkgName.size(), NULL, &pkgCb);
 		if(nRet != CLI_OK){
-			CLC_LOG(CLC_ERR,"Package add failed(ret=%d)\n",nRet);
+			CLC_LOG(CLC_ERR,false,"Package add failed(ret=%d)\n",nRet);
 			return CLC_NOK;
 		}
 
@@ -1190,18 +1190,18 @@ int CCli::LoadPkgFromCfg(rabbit::object &a_cRecord)
 
 			nRet = LoadCmdFromCfg(pkgCb, cObject);
 			if(nRet != CLC_OK){
-				CLC_LOG(CLC_ERR,"Command load failed(ret=%d)\n",nRet);
+				CLC_LOG(CLC_ERR,false,"Command load failed(ret=%d)\n",nRet);
 				return CLC_NOK;
 			}
 		}
 	} catch(rabbit::type_mismatch   e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(rabbit::parse_error e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(...) {
-		CLC_LOG(CLC_ERR,"Unknown error\n");
+		CLC_LOG(CLC_ERR,false,"Unknown error\n");
 		return CLC_NOK;
 	}
 
@@ -1218,7 +1218,7 @@ int CCli::LoadFromCfg(string &a_strPath)
 
 	fp = fopen(a_strPath.c_str(),"r");
 	if(fp == NULL){
-		CLC_LOG(CLC_ERR,"Config file open error(%s)\n", a_strPath.c_str());
+		CLC_LOG(CLC_ERR,false,"Config file open error(%s)\n", a_strPath.c_str());
 		return CLC_NOK;
 	}
 
@@ -1233,13 +1233,13 @@ int CCli::LoadFromCfg(string &a_strPath)
 
 	nRet = cli_mainDstry(&m_stCliCb, CLI_TRUE);
 	if(nRet != CLI_OK){
-		CLC_LOG(CLC_ERR,"Cli control block destory failed(ret=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"Cli control block destory failed(ret=%d)\n",nRet);
 		return CLC_NOK;
 	}
 
 	nRet = LoadDfltCmd();
 	if(nRet != CLC_OK){
-		CLC_LOG(CLC_ERR,"Default command load failed(nRet=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"Default command load failed(nRet=%d)\n",nRet);
 	}
 
 	try{
@@ -1257,19 +1257,19 @@ int CCli::LoadFromCfg(string &a_strPath)
 
 			nRet = LoadPkgFromCfg(cObject);
 			if(nRet  != CLC_OK){
-				CLC_LOG(CLC_ERR,"Package config load failed(ret=%d)\n",nRet);
+				CLC_LOG(CLC_ERR,false,"Package config load failed(ret=%d)\n",nRet);
 				return nRet;
 			}
 		}/* end of for(i=0;i<cPkgArray.size();i++) */
 
 	} catch(rabbit::type_mismatch   e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(rabbit::parse_error e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(...) {
-		CLC_LOG(CLC_ERR,"Unknown error\n");
+		CLC_LOG(CLC_ERR,false,"Unknown error\n");
 		return CLC_NOK;
 	}
 
@@ -1282,7 +1282,7 @@ int CCli::SetDefaultPkg(string &a_strPkgName)
 
 	nRet = cli_pkgSetDfltByName(&m_stCliCb, (char*)a_strPkgName.c_str(), a_strPkgName.size());
 	if(nRet != CLI_OK){
-		CLC_LOG(CLC_ERR,"Default setting failed(nRet=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"Default setting failed(nRet=%d)\n",nRet);
 		return CLC_NOK;
 	}
 
@@ -1323,13 +1323,13 @@ int CCli::DumpArgEnum(CRabbitAlloc &alloc, rabbit::object &a_cRecord, CliArgEnum
 			}
 		}
 	} catch(rabbit::type_mismatch   e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(rabbit::parse_error e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(...) {
-		CLC_LOG(CLC_ERR,"Unknown error\n");
+		CLC_LOG(CLC_ERR,false,"Unknown error\n");
 		return CLC_NOK;
 	}
 
@@ -1411,13 +1411,13 @@ int CCli::DumpArg(CRabbitAlloc &alloc, rabbit::object &a_cRecord, CliArgCb &argC
 		}/* end of while(1) */
 
 	} catch(rabbit::type_mismatch   e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(rabbit::parse_error e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(...) {
-		CLC_LOG(CLC_ERR,"Unknown error\n");
+		CLC_LOG(CLC_ERR,false,"Unknown error\n");
 		return CLC_NOK;
 	}
 
@@ -1475,13 +1475,13 @@ int CCli::DumpCmd(CRabbitAlloc &alloc, rabbit::object &a_cRecord, CliCmdCb &cmdC
 		}/* end of while(1) */
 
 	} catch(rabbit::type_mismatch   e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(rabbit::parse_error e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(...) {
-		CLC_LOG(CLC_ERR,"Unknown error\n");
+		CLC_LOG(CLC_ERR,false,"Unknown error\n");
 		return CLC_NOK;
 	}
 
@@ -1532,13 +1532,13 @@ int CCli::DumpPkg(CRabbitAlloc &alloc, rabbit::object &a_cRecord, CliPkgCb &pkgC
 		}/* end of while(1) */
 
 	} catch(rabbit::type_mismatch   e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(rabbit::parse_error e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(...) {
-		CLC_LOG(CLC_ERR,"Unknown error\n");
+		CLC_LOG(CLC_ERR,false,"Unknown error\n");
 		return CLC_NOK;
 	}
 
@@ -1601,7 +1601,7 @@ int CCli::Dump()
 			//fp = fopen(a_strPath.c_str(),"w");
 			fp = fopen(m_strDumpFile.c_str(),"w");
 			if(fp == NULL){
-				CLC_LOG(CLC_ERR,"File open failed(file=%s, errno=%d(%s)\n",
+				CLC_LOG(CLC_ERR,false,"File open failed(file=%s, errno=%d(%s)\n",
 						m_strDumpFile.c_str(), errno, strerror(errno));
 				return CLC_NOK;
 			}
@@ -1623,13 +1623,13 @@ int CCli::Dump()
 		}
 
 	} catch(rabbit::type_mismatch   e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(rabbit::parse_error e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(...) {
-		CLC_LOG(CLC_ERR,"Unknown error\n");
+		CLC_LOG(CLC_ERR,false,"Unknown error\n");
 		return CLC_NOK;
 	}
 
@@ -1677,25 +1677,25 @@ int CCli::CheckDefaultCmd(CliDoc *a_stDoc)
 		case CMD_CODE_LOAD:
 			{
 				if(a_stDoc->argDocLL.nodeCnt == 0){
-					CLC_LOG(CLC_ERR,"Argument not exist\n");
+					CLC_LOG(CLC_ERR,false,"Argument not exist\n");
 					return CLC_OK;
 				}
 
 				nRet = cli_docFindArg(a_stDoc, "LOCATION", 8, &argDoc);
 				if(nRet != CLI_OK){
-					CLC_LOG(CLC_ERR,"LOCATION argument not exist(ret=%d)\n",nRet);
+					CLC_LOG(CLC_ERR,false,"LOCATION argument not exist(ret=%d)\n",nRet);
 					return CLC_OK;
 				}
 
 				CLI_ARG_GET_FIRST_ARG_PARA(argDoc, argParaDoc);
 				if(argParaDoc == NULL){
-					CLC_LOG(CLC_ERR,"argument paramter not exist\n");
+					CLC_LOG(CLC_ERR,false,"argument paramter not exist\n");
 					return CLC_OK;
 				}
 
 				nRet = cli_docArgParaIsStr(argParaDoc);
 				if(nRet != CLI_TRUE){
-					CLC_LOG(CLC_ERR,"Invalid argument paramter type\n");
+					CLC_LOG(CLC_ERR,false,"Invalid argument paramter type\n");
 					return CLC_OK;
 				}
 
@@ -1710,7 +1710,7 @@ int CCli::CheckDefaultCmd(CliDoc *a_stDoc)
 					return CLC_OK;
 				}
 
-				CLC_LOG(CLC_ERR,"unknown argument(%.*s)\n",argDoc->argNameLen, argDoc->argName);
+				CLC_LOG(CLC_ERR,false,"unknown argument(%.*s)\n",argDoc->argNameLen, argDoc->argName);
 				return CLC_OK;
 			}
 			break;
@@ -1725,7 +1725,7 @@ int CCli::CheckDefaultCmd(CliDoc *a_stDoc)
 				strLocalCfg.append("/CFG/ATOM.cfg");
 				pid = fork();
 				if(pid < 0){
-					CLC_LOG(CLC_ERR,"Edit config fork failed(%d)\n",pid);
+					CLC_LOG(CLC_ERR,false,"Edit config fork failed(%d)\n",pid);
 					return CLC_OK;
 				}
 
@@ -1769,7 +1769,7 @@ int CCli::CheckDefaultCmd(CliDoc *a_stDoc)
 
 				fp = popen(strCmd.c_str(),"r");
 				if(fp == NULL){
-					CLC_LOG(CLC_ERR,"Popen failed(err=%d(%s)\n",errno,strerror(errno));
+					CLC_LOG(CLC_ERR,false,"Popen failed(err=%d(%s)\n",errno,strerror(errno));
 					return CLC_OK;
 				}
 
@@ -1798,13 +1798,13 @@ int CCli::CheckDefaultCmd(CliDoc *a_stDoc)
                 if(nRet == CLI_OK){
                     CLI_ARG_GET_FIRST_ARG_PARA(argDoc, argParaDoc);
                     if(argParaDoc == NULL){
-                        CLC_LOG(CLC_ERR,"argument paramter not exist\n");
+                        CLC_LOG(CLC_ERR,false,"argument paramter not exist\n");
                         return CLC_OK;
                     }
 
                     GET_ARG_PARA_NUM(argParaDoc, nPid, nRet);
                     if(nRet != CLI_OK){
-                        CLC_LOG(CLC_ERR,"Invalid argument paramter type\n");
+                        CLC_LOG(CLC_ERR,false,"Invalid argument paramter type\n");
                         return CLC_OK;
                     }
                 }
@@ -1815,7 +1815,7 @@ int CCli::CheckDefaultCmd(CliDoc *a_stDoc)
                     if(argParaDoc != NULL){
                         GET_ARG_PARA_NUM(argParaDoc, nSig, nRet);
                         if(nRet != CLI_OK){
-                            CLC_LOG(CLC_ERR,"Invalid argument paramter type\n");
+                            CLC_LOG(CLC_ERR,false,"Invalid argument paramter type\n");
                             nSig = SIGTERM;
                         }
                     }
@@ -1830,7 +1830,7 @@ int CCli::CheckDefaultCmd(CliDoc *a_stDoc)
 
                 fp = popen(strCmd.c_str(),"r");
                 if(fp == NULL){
-                    CLC_LOG(CLC_ERR,"Popen failed(err=%d(%s)\n",errno,strerror(errno));
+                    CLC_LOG(CLC_ERR,false,"Popen failed(err=%d(%s)\n",errno,strerror(errno));
                     return CLC_OK;
                 }
 
@@ -1840,13 +1840,13 @@ int CCli::CheckDefaultCmd(CliDoc *a_stDoc)
                     if((nPid != 0) && (nPid == nRcvPid)){
                         nRet = kill(nPid, nSig);
                         if(nRet != 0){
-                            CLC_LOG(CLC_ERR,"process(%d) kill failed(err=%d(%s))\n",nPid, errno,strerror(errno));
+                            CLC_LOG(CLC_ERR,false,"process(%d) kill failed(err=%d(%s))\n",nPid, errno,strerror(errno));
                         }
                     }
                     else if (nPid == 0){
                         nRet = kill(nRcvPid, nSig);
                         if(nRet != 0){
-                            CLC_LOG(CLC_ERR,"process(%d) kill failed(err=%d(%s))\n",nPid, errno,strerror(errno));
+                            CLC_LOG(CLC_ERR,false,"process(%d) kill failed(err=%d(%s))\n",nPid, errno,strerror(errno));
                         }
                     }
                 }
@@ -1855,7 +1855,7 @@ int CCli::CheckDefaultCmd(CliDoc *a_stDoc)
             }
             break;
 		default:
-			CLC_LOG(CLC_ERR,"Unkonwn command code(%d, %.*s)\n",a_stDoc->cmdCode, a_stDoc->cmdNameLen, a_stDoc->cmdName);
+			CLC_LOG(CLC_ERR,false,"Unkonwn command code(%d, %.*s)\n",a_stDoc->cmdCode, a_stDoc->cmdNameLen, a_stDoc->cmdName);
 	}
 
 	return CLC_OK;
@@ -1876,7 +1876,7 @@ int CCli::Read()
 			if(nRet == CLI_RSLT_QUIT){
 				return CLC_RSLT_QUIT;
 			}
-			CLC_LOG(CLC_ERR,"Read failed(ret=%d)\n",nRet);
+			CLC_LOG(CLC_ERR,false,"Read failed(ret=%d)\n",nRet);
 			return CLC_NOK;
 		}
 		return CLC_RSLT_END;
@@ -1896,7 +1896,7 @@ int CCli::Read()
 int CCli::GetCmd(unsigned int *a_nCmdCode, string &a_strCmd, string &a_strCmdDesc)
 {
 	if(m_stCliDoc == NULL){
-		CLC_LOG(CLC_ERR,"Command document not exist\n");
+		CLC_LOG(CLC_ERR,false,"Command document not exist\n");
 		return CLC_NOK;
 	}
 
@@ -1917,13 +1917,13 @@ int CCli::GetJsonMessage(unsigned int a_nSessionId, string &a_strMessage )
 	CCliReq cEncReq(a_nSessionId);
 
 	if(m_stCliDoc == NULL){
-		CLC_LOG(CLC_ERR,"Command document not exist\n");
+		CLC_LOG(CLC_ERR,false,"Command document not exist\n");
 		return CLC_NOK;
 	}
 
 	nRet = cDoc.Encode(m_stCliDoc, cEncReq);
 	if(nRet != CLC_OK){
-		CLC_LOG(CLC_ERR,"Command document encoding failed(%d)\n", nRet);
+		CLC_LOG(CLC_ERR,false,"Command document encoding failed(%d)\n", nRet);
 		return CLC_NOK;
 	}
 

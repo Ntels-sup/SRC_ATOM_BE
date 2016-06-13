@@ -45,7 +45,7 @@ int CCliPeer::ReceiveProcess()
 	while(1){
 		nRet = cSock.RecvMesg(m_cSock, &cRcvMsg, -1);
 		if(nRet < 0){
-			CLA_LOG(CLA_ERR,"Receive message failed(nRet=%d, sockerr=%s, err=%d(%s))\n",
+			CLA_LOG(CLA_ERR,false,"Receive message failed(nRet=%d, sockerr=%s, err=%d(%s))\n",
 					nRet, cSock.m_strErrorMsg.c_str(), errno, strerror(errno));
 			return CLA_RSLT_PEER_CLOSED;
 		}
@@ -70,7 +70,7 @@ int CCliPeer::ReceiveProcess()
 
 					nRet = cRegReq.DecodeMessage(strPayload);
 					if(nRet != CCliRegApi::RESULT_OK){
-						CLA_LOG(CLA_ERR,"CLI Reg message decoding failed(nRet=%d, err=%s)\n",
+						CLA_LOG(CLA_ERR,false,"CLI Reg message decoding failed(nRet=%d, err=%s)\n",
 								nRet, cRegReq.m_strErrString.c_str());
 						return CLA_RSLT_PEER_CLOSED;
 					}
@@ -81,7 +81,7 @@ int CCliPeer::ReceiveProcess()
 
 					nRet = cRegRsp.EncodeMessage(strPayload);
 					if(nRet != CCliRegApi::RESULT_OK){
-						CLA_LOG(CLA_ERR,"CLI Reg message decoding failed(nRet=%d, err=%s)\n",
+						CLA_LOG(CLA_ERR,false,"CLI Reg message decoding failed(nRet=%d, err=%s)\n",
 								nRet, cRegReq.m_strErrString.c_str());
 						return CLA_RSLT_PEER_CLOSED;
 					}
@@ -111,7 +111,7 @@ int CCliPeer::ReceiveProcess()
 				break;
 			default:
 				{
-					CLA_LOG(CLA_ERR,"Invalid CmdCode(code=%s)\n", strCmdCode.c_str());
+					CLA_LOG(CLA_ERR,false,"Invalid CmdCode(code=%s)\n", strCmdCode.c_str());
 				}
 				break;
 		};
@@ -143,7 +143,7 @@ int CCliPeer::SendError(unsigned int a_nSessionId, unsigned int a_nResultCode)
 		default:
 			{
 				cEncRsp.SetResultCode(a_nResultCode, "Unkonwon error");
-				CLA_LOG(CLA_ERR,"Unknown error occure(err=%d)\n",a_nResultCode);
+				CLA_LOG(CLA_ERR,false,"Unknown error occure(err=%d)\n",a_nResultCode);
 			}
 			break;
 	};
@@ -176,7 +176,7 @@ int CCliPeer::Send(CProtocol &cProto)
 
 	unSize = m_cSock->Send((char*)&vecData[0], vecData.size());
 	if(unSize != vecData.size()){
-		CLA_LOG(CLA_ERR,"Socket send failed(size=%d)(err=%d(%s))\n",unSize, errno, strerror(errno));
+		CLA_LOG(CLA_ERR,false,"Socket send failed(size=%d)(err=%d(%s))\n",unSize, errno, strerror(errno));
 		return CLA_NOK;
 	}
 

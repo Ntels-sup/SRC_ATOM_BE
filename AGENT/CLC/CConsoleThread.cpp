@@ -17,7 +17,7 @@ int CConsoleThread::InitDBCfg(string a_strDBName, string a_strDBIp, int a_nDBPor
 
 	nRet = m_cConsole->InitDBCfg(a_strDBName, a_strDBIp, a_nDBPort, a_strDBUser, a_strDBPassword);
 	if(nRet != CLC_OK){
-		CLC_LOG(CLC_ERR,"DB Config init failed(nRet=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"DB Config init failed(nRet=%d)\n",nRet);
 	}
 
 	return nRet;
@@ -34,7 +34,7 @@ int CConsoleThread::InitPathCfg(string a_strLocalPath, string a_strUsrDumpFile, 
 
 	nRet = m_cConsole->InitPathCfg(a_strLocalPath, a_strUsrDumpFile, a_strCmdDumpFile);
 	if(nRet != CLC_OK){
-		CLC_LOG(CLC_ERR,"DUMP Path init failed(nRet=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"DUMP Path init failed(nRet=%d)\n",nRet);
 	}
 	return nRet ;
 }

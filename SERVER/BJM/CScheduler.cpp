@@ -29,7 +29,7 @@ CScheduler::CScheduler()
 	m_nBatchFlowCount = 0;
 	m_nProcessCount = 0;
 	m_nMultiJobCount = 0;
-	m_nDBInitFlag = 0;			//start
+	m_nDBInitFlag = 0;
 	m_nInitInfoFlag = 0;
 
 	if(Initial() != BJM_OK)
@@ -209,8 +209,10 @@ int CScheduler::ReceiveData(ST_COWORK_INFO a_stcoworkinfo)
 				}
 				else
 				{
-					m_stBatchResponse->exit_cd = 66;	// for debug 
-					strcpy(m_stBatchResponse->status, "normal");	// for debug 
+#ifdef BJM_DEBUG					
+					m_stBatchResponse->exit_cd = 66;
+					strcpy(m_stBatchResponse->status, "normal");
+#endif					
 					
 					if(m_stBatchResponse->exit_cd > -1)	// exit_cd < 0 종료 
 					{
@@ -430,15 +432,12 @@ void CScheduler::FindNextJobInfo(char * a_strJobName)
 int CScheduler::CheckMultiJob(char * a_strGroupName, char * a_strJobName, int a_nExitCd)
 {
     int i = 0;
-    int j = 0;
 
-    for (j = 0; j < (int)m_vBatchFlow.size(); j++)
-    {
-        if(strcmp(m_vBatchFlow[j]->job_name, a_strJobName) == 0 && m_vBatchFlow[j]->exit_cd != a_nExitCd)
-        {
-			return BJM_NOK;
-        }
-    }
+	if(CheckCondition(a_strJobName, a_nExitCd) == BJM_NOK)
+	{
+        g_pcLog->DEBUG("Received Info isn't Same", a_strJobName, a_nExitCd);
+		return BJM_NOK;
+	}
 
 	for (i = 0; i < (int)m_vMultiFlow.size(); i++)
 	{
@@ -470,6 +469,20 @@ int CScheduler::CheckMultiJob(char * a_strGroupName, char * a_strJobName, int a_
         }
     }
     return BJM_NOK;
+}
+
+int CScheduler::CheckCondition(char * a_strJobName, int a_nExitCd)
+{
+    int j = 0;
+
+    for (j = 0; j < (int)m_vBatchFlow.size(); j++)
+    {
+        if(strcmp(m_vBatchFlow[j]->job_name, a_strJobName) == 0 && m_vBatchFlow[j]->exit_cd != a_nExitCd)
+        {
+			return BJM_NOK;
+        }
+    }
+	return BJM_OK;
 }
 
 int CScheduler::SearchBatchJob(ST_BatchRequest *a_stBatchrequest)
@@ -542,39 +555,43 @@ void CScheduler::RunSchedule(char *a_strCurrent_date)
 
 	for(nJobCount = 0; nJobCount < m_nBatchJobCount; nJobCount++)
 	{
+		if(strncmp(m_vBatchJob[nJobCount]->nextExecDate, a_strCurrent_date, 14) == 0 && m_vProcess[nJobCount] != NULL)
 		{
-			if(strncmp(m_vBatchJob[nJobCount]->nextExecDate, a_strCurrent_date, 14) == 0 && m_vProcess[nJobCount] != NULL)
-			{
-				for(nGroupCount = 0; nGroupCount < m_nBatchGroupCount; nGroupCount++)
-				{
-					if(strncmp(m_vBatchJob[nJobCount]->group_name, m_vBatchGroup[nGroupCount]->group_name, 
-						sizeof(m_vBatchGroup[nGroupCount]->group_name)) == 0 )
-					{
-						SetNextSchedule(m_vBatchGroup[nGroupCount], m_vBatchJob[nJobCount]->nextExecDate, nJobCount);
-						strncpy(m_vBatchJob[nJobCount]->nextExecDate, nextScheduleDate_[nJobCount], sizeof(nextScheduleDate_[nJobCount]));
-					}
-				}
-				m_nDBInitFlag = 1;			//running
+			CheckNextDate(nJobCount, nGroupCount);
 
-				if( (strncmp(m_vBatchJob[nJobCount]->rootjob_yn, "Y", sizeof("Y")) == 0) && 		
-					(strncmp(m_vBatchJob[nJobCount]->run_yn, "Y", sizeof("Y")) == 0))
+			m_nDBInitFlag = 1;			//running
+
+			if( (strncmp(m_vBatchJob[nJobCount]->rootjob_yn, "Y", sizeof("Y")) == 0) && 
+				(strncmp(m_vBatchJob[nJobCount]->run_yn, "Y", sizeof("Y")) == 0))
+			{
+				if(SetBatchHist(m_vBatchJob[nJobCount], m_vProcess[nJobCount], nJobCount) == BJM_NOK )
+	        	{
+       		    	g_pcLog->ERROR("SetBatchHist - SetBatchHist Error - false");
+	    	    }
+				else
 				{
-					if(SetBatchHist(m_vBatchJob[nJobCount], m_vProcess[nJobCount], nJobCount) == BJM_NOK )
-	    	    	{
-       			    	g_pcLog->ERROR("SetBatchHist - SetBatchHist Error - false");
-	    		    }
-					else
-					{
-						g_pcLog->INFO("%s,\t%s, Current : %s, nextExecDate[%d] : %s, %d", 
+					g_pcLog->INFO("%s,\t%s, Current : %s, nextExecDate[%d] : %s, %d", 
 			      				m_vBatchJob[nJobCount]->group_name,  
 								m_vBatchJob[nJobCount]->job_name,
 								a_strCurrent_date, 
 								nJobCount, 
 								m_vBatchJob[nJobCount]->nextExecDate);
-					}
 				}
-				m_nDBInitFlag = 0;
 			}
+			m_nDBInitFlag = 0;
+		}
+	}
+}
+
+void CScheduler::CheckNextDate(int a_nJobCount, int a_nGroupCount)
+{
+	for(a_nGroupCount = 0; a_nGroupCount < m_nBatchGroupCount; a_nGroupCount++)
+	{
+		if(strncmp(m_vBatchJob[a_nJobCount]->group_name, m_vBatchGroup[a_nGroupCount]->group_name, 
+			sizeof(m_vBatchGroup[a_nGroupCount]->group_name)) == 0 )
+		{
+			SetNextSchedule(m_vBatchGroup[a_nGroupCount], m_vBatchJob[a_nJobCount]->nextExecDate, a_nJobCount);
+			strncpy(m_vBatchJob[a_nJobCount]->nextExecDate, nextScheduleDate_[a_nJobCount], sizeof(nextScheduleDate_[a_nJobCount]));
 		}
 	}
 }

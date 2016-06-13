@@ -1,3 +1,3 @@
-export ATOM_NODENO=25
-export ATOM_PROCNO=50
-./test_recv vOFCS TEST AP vOFCS-AP-25 TEST02
+export ATOM_NODENO=50
+export ATOM_PROCNO=149
+./test_recv vOFCS IMS AP vOFCS-AP-50 TRM_TEST

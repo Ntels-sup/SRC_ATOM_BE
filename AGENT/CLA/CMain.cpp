@@ -61,7 +61,7 @@ int CMain::UpdateHistErr(CSession *a_cSession, unsigned int a_nResultCode)
 
 	cPeer = FindPeerByFd(fd);
 	if(cPeer == NULL){
-		CLA_LOG(CLA_ERR,"Can not find peer(fd=%d)\n",fd);
+		CLA_LOG(CLA_ERR,false,"Can not find peer(fd=%d)\n",fd);
 		delete a_cSession;
 		return CLA_NOK;
 	}
@@ -115,7 +115,7 @@ int CMain::UpdateHistErr(CSession *a_cSession, unsigned int a_nResultCode)
 
 	nRet = m_cDb->Execute(szQuery, nQueryLen);
 	if(nRet < 0){
-		CLA_LOG(CLA_ERR,"(UPDATE ERROR HIST) DB Query Failed(nRet=%d, err=%s)\n",
+		CLA_LOG(CLA_ERR,false,"(UPDATE ERROR HIST) DB Query Failed(nRet=%d, err=%s)\n",
 				nRet, m_cDb->GetErrorMsg(nRet));
 		return CLA_NOK;
 	}
@@ -186,7 +186,7 @@ int CMain::UpdateHist(CCliPeer *a_cPeer, CSession *a_cSession, CCliRsp *a_cDecRs
 
     nRet = m_cDb->Execute(szQuery, nQueryLen);
     if(nRet < 0){
-        CLA_LOG(CLA_ERR,"(UPDATE HIST) DB Query Failed(nRet=%d, err=%s)\n",
+        CLA_LOG(CLA_ERR,false,"(UPDATE HIST) DB Query Failed(nRet=%d, err=%s)\n",
                 nRet, m_cDb->GetErrorMsg(nRet));
         return CLA_NOK;
     }
@@ -239,11 +239,11 @@ int CMain::SessionTimeOutHandler()
 			return CLA_OK;
 		}
 
-		CLA_LOG(CLA_ERR,"Session timeout(curTm=%d, sendTime=%d, diff=%d sessionId=%d, timeOut=%d)\n",
+		CLA_LOG(CLA_ERR,false,"Session timeout(curTm=%lu, sendTime=%lu, diff=%lu sessionId=%d, timeOut=%d)\n",
 				curTm, cSession->GetSendTime(), (curTm - cSession->GetSendTime()), cSession->GetSessionId(), m_nTimeOut);
 		nRet = UpdateHistErr(cSession, CLA_RSLT_CODE_TIME_OUT);
 		if(nRet != CLA_OK){
-			CLA_LOG(CLA_ERR,"Command history update failed(nRet=%d)\n",nRet);
+			CLA_LOG(CLA_ERR,false,"Command history update failed(nRet=%d)\n",nRet);
 		}
 
 		delete cSession;
@@ -336,7 +336,7 @@ int CMain::RouteHandler(CCliPeer *a_cPeer, CProtocol *cProto)
 
 	nRet = m_cCliRoute.FindDestinationNo(strCmdName, strPkgName, &unDstNo, &unDstNodeNo);
 	if(nRet != CLA_OK){
-		CLA_LOG(CLA_ERR,"Can not find destination(cmd=%s, pkg=%s)\n", strCmdName.c_str(), strPkgName.c_str());
+		CLA_LOG(CLA_ERR,false,"Can not find destination(cmd=%s, pkg=%s)\n", strCmdName.c_str(), strPkgName.c_str());
 		return CLA_NOK;
 	}
 
@@ -367,7 +367,7 @@ int CMain::RouteHandler(CCliPeer *a_cPeer, CProtocol *cProto)
 
 	blnRet = cIpc->SendMesg(*cProto);
 	if(blnRet != true){
-		CLA_LOG(CLA_ERR,"IPC Send failed(CLI REQUEST)\n");
+		CLA_LOG(CLA_ERR,false,"IPC Send failed(CLI REQUEST)\n");
 		a_cPeer->SendError(nClcSessionId, CLA_RSLT_CODE_SEND_ERROR);
 		nRet = UpdateHistErr(cSession, CLA_RSLT_CODE_SEND_ERROR);
 		delete cSession;
@@ -392,7 +392,7 @@ int CMain::ReceiveCliHandler()
 			return CLA_OK;
 		}
 		else {
-			CLA_LOG(CLA_ERR,"Socket select failed(err=%d, msg=%s, errno=%d(%s)\n", 
+			CLA_LOG(CLA_ERR,false,"Socket select failed(err=%d, msg=%s, errno=%d(%s)\n", 
 					m_cSock.m_enError,
 					m_cSock.m_strErrorMsg.c_str(), 
 					errno, strerror(errno));
@@ -402,10 +402,10 @@ int CMain::ReceiveCliHandler()
 
 	cPeer = FindPeerByFd(cClient->GetSocket());
 	if(cPeer == NULL){
-		CLA_LOG(CLA_ERR,"Accept peer(fd=%d)\n",cClient->GetSocket());
+		CLA_LOG(CLA_ERR,false,"Accept peer(fd=%d)\n",cClient->GetSocket());
 		nRet = InsertPeer(cClient);
 		if(nRet != CLA_OK){
-			CLA_LOG(CLA_ERR,"Peer insert failed(nRet=%d)\n",nRet);
+			CLA_LOG(CLA_ERR,false,"Peer insert failed(nRet=%d)\n",nRet);
 			return CLA_NOK;
 		}
 		return CLA_OK;
@@ -416,7 +416,7 @@ int CMain::ReceiveCliHandler()
 		return CLA_OK;
 	}
 	else if(nRet == CLA_RSLT_PEER_CLOSED){
-		CLA_LOG(CLA_ERR,"Delete peer(fd=%d)\n",cPeer->GetSocketFd());
+		CLA_LOG(CLA_ERR,false,"Delete peer(fd=%d)\n",cPeer->GetSocketFd());
 
 		//m_cSock.DelPeer(cPeer->GetSocketFd());
 		/* close Peer */
@@ -425,19 +425,19 @@ int CMain::ReceiveCliHandler()
 		return CLA_OK;
 	}
 	else if(nRet != CLA_OK){
-		CLA_LOG(CLA_ERR,"Peer message receive failed(ret=%d)\n",nRet);
+		CLA_LOG(CLA_ERR,false,"Peer message receive failed(ret=%d)\n",nRet);
 		return CLA_NOK;
 	}
 
 	cProto = cPeer->Receive();
 	if(cProto == NULL) {
-		CLA_LOG(CLA_ERR,"Peer message not exist\n");
+		CLA_LOG(CLA_ERR,false,"Peer message not exist\n");
 		return CLA_OK;
 	}
 
 	nRet = RouteHandler(cPeer, cProto);
 	if(nRet != CLA_OK){
-		CLA_LOG(CLA_ERR,"Message routing failed\n");
+		CLA_LOG(CLA_ERR,false,"Message routing failed\n");
 		return CLA_NOK;
 	}
 
@@ -460,7 +460,7 @@ int CMain::ReceiveIpcHandler()
 
 	nRet = cIpc->RecvMesg(cGlob->GetLocalProcNo(), cProto, -1);
 	if(nRet < 0){
-		CLA_LOG(CLA_ERR,"Message receive failed(ERR:%s)\n", cIpc->m_strErrorMsg.c_str());
+		CLA_LOG(CLA_ERR,false,"Message receive failed(ERR:%s)\n", cIpc->m_strErrorMsg.c_str());
 		return CLA_NOK;
 	}
 	else if(nRet == 0){
@@ -470,7 +470,7 @@ int CMain::ReceiveIpcHandler()
 	chFlag = cProto.GetFlag();
 
 	if((chFlag != CProtocol::FLAG_RESPONSE)){
-		CLA_LOG(CLA_ERR,"Invalid Flag(flag=%d)\n",chFlag);
+		CLA_LOG(CLA_ERR,false,"Invalid Flag(flag=%d)\n",chFlag);
 		return CLA_NOK;
 	}
 
@@ -492,7 +492,7 @@ int CMain::ReceiveIpcHandler()
 
 				cSession = FindSession(nSessionId);
 				if(cSession == NULL){
-					CLA_LOG(CLA_ERR,"Can not find session(id=%d)\n",nSessionId);
+					CLA_LOG(CLA_ERR,false,"Can not find session(id=%d)\n",nSessionId);
 					return CLA_NOK;
 				}
 
@@ -511,13 +511,13 @@ int CMain::ReceiveIpcHandler()
 
 				cPeer = FindPeerByFd(fd);
 				if(cPeer == NULL){
-					CLA_LOG(CLA_ERR,"Can not find peer(fd=%d)\n",fd);
+					CLA_LOG(CLA_ERR,false,"Can not find peer(fd=%d)\n",fd);
 					delete cSession;
 					return CLA_NOK;
 				}
 
 				if(cPeer->GetTimestamp() != cSession->GetPeerTimestamp()){
-					CLA_LOG(CLA_ERR,"Can not find peer(timestamp=%lu, %lu)\n", 
+					CLA_LOG(CLA_ERR,false,"Can not find peer(timestamp=%lu, %lu)\n", 
 							cPeer->GetTimestamp() ,cSession->GetPeerTimestamp());
 					delete cSession;
 					return CLA_NOK;
@@ -532,7 +532,7 @@ int CMain::ReceiveIpcHandler()
 			}
 			break;
 		default :
-			CLA_LOG(CLA_ERR<"Invalid cmdCode(%s)\n",cProto.GetCommand().c_str());
+			CLA_LOG(CLA_ERR,false,"Invalid cmdCode(%s)\n",cProto.GetCommand().c_str());
 			return CLA_NOK;
 
 	};
@@ -557,7 +557,7 @@ int CMain::Init(DB *a_cDb, char *a_szCfgFile)
 
     nRet = m_cConfig.Initialize(a_szCfgFile);
     if(nRet != 0){
-        CLA_LOG(CLA_ERR,"Config init failed\n");
+        CLA_LOG(CLA_ERR, true,"Config init failed\n");
         return CLA_NOK;
     }
 
@@ -567,7 +567,7 @@ int CMain::Init(DB *a_cDb, char *a_szCfgFile)
 
     szTmpCfg[0] = m_cConfig.GetConfigValue("GLOBAL","LOG_PATH");
     if(szTmpCfg[0] == NULL){
-        CLA_LOG(CLA_ERR,"LOG_PATH not exist\n");
+        CLA_LOG(CLA_ERR, true,"LOG_PATH not exist\n");
         return CLA_NOK;
     }
 
@@ -575,7 +575,7 @@ int CMain::Init(DB *a_cDb, char *a_szCfgFile)
 
     nRet = cLog->Initialize(szTmpCfg[0], NULL, (char*)"CLA", 0, LV_ERROR);
     if(nRet != 0){
-        CLA_LOG(CLA_ERR,"Log init failed(nRet=%d)\n", nRet);
+        CLA_LOG(CLA_ERR, true,"Log init failed(nRet=%d)\n", nRet);
         return CLA_NOK;
     }
 
@@ -585,7 +585,7 @@ int CMain::Init(DB *a_cDb, char *a_szCfgFile)
         m_cHistLog = new CFileLog();
         m_cHistLog->Initialize(szTmpCfg[0], NULL, (char*)"CLILOG", 0, LV_INFO);
         if(nRet != 0){
-            CLA_LOG(CLA_ERR,"Hist Log init failed(nRet=%d)\n", nRet);
+            CLA_LOG(CLA_ERR, true,"Hist Log init failed(nRet=%d)\n", nRet);
             return CLA_NOK;
 
         }
@@ -595,7 +595,7 @@ int CMain::Init(DB *a_cDb, char *a_szCfgFile)
 
     szTmpCfg[0] = m_cConfig.GetConfigValue("CLA","MESSAGE_TIMEOUT");
     if(szTmpCfg[0] == NULL){
-        CLA_LOG(CLA_ERR,"MESSAGE_TIMEOUT not exist\n");
+        CLA_LOG(CLA_ERR,true,"MESSAGE_TIMEOUT not exist\n");
         return CLA_NOK;
     }
 
@@ -604,19 +604,19 @@ int CMain::Init(DB *a_cDb, char *a_szCfgFile)
 
     szTmpCfg[0] = m_cConfig.GetConfigValue("CLA","LISTEN_IP");
     if(szTmpCfg[0] == NULL){
-        CLA_LOG(CLA_ERR,"LISTEN_IP not exist\n");
+        CLA_LOG(CLA_ERR,false,"LISTEN_IP not exist\n");
         return CLA_NOK;
     }
 
     szTmpCfg[1] = m_cConfig.GetConfigValue("CLA","LISTEN_PORT");
     if(szTmpCfg[1] == NULL){
-        CLA_LOG(CLA_ERR,"LISTEN_PORT not exist\n");
+        CLA_LOG(CLA_ERR,false,"LISTEN_PORT not exist\n");
         return CLA_NOK;
     }
 
     blnRet = m_cSock.Listen( szTmpCfg[0], atoi(szTmpCfg[1]));
     if(blnRet == false){
-        CLA_LOG(CLI_ERR,"Socket listen failed\n");
+        CLA_LOG(CLI_ERR,false, "Socket listen failed\n");
 		return CLA_NOK;
     }
 
@@ -626,7 +626,7 @@ int CMain::Init(DB *a_cDb, char *a_szCfgFile)
 
     m_blnInitFlag = true;
 
-	CLA_LOG(CLA_ERR,"CLA MODULE START\n");
+	CLA_LOG(CLA_ERR,true,"CLA MODULE START\n");
 
     return CLA_OK;
 }
@@ -655,7 +655,7 @@ void* CLAStart(void *pArg)
 
 	nRet = g_cMain.Init(stOption.m_pclsDB, stOption.m_szCfgFile);
 	if(nRet == CLA_NOK){
-		CLA_LOG(CLA_ERR,"Init failed(nRet=%d)\n",nRet);
+		CLA_LOG(CLA_ERR,false,"Init failed(nRet=%d)\n",nRet);
 		return NULL;
 	}
 

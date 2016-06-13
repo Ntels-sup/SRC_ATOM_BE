@@ -1,8 +1,6 @@
 /*
  ***************************************************************************
- *
  * CATMConv.cpp -  nTels Library -  conversion clss.
- *
  ***************************************************************************
  */
 #include "CATMDate.hpp"
@@ -102,11 +100,8 @@ CATMDate::CATMDate(char *_str)
 
 /*****************************************************************************
 * Function Name : IsValid
-* Description   : 현재 설정된값이 유효한 Date값인지 확인한다.
 * Parameters    : None.
 * Return value  :
-*                 NL_TRUE  : 유효한 Date 값임.
-*                 NL_FALSE : 유효하지 않은 Date값임.
 *****************************************************************************/
 boolean CATMDate::IsValid(void)
 {
@@ -120,10 +115,8 @@ boolean CATMDate::IsValid(void)
 
 /*****************************************************************************
 * Function Name : Get
-* Description   : 현재 설정된 Date값을  time_t값으로 변환하여 돌려준다.
 * Parameters    : None.
-* Return value  :
-*                 time_t : 현재설정된 Date값의 time_t 변환값.
+* Return value  : time_t
 *****************************************************************************/
 time_t CATMDate::Get(void)
 {
@@ -155,10 +148,8 @@ time_t CATMDate::Get(void)
 
 /*****************************************************************************
 * Function Name : GetYear
-* Description   : 현재 설정된 Date값의 년도를 구하여 돌려준다.
 * Parameters    : None.
-* Return value  :
-*                 int : 현재설정된 Date값의 yeae 값.
+* Return value  : int
 *****************************************************************************/
 int CATMDate::GetYear(void)
 {
@@ -176,10 +167,8 @@ int CATMDate::GetYear(void)
 
 /*****************************************************************************
 * Function Name : GetYear
-* Description   : 현재 설정된 Date값의 월을 구하여 돌려준다.
 * Parameters    : None.
-* Return value  :
-*                 int : 현재설정된 Date값의 month 값.
+* Return value  : int
 *****************************************************************************/
 int CATMDate::GetMonth(void)
 {
@@ -197,10 +186,8 @@ int CATMDate::GetMonth(void)
 
 /*****************************************************************************
 * Function Name : GetDay
-* Description   : 현재 설정된 Date값의 일을 구하여 돌려준다.
 * Parameters    : None.
-* Return value  :
-*                 int : 현재설정된 Date값의 day 값.
+* Return value  : int
 *****************************************************************************/
 int CATMDate::GetDay(void)
 {
@@ -218,10 +205,8 @@ int CATMDate::GetDay(void)
 
 /*****************************************************************************
 * Function Name : GetDayOfWeek
-* Description   : 현재 설정된 Date값의 요일을 구하여 돌려준다.
 * Parameters    : None.
-* Return value  :
-*                 int : 현재설정된 Date값의 요일 값. (0~6) 
+* Return value  : int (0~6) 
 *****************************************************************************/
 int CATMDate::GetDayOfWeek(void)
 {
@@ -237,8 +222,7 @@ int CATMDate::GetDayOfWeek(void)
 * Function Name : operator()
 * Description   : .
 * Parameters    : None.
-* Return value  :
-*                 char * : 현재설정된 Date값 (YYYYMMDD)
+* Return value  : char * : Date (YYYYMMDD)
 *****************************************************************************/
 char *CATMDate::operator()()
 {
@@ -437,11 +421,6 @@ CATMDate operator-(long val, CATMDate &date)
 }
 /*****************************************************************************
 * Function Name : ToJulian
-* Description   : 주어진 year,month,day값을 julian 값으로 설정한다.
-* Parameters    : 
-*     Input     : int year 
-*                 int month
-*                 int day
 * Return value  : None
 *****************************************************************************/
 void CATMDate::ToJulian(long year, long month, long day)
@@ -476,10 +455,8 @@ void CATMDate::ToJulian(long year, long month, long day)
 
 /*****************************************************************************
 * Function Name : ToJulian
-* Description   : 현재 설정된  julian 값을 'YYYYMMDD'문자열로 변환한다.
 * Parameters    : 
-*     Outpur    : char *buffer : 변환결과 buffer
-*                                반드시 size가 9 여야만 한다.
+*     Outpur    : char *buffer :
 * Return value  : None
 *****************************************************************************/
 void CATMDate::FromJulian(char *buffer)
@@ -502,12 +479,10 @@ void CATMDate::FromJulian(char *buffer)
 
 /*****************************************************************************
 * Function Name : AscDate
-* Description   : 현재 설정된 date값을 Asc String으로 변환한다.
-*                 picture 에 맞게 format을 다양하게 지정할 수 있다.
 * Parameters    : 
 *     Input     : char *picture : asc string format
 * Return value  :
-*                 char *: 유효한 Date 값임.
+*                 char *
 *****************************************************************************/
 const char *CATMDate::AscDate(const char *picture)
 {

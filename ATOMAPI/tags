@@ -1,0 +1,169 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ATOM_AGENT_API_LIB_HOME	Makefile	/^ATOM_AGENT_API_LIB_HOME = $(ATOM_SRC_HOME)\/AGENT\/LIB$/;"	m
+ATOM_API	CAtomAPI.cpp	/^ATOM_API::ATOM_API()$/;"	f	class:ATOM_API
+ATOM_API	CAtomAPI.hpp	/^class ATOM_API$/;"	c
+ATOM_CMD_APP_INIT	CAtomDefine.hpp	10;"	d
+ATOM_CMD_APP_LOGLEVEL	CAtomDefine.hpp	14;"	d
+ATOM_CMD_APP_RESUME	CAtomDefine.hpp	13;"	d
+ATOM_CMD_APP_STOP	CAtomDefine.hpp	11;"	d
+ATOM_CMD_APP_SUSPEND	CAtomDefine.hpp	12;"	d
+ATOM_CMD_APP_TEST	CAtomDefine.hpp	16;"	d
+ATOM_CMD_APP_UNKNOWN	CAtomDefine.hpp	9;"	d
+ATOM_CMD_STS_APP	CAtomDefine.hpp	15;"	d
+ATOM_CMD_VNF_PERF_TPS	CAtomDefine.hpp	18;"	d
+ATOM_COMM_LIB_HOME	Makefile	/^ATOM_COMM_LIB_HOME = $(ATOM_SRC_HOME)\/LIB$/;"	m
+ATOM_DEF_ALM_UNKNOWN_CMD	CAtomDefine.hpp	57;"	d
+ATOM_DEF_CMD_BLOCK_TIME	CAtomDefine.hpp	60;"	d
+ATOM_DEF_IDX_NODE_NAME	CAtomDefine.hpp	29;"	d
+ATOM_DEF_IDX_NODE_NO	CAtomDefine.hpp	28;"	d
+ATOM_DEF_IDX_PKG_NAME	CAtomDefine.hpp	27;"	d
+ATOM_DEF_IDX_PKG_NO	CAtomDefine.hpp	26;"	d
+ATOM_DEF_IDX_PROC_NAME	CAtomDefine.hpp	31;"	d
+ATOM_DEF_IDX_PROC_NO	CAtomDefine.hpp	30;"	d
+ATOM_DEF_IDX_TRACE_CALLEE_IP	CAtomAPI.hpp	/^	ATOM_DEF_IDX_TRACE_CALLEE_IP,$/;"	e	enum:trace_idx
+ATOM_DEF_IDX_TRACE_CALLER_IP	CAtomAPI.hpp	/^	ATOM_DEF_IDX_TRACE_CALLER_IP,$/;"	e	enum:trace_idx
+ATOM_DEF_IDX_TRACE_IMSI	CAtomAPI.hpp	/^	ATOM_DEF_IDX_TRACE_IMSI = 0,$/;"	e	enum:trace_idx
+ATOM_DEF_IDX_TRACE_MSISDN	CAtomAPI.hpp	/^	ATOM_DEF_IDX_TRACE_MSISDN,$/;"	e	enum:trace_idx
+ATOM_DEF_LOG_DUP_PERIOD	CAtomDefine.hpp	34;"	d
+ATOM_DEF_MAX_TRACE_IDX	CAtomAPI.hpp	/^	ATOM_DEF_MAX_TRACE_IDX$/;"	e	enum:trace_idx
+ATOM_DEF_MEM_BUF_1024	CAtomDefine.hpp	22;"	d
+ATOM_DEF_MEM_BUF_1M	CAtomDefine.hpp	23;"	d
+ATOM_DEF_MEM_BUF_64	CAtomDefine.hpp	21;"	d
+ATOM_DEF_QUEUE_TYPE_READ	CAtomDefine.hpp	53;"	d
+ATOM_DEF_QUEUE_TYPE_WRITE	CAtomDefine.hpp	54;"	d
+AddProcDateAndDstYn	CAtomAPI.cpp	/^void ATOM_API::AddProcDateAndDstYn(std::vector<char> &a_vecData)$/;"	f	class:ATOM_API
+BlockCommand	CAtomAPI.cpp	/^CProtocol *ATOM_API::BlockCommand(int a_nCmd, int a_nTime)$/;"	f	class:ATOM_API
+CAPPCONTROL_HPP_	CAppControl.hpp	13;"	d
+CAppControl	CAppControl.hpp	/^	CAppControl() {}$/;"	f	class:CAppControl
+CAppControl	CAppControl.hpp	/^class CAppControl$/;"	c
+CheckTrace	CAtomAPI.cpp	/^bool ATOM_API::CheckTrace()$/;"	f	class:ATOM_API
+ConnectReport	CAtomAPI.cpp	/^int ATOM_API::ConnectReport(const char *a_szMyIP, const char *a_szPeerIP, const char *a_szService)$/;"	f	class:ATOM_API
+DisconnectReport	CAtomAPI.cpp	/^int ATOM_API::DisconnectReport(const char *a_szMyIP, const char *a_szPeerIP, const char *a_szService)$/;"	f	class:ATOM_API
+E_ATOM_CMD_PARSE_ERR	CAtomDefine.hpp	46;"	d
+E_ATOM_CMD_PTR_ERR	CAtomDefine.hpp	44;"	d
+E_ATOM_CMD_PTR_ERR	CAtomDefine.hpp	45;"	d
+E_ATOM_CMD_SEND_FAIL	CAtomDefine.hpp	48;"	d
+E_ATOM_CMD_SET_FAIL	CAtomDefine.hpp	43;"	d
+E_ATOM_CMD_UNKNOWN	CAtomDefine.hpp	47;"	d
+E_ATOM_CONF_INIT	CAtomDefine.hpp	38;"	d
+E_ATOM_CTL_INIT	CAtomDefine.hpp	37;"	d
+E_ATOM_LOG_ALLOC	CAtomDefine.hpp	39;"	d
+E_ATOM_LOG_INIT	CAtomDefine.hpp	40;"	d
+E_ATOM_MEMORY_OVER	CAtomDefine.hpp	49;"	d
+E_ATOM_Q_INIT	CAtomDefine.hpp	41;"	d
+E_ATOM_RES_RECV_FAIL	CAtomDefine.hpp	50;"	d
+E_ATOM_RES_SEND_FAIL	CAtomDefine.hpp	42;"	d
+FreeReadData	CAtomAPI.cpp	/^void ATOM_API::FreeReadData()$/;"	f	class:ATOM_API
+GetCommand	CAtomAPI.cpp	/^int ATOM_API::GetCommand()$/;"	f	class:ATOM_API
+GetConfig	CAtomAPI.hpp	/^		CConfig *GetConfig() { return m_pclsConfig; }$/;"	f	class:ATOM_API
+GetData	CAtomAPI.cpp	/^int ATOM_API::GetData(char **a_pData)$/;"	f	class:ATOM_API
+GetErrorMsg	CAtomAPI.hpp	/^		char *GetErrorMsg() { return m_szErrorMsg; }$/;"	f	class:ATOM_API
+GetIPAddress	CAtomAPI.cpp	/^int ATOM_API::GetIPAddress(const char *a_szIfName, int a_nVersion, std::string &a_strResult)$/;"	f	class:ATOM_API
+GetLog	CAtomAPI.hpp	/^		CFileLog *GetLog() { return m_pclsLog; }$/;"	f	class:ATOM_API
+GetNodeName	CAppControl.cpp	/^const char* CAppControl::GetNodeName(string* a_strNodeName)$/;"	f	class:CAppControl
+GetNodeNo	CAppControl.cpp	/^int CAppControl::GetNodeNo(void)$/;"	f	class:CAppControl
+GetNodeNo	CAtomAPI.hpp	/^		int GetNodeNo() { return m_nNodeNo; }$/;"	f	class:ATOM_API
+GetNodeType	CAppControl.cpp	/^const char* CAppControl::GetNodeType(string* a_strNodeType)$/;"	f	class:CAppControl
+GetNodeType	CAtomAPI.hpp	/^		char *GetNodeType() { return m_szPkgName; }$/;"	f	class:ATOM_API
+GetPeerIPAddress	CAtomAPI.cpp	/^int ATOM_API::GetPeerIPAddress(const char *a_szPkgName, const char *a_szNodeType, std::map<std::string, std::string> &a_mapResult)$/;"	f	class:ATOM_API
+GetPkgName	CAppControl.cpp	/^const char* CAppControl::GetPkgName(string* a_strPkgName)$/;"	f	class:CAppControl
+GetPkgName	CAtomAPI.hpp	/^		char *GetPkgName() { return m_szPkgName; }$/;"	f	class:ATOM_API
+GetProcName	CAppControl.cpp	/^const char* CAppControl::GetProcName(string* a_strProcName)$/;"	f	class:CAppControl
+GetProcName	CAtomAPI.hpp	/^		char *GetProcName() { return m_szPkgName; }$/;"	f	class:ATOM_API
+GetProcNo	CAppControl.cpp	/^int CAppControl::GetProcNo(void)$/;"	f	class:CAppControl
+GetProcNo	CAtomAPI.hpp	/^		int GetProcNo() { return m_nProcNo; }$/;"	f	class:ATOM_API
+GetQueueCount	CAtomAPI.cpp	/^int ATOM_API::GetQueueCount(int a_nType)$/;"	f	class:ATOM_API
+GetQueueIndex	CAtomAPI.cpp	/^int ATOM_API::GetQueueIndex(int a_nType, const char *a_szProc)$/;"	f	class:ATOM_API
+GetSvcName	CAppControl.cpp	/^const char* CAppControl::GetSvcName(string* a_strSvcName)$/;"	f	class:CAppControl
+Init	CAppControl.cpp	/^bool CAppControl::Init(int a_nArgument, char* a_szArgument[])$/;"	f	class:CAppControl
+Init	CAtomAPI.cpp	/^int ATOM_API::Init(int a_nArgc, char *a_parrArgs[], int a_nLogLevel, int a_nInstanceID, int a_nCmdType)$/;"	f	class:ATOM_API
+IsRun	CAtomAPI.hpp	/^		bool IsRun() { return this->m_bRun; }$/;"	f	class:ATOM_API
+OBJS	Makefile	/^OBJS =	CAtomAPI.o CAppControl.o$/;"	m
+PingFail	CAtomAPI.cpp	/^int ATOM_API::PingFail(int a_nPeerNo, const char *a_szMyIP, const char *a_szPeerIP)$/;"	f	class:ATOM_API
+PingSuccess	CAtomAPI.cpp	/^int ATOM_API::PingSuccess(int a_nPeerNo, const char *a_szMyIP, const char *a_szPeerIP)$/;"	f	class:ATOM_API
+ProcessCommand	CAtomAPI.cpp	/^int ATOM_API::ProcessCommand(CProtocol *a_pclsReqProtocol)$/;"	f	class:ATOM_API
+READ_OBJS	TRM_sample/Makefile	/^READ_OBJS =	test_recv.o$/;"	m
+READ_OBJS	sample/Makefile	/^READ_OBJS =	test_recv.o$/;"	m
+READ_PROC	TRM_sample/Makefile	/^READ_PROC = test_recv$/;"	m
+READ_PROC	sample/Makefile	/^READ_PROC = test_recv$/;"	m
+ReadComplete	CAtomAPI.cpp	/^void  ATOM_API::ReadComplete()$/;"	f	class:ATOM_API
+ReadWait	CAtomAPI.cpp	/^int ATOM_API::ReadWait(int a_nTime)$/;"	f	class:ATOM_API
+RegisterProvider	CAtomAPI.cpp	/^int ATOM_API::RegisterProvider(int a_nCommandID, int a_nDstProc)$/;"	f	class:ATOM_API
+RegisterTps	CAtomAPI.cpp	/^int ATOM_API::RegisterTps()$/;"	f	class:ATOM_API
+Request	CAppControl.cpp	/^int CAppControl::Request(string& a_strBody, int *a_pnOpt)$/;"	f	class:CAppControl
+Response	CAppControl.cpp	/^std::string	CAppControl::Response(bool a_bIsSuccess, const char* a_szText)$/;"	f	class:CAppControl
+SEND_OBJS	TRM_sample/Makefile	/^SEND_OBJS =	test_send.o$/;"	m
+SEND_OBJS	sample/Makefile	/^SEND_OBJS =	test_send.o$/;"	m
+SEND_PROC	TRM_sample/Makefile	/^SEND_PROC = test_send$/;"	m
+SEND_PROC	sample/Makefile	/^SEND_PROC = test_send$/;"	m
+SendCommand	CAtomAPI.cpp	/^int ATOM_API::SendCommand(CProtocol *a_pclsProtocol)$/;"	f	class:ATOM_API
+SendCommand	CAtomAPI.cpp	/^int ATOM_API::SendCommand(CProtocol *a_pclsProtocol, char *a_szProcName, int a_nInstanceID)$/;"	f	class:ATOM_API
+SendCommandResult	CAtomAPI.cpp	/^int ATOM_API::SendCommandResult(const char *a_pData, int a_nLength)$/;"	f	class:ATOM_API
+SendData	CAtomAPI.cpp	/^int ATOM_API::SendData(char *a_pData, int a_nLength, int a_nIdx)$/;"	f	class:ATOM_API
+SendData	CAtomAPI.cpp	/^int ATOM_API::SendData(int a_nIdx)$/;"	f	class:ATOM_API
+SendNotifyToLocalAPP	CAtomAPI.cpp	/^int ATOM_API::SendNotifyToLocalAPP(int a_nCommand, int a_nDstProc, std::vector<char> &a_vecData)$/;"	f	class:ATOM_API
+SendResponse	CAtomAPI.cpp	/^int ATOM_API::SendResponse(bool a_bRet, const char *a_szResult)$/;"	f	class:ATOM_API
+SendStat	CAtomAPI.cpp	/^int ATOM_API::SendStat(char *a_szTable, vector<string> &a_vecPri, vector<int> &a_vecData, bool a_bHist)$/;"	f	class:ATOM_API
+SendTps	CAtomAPI.cpp	/^int ATOM_API::SendTps(const char *a_szTpsTitle, const int a_nValue)$/;"	f	class:ATOM_API
+SendTraceData	CAtomAPI.cpp	/^int ATOM_API::SendTraceData(const char *a_szData)$/;"	f	class:ATOM_API
+SendTrap	CAtomAPI.cpp	/^int ATOM_API::SendTrap($/;"	f	class:ATOM_API
+SetErrorMsg	CAtomAPI.cpp	/^void ATOM_API::SetErrorMsg(int a_nErrCode, const char *a_pszFmt, ...)$/;"	f	class:ATOM_API
+SetTraceArgument	CAtomAPI.cpp	/^int ATOM_API::SetTraceArgument(int a_nIdx, const char* a_szData)$/;"	f	class:ATOM_API
+StopSigHandler	CAtomAPI.cpp	/^void ATOM_API::StopSigHandler(int a_nSigNo)$/;"	f	class:ATOM_API
+Subscribe	CAtomAPI.cpp	/^int ATOM_API::Subscribe(const char *a_szCode, int a_nServerityID, char *a_szPkgName)$/;"	f	class:ATOM_API
+TARGET	Makefile	/^TARGET = libatomapi.a$/;"	m
+TRACE_INFO	CAtomAPI.hpp	/^}TRACE_INFO;$/;"	t	typeref:struct:_trace_info
+TraceIsOn	CAtomAPI.cpp	/^bool ATOM_API::TraceIsOn()$/;"	f	class:ATOM_API
+__ATOM_API_HPP__	CAtomAPI.hpp	2;"	d
+__ATOM_DEFINE_HPP__	CAtomDefine.hpp	2;"	d
+_trace_info	CAtomAPI.hpp	/^typedef struct _trace_info$/;"	s
+g_pclsLog	TRM_sample/test_recv.cpp	/^CFileLog *g_pclsLog = NULL;$/;"	v
+g_pclsLog	TRM_sample/test_send.cpp	/^CFileLog *g_pclsLog = NULL;$/;"	v
+g_pclsLog	sample/test_recv.cpp	/^CFileLog *g_pclsLog = NULL;$/;"	v
+g_pclsLog	sample/test_send.cpp	/^CFileLog *g_pclsLog = NULL;$/;"	v
+m_bRun	CAtomAPI.cpp	/^bool ATOM_API::m_bRun = false;$/;"	m	class:ATOM_API	file:
+m_bRun	CAtomAPI.hpp	/^		static bool m_bRun;$/;"	m	class:ATOM_API
+m_nCmdIdx	CAtomAPI.hpp	/^		int m_nCmdIdx;$/;"	m	class:ATOM_API
+m_nNodeNo	CAtomAPI.hpp	/^		int m_nNodeNo;$/;"	m	class:ATOM_API
+m_nProcNo	CAtomAPI.hpp	/^		int m_nProcNo;$/;"	m	class:ATOM_API
+m_pData	CAtomAPI.hpp	/^		char *m_pData;$/;"	m	class:ATOM_API
+m_pclsAppCtl	CAtomAPI.hpp	/^		CAppControl *m_pclsAppCtl;$/;"	m	class:ATOM_API
+m_pclsConfig	CAtomAPI.hpp	/^		CConfig *m_pclsConfig;$/;"	m	class:ATOM_API
+m_pclsIPC	CAtomAPI.hpp	/^		CLQManager *m_pclsIPC;		$/;"	m	class:ATOM_API
+m_pclsLog	CAtomAPI.hpp	/^		CFileLog *m_pclsLog;$/;"	m	class:ATOM_API
+m_pclsReqProtocol	CAtomAPI.hpp	/^		CProtocol *m_pclsReqProtocol;$/;"	m	class:ATOM_API
+m_pclsTrace	CAtomAPI.hpp	/^		CTraceAPI *m_pclsTrace;$/;"	m	class:ATOM_API
+m_stTraceInfo	CAtomAPI.hpp	/^		TRACE_INFO m_stTraceInfo;$/;"	m	class:ATOM_API
+m_strErrorMsg	CAppControl.hpp	/^	std::string	m_strErrorMsg;$/;"	m	class:CAppControl
+m_strNodeName	CAppControl.hpp	/^	std::string	m_strNodeName;$/;"	m	class:CAppControl
+m_strNodeType	CAppControl.hpp	/^	std::string	m_strNodeType;$/;"	m	class:CAppControl
+m_strPkgName	CAppControl.hpp	/^	std::string	m_strPkgName;$/;"	m	class:CAppControl
+m_strProcName	CAppControl.hpp	/^	std::string	m_strProcName;$/;"	m	class:CAppControl
+m_strSvcName	CAppControl.hpp	/^	std::string	m_strSvcName;$/;"	m	class:CAppControl
+m_szErrorMsg	CAtomAPI.hpp	/^		char m_szErrorMsg[DEF_MEM_BUF_1024 * DEF_MEM_BUF_1024];$/;"	m	class:ATOM_API
+m_szNodeType	CAtomAPI.hpp	/^		char m_szNodeType[DEF_MEM_BUF_64];$/;"	m	class:ATOM_API
+m_szPkgName	CAtomAPI.hpp	/^		char m_szPkgName[DEF_MEM_BUF_64];$/;"	m	class:ATOM_API
+m_szProcName	CAtomAPI.hpp	/^		char m_szProcName[DEF_MEM_BUF_64];$/;"	m	class:ATOM_API
+m_vecCommand	CAtomAPI.hpp	/^		std::vector<CProtocol*> m_vecCommand;$/;"	m	class:ATOM_API
+main	TRM_sample/test_recv.cpp	/^int main (int argc, char *args[])$/;"	f
+main	TRM_sample/test_send.cpp	/^int main (int argc, char *args[])$/;"	f
+main	sample/test_recv.cpp	/^int main (int argc, char *args[])$/;"	f
+main	sample/test_send.cpp	/^int main (int argc, char *args[])$/;"	f
+narrTraceReqNo	CAtomAPI.hpp	/^	int narrTraceReqNo[ATOM_DEF_MAX_TRACE_IDX];$/;"	m	struct:_trace_info
+process_command	TRM_sample/test_recv.cpp	/^int process_command(int a_nCmd)$/;"	f
+process_command	TRM_sample/test_send.cpp	/^int process_command(int a_nCmd)$/;"	f
+process_command	sample/test_recv.cpp	/^int process_command(int a_nCmd)$/;"	f
+process_command	sample/test_send.cpp	/^int process_command(int a_nCmd)$/;"	f
+process_data	TRM_sample/test_recv.cpp	/^int process_data(char *pData)$/;"	f
+process_data	TRM_sample/test_send.cpp	/^int process_data(char *pData)$/;"	f
+process_data	sample/test_recv.cpp	/^int process_data(char *pData)$/;"	f
+process_data	sample/test_send.cpp	/^int process_data(char *pData)$/;"	f
+trace_idx	CAtomAPI.hpp	/^enum trace_idx$/;"	g
+vecData	CAtomAPI.hpp	/^	std::vector<std::string> vecData;$/;"	m	struct:_trace_info
+~ATOM_API	CAtomAPI.cpp	/^ATOM_API::~ATOM_API()$/;"	f	class:ATOM_API
+~CAppControl	CAppControl.hpp	/^	~CAppControl() {}$/;"	f	class:CAppControl

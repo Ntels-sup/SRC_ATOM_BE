@@ -19,7 +19,7 @@ CConsole::CConsole(CThreadQueue<CConsoleSession*> *a_cRcvQueue, CThreadQueue<CCo
 
 	m_cCli = new CCli(nRet);
 	if(nRet != CLC_OK){
-		CLC_LOG(CLC_ERR,"Cli init failed\n");
+		CLC_LOG(CLC_ERR,false,"Cli init failed\n");
 		return;
 	}
 
@@ -36,7 +36,7 @@ CConsole::CConsole(CThreadQueue<CConsoleSession*> *a_cRcvQueue, CThreadQueue<CCo
 
 	nRet = m_cCli->InitDbConfig(m_strDBName.c_str(), m_strDBIp.c_str(), m_nDBPort, m_strDBUser.c_str(), m_strDBPassword.c_str());
 	if(nRet != CLC_OK){
-		CLC_LOG(CLC_ERR,"Db Config init failed(ret=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"Db Config init failed(ret=%d)\n",nRet);
 	}
 
 	m_cDb = new MariaDB();
@@ -62,7 +62,7 @@ int CConsole::InitDBCfg(string a_strDBName, string a_strDBIp, int a_nDBPort, str
 
 	nRet = m_cCli->InitDbConfig(m_strDBName.c_str(), m_strDBIp.c_str(), m_nDBPort, m_strDBUser.c_str(), m_strDBPassword.c_str());
 	if(nRet != CLC_OK){
-		CLC_LOG(CLC_ERR,"Db Config init failed(ret=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"Db Config init failed(ret=%d)\n",nRet);
 	}
 
 	return CLC_OK;
@@ -92,7 +92,7 @@ int CConsole::LoadAllUserFromDb()
 
 	blnRet = m_cDb->Connect(m_strDBIp.c_str(), m_nDBPort, m_strDBUser.c_str(), m_strDBPassword.c_str(), m_strDBName.c_str());
 	if(blnRet == false){
-		CLC_LOG(CLC_ERR,"DB Connect failed(%s, %d, %s, %s, %s)\n",
+		CLC_LOG(CLC_ERR,false,"DB Connect failed(%s, %d, %s, %s, %s)\n",
 				m_strDBIp.c_str(), m_nDBPort, m_strDBUser.c_str(), m_strDBPassword.c_str(), m_strDBName.c_str());
 		return CLC_NOK;
 	}
@@ -102,7 +102,7 @@ int CConsole::LoadAllUserFromDb()
 
 	nRet = m_cDb->Query(&cData, chQuery, nQueryLen);
 	if(nRet < 0){
-		CLC_LOG(CLC_ERR,"DB Query Failed(nRet=%d, err=%s)\n",nRet, m_cDb->GetErrorMsg(nRet));
+		CLC_LOG(CLC_ERR,false,"DB Query Failed(nRet=%d, err=%s)\n",nRet, m_cDb->GetErrorMsg(nRet));
 		return CLC_NOK;
 	}
 
@@ -153,7 +153,7 @@ int CConsole::LoadAllUserFromCfg(string &a_strPath)
 
 	fp = fopen(a_strPath.c_str(),"r");
 	if(fp == NULL){
-		CLC_LOG(CLC_ERR,"Config file open error(%s)\n", a_strPath.c_str());
+		CLC_LOG(CLC_ERR,false,"Config file open error(%s)\n", a_strPath.c_str());
 		return CLC_NOK;
 	}
 
@@ -188,13 +188,13 @@ int CConsole::LoadAllUserFromCfg(string &a_strPath)
 		}/* end of for(i=0;i<cUserArray.size();i++) */
 
 	} catch(rabbit::type_mismatch   e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(rabbit::parse_error e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(...) {
-		CLC_LOG(CLC_ERR,"Unknown error\n");
+		CLC_LOG(CLC_ERR,false,"Unknown error\n");
 		return CLC_NOK;
 	}
 
@@ -234,7 +234,7 @@ int CConsole::DumpAllUserToCfg()
 
 			fp = fopen(m_strUserDumpFile.c_str(),"w");
 			if(fp == NULL){
-				CLC_LOG(CLC_ERR,"File open failed(file=%s, errno=%d(%s)\n",
+				CLC_LOG(CLC_ERR,false,"File open failed(file=%s, errno=%d(%s)\n",
 						m_strUserDumpFile.c_str(), errno, strerror(errno));
 				return CLC_NOK;
 			}
@@ -256,13 +256,13 @@ int CConsole::DumpAllUserToCfg()
 
 		}
 	} catch(rabbit::type_mismatch   e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(rabbit::parse_error e) {
-		CLC_LOG(CLC_ERR,e.what());
+		CLC_LOG(CLC_ERR,false,e.what());
 		return CLC_NOK;
 	} catch(...) {
-		CLC_LOG(CLC_ERR,"Unknown error\n");
+		CLC_LOG(CLC_ERR,false,"Unknown error\n");
 		return CLC_NOK;
 	}
 
@@ -391,10 +391,10 @@ int CConsole::Run()
 
 	nRet = LoadAllUserFromDb();
 	if(nRet != CLC_OK){
-		CLC_LOG(CLC_ERR,"db load failed(user information)\n");
+		CLC_LOG(CLC_ERR,false,"db load failed(user information)\n");
 		nRet = LoadAllUserFromCfg(m_strUserDumpFile);
 		if(nRet != CLC_OK){
-			CLC_LOG(CLC_ERR,"User Config load failed(nRet=%d)\n",nRet);
+			CLC_LOG(CLC_ERR,false,"User Config load failed(nRet=%d)\n",nRet);
 		}
 	}
 	else {
@@ -415,23 +415,23 @@ int CConsole::Run()
 
 	nRet = m_cCli->LoadFromDb();
 	if(nRet != CLC_OK){
-		CLC_LOG(CLC_ERR,"DB load failed(ret=%d, load local configuration)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"DB load failed(ret=%d, load local configuration)\n",nRet);
 
 		nRet = m_cCli->LoadFromCfg(m_strCmdDumpFile);
 		if(nRet != CLC_OK){
-			CLC_LOG(CLC_ERR,"load Configuration failed(ret=%d)\n",nRet);
+			CLC_LOG(CLC_ERR,false,"load Configuration failed(ret=%d)\n",nRet);
 		}
 	}
 	else {
 		nRet = m_cCli->Dump();
 		if(nRet != CLC_OK){
-			CLC_LOG(CLC_ERR,"Command list backup failed(ret=%d)\n",nRet);
+			CLC_LOG(CLC_ERR,false,"Command list backup failed(ret=%d)\n",nRet);
 		}
 	}
 
 	nRet = m_cCli->SetDefaultPkg(pkgName);
 	if(nRet != CLC_OK){
-		CLC_LOG(CLC_ERR,"ATOM Package Default setting failed(ret=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"ATOM Package Default setting failed(ret=%d)\n",nRet);
 	}
 
 	while(1){
@@ -461,13 +461,13 @@ int CConsole::Run()
 		/* wait receiive */
 		nRet = m_cRcvQueue->PopWait(&cSession);
 		if(nRet != CThreadQueue<CConsoleSession*>::CTHRD_Q_OK){
-			CLC_LOG(CLC_ERR,"Console thread queue pop failed(ret=%d)\n",nRet);
+			CLC_LOG(CLC_ERR,false,"Console thread queue pop failed(ret=%d)\n",nRet);
 			continue;
 		}
 
 		nRet = Display(cSession);
 		if(nRet != CLC_OK){
-			CLC_LOG(CLC_ERR,"Display error(ret=%d)\n",nRet);
+			CLC_LOG(CLC_ERR,false,"Display error(ret=%d)\n",nRet);
 		}
 
 		delete cSession;

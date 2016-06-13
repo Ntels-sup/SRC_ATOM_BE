@@ -42,7 +42,6 @@ CMain::~CMain()
 int CMain::init()
 {
 	int  		ret = 0;
-	printf("TRM Run\n");
 
 	CConfigTRM& cfg = CConfigTRM::Instance();
 

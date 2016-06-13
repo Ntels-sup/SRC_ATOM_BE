@@ -1,0 +1,18 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+READ_OBJS	Makefile	/^READ_OBJS =	test_recv.o$/;"	m
+READ_PROC	Makefile	/^READ_PROC = test_recv$/;"	m
+SEND_OBJS	Makefile	/^SEND_OBJS =	test_send.o$/;"	m
+SEND_PROC	Makefile	/^SEND_PROC = test_send$/;"	m
+g_pclsLog	test_recv.cpp	/^CFileLog *g_pclsLog = NULL;$/;"	v
+g_pclsLog	test_send.cpp	/^CFileLog *g_pclsLog = NULL;$/;"	v
+main	test_recv.cpp	/^int main (int argc, char *args[])$/;"	f
+main	test_send.cpp	/^int main (int argc, char *args[])$/;"	f
+process_command	test_recv.cpp	/^int process_command(int a_nCmd)$/;"	f
+process_command	test_send.cpp	/^int process_command(int a_nCmd)$/;"	f
+process_data	test_recv.cpp	/^int process_data(char *pData)$/;"	f
+process_data	test_send.cpp	/^int process_data(char *pData)$/;"	f

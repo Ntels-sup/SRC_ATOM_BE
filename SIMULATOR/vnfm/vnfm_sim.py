@@ -179,8 +179,8 @@ class Vnfm(object):
             try:
                 uuid = self.getUUID(js['ready']['action-uri'])
             except:
+                uuid = ''
                 print '----- DEBUG fail'
-                pass
 
             if not uuid:
                 print '---------  DEBUG uuid is ', uuid
@@ -226,6 +226,7 @@ class Vnfm(object):
             pickle.dump(self.dic_uuid, f)
 
     def getUUID(self, _uri):
+        self.dic_uuid = {}
         with open('./uuid.dat', 'r') as f:
             self.dic_uuid = pickle.load(f)
 
@@ -246,7 +247,7 @@ class Vnfm(object):
         }'''
 
         body = templ % ('v1.0.0.0',
-                        'ftp://192.168.10.5/PKG/vOFCS/vOFCS_PKG_V100.tar.gz',
+                        'ftp://192.168.10.5/PKG/vOFCS/vOFCS_1.0.0.0.tar.gz',
                         '0123456789',
                         _uuid,
                         datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))

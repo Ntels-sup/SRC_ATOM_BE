@@ -86,7 +86,7 @@ int TABLESPACE::Initialize(CFileLog *a_pclsLog, RESOURCE *a_pRsc, void *a_pclsMa
 		m_pclsLog->ERROR("DB Class is NULL");
 		return -1;
 	}
-
+#if 0
     int ret = 0;
     char szBuffer[DEF_MEM_BUF_1024];
 
@@ -122,6 +122,8 @@ int TABLESPACE::Initialize(CFileLog *a_pclsLog, RESOURCE *a_pRsc, void *a_pclsMa
     }
 
     m_pclsLog->DEBUG("DB TOTAL SIZE %u", m_unTotalSize);
+#endif
+
 	return 0;
 }
 
@@ -367,7 +369,8 @@ int TABLESPACE::Run()
 	char szBuffer[DEF_MEM_BUF_1024];
 
 	int ret = 0;
-    char szTotalSize[DEF_MEM_BUF_64];
+    char szUsedSize[DEF_MEM_BUF_64];
+    char szFreeSize[DEF_MEM_BUF_64];
 
 	map<string, RESOURCE_ATTR *>::iterator it;
 	RESOURCE_ATTR *pstRsc = NULL;
@@ -383,16 +386,19 @@ int TABLESPACE::Run()
 		pstData = (DB_VALUE*)it->second->pData;
 
 		sprintf(szBuffer, "SELECT "\
-							"SUM(data_length + index_length) / 1024 / 1024 \"Size(MB)\"" \
+							"SUM(data_length + index_length) / 1024 / 1024 \"Size(MB)\"," \
+							"data_free / 1024 / 1024 \"FreeSize(MB)\" " \
 							"FROM information_schema.TABLES " \
 							"WHERE TABLE_SCHEMA='%s'", pstRsc->szArgs);
 
         m_pclsLog->DEBUG("QUERY : %s", szBuffer);
 
-		memset(szTotalSize, 0x00, sizeof(szTotalSize));
+		memset(szUsedSize, 0x00, sizeof(szUsedSize));
+		memset(szFreeSize, 0x00, sizeof(szFreeSize));
 
 		fData.Clear();
-		fData.Set(szTotalSize, sizeof(szTotalSize));
+		fData.Set(szUsedSize, sizeof(szUsedSize));
+		fData.Set(szFreeSize, sizeof(szFreeSize));
 
 		ret = m_pclsDB->Query(&fData, szBuffer, strlen(szBuffer));	
 		if(ret < 0)
@@ -407,12 +413,13 @@ int TABLESPACE::Run()
 			return -1;
 		}
 
-        m_pclsLog->DEBUG("szTotalSize %s", szTotalSize);
+        m_pclsLog->DEBUG("szUsedSize %s, szFreeSize %s", szUsedSize, szFreeSize);
 	
+		m_unTotalSize = atof(szUsedSize) + atof(szFreeSize);
 		pstData->vecAvgValue[IDX_DB_TOTAL] 	= m_unTotalSize ;
-		pstData->vecAvgValue[IDX_DB_USED] 	= atof(szTotalSize);
-		pstData->vecAvgValue[IDX_DB_FREE] 	= 
-				pstData->vecAvgValue[IDX_DB_TOTAL] - pstData->vecAvgValue[IDX_DB_USED];
+		pstData->vecAvgValue[IDX_DB_USED] 	= atof(szUsedSize);
+		pstData->vecAvgValue[IDX_DB_FREE] 	= atof(szFreeSize);
+//				pstData->vecAvgValue[IDX_DB_TOTAL] - pstData->vecAvgValue[IDX_DB_USED];
 		pstData->vecAvgValue[IDX_DB_USAGE] 	= 
 				(pstData->vecAvgValue[IDX_DB_USED] / pstData->vecAvgValue[IDX_DB_TOTAL]) * 100;
 

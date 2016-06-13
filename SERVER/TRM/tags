@@ -895,7 +895,7 @@ m_TraceHist	CScheduler.hpp	/^	CTraceHist				m_TraceHist;$/;"	m	class:CScheduler
 m_TraceHist	TRM_WEB/CNMSession.hpp	/^    CTraceHist      	m_TraceHist;$/;"	m	class:CNMSession
 m_TraceHist	TRM_WEB/CScheduler.hpp	/^	CTraceHist				m_TraceHist;$/;"	m	class:CScheduler
 m_TraceRoute	BACKUP/20160531/CScheduler.hpp	/^	CTraceRoute	    		m_TraceRoute;	\/\/ Trace Route info$/;"	m	class:CScheduler
-m_TraceRoute	CScheduler.hpp	/^	CTraceRoute	    		m_TraceRoute;	\/\/ Trace Route info$/;"	m	class:CScheduler
+m_TraceRoute	CScheduler.hpp	/^	CTraceRoute	    		m_TraceRoute;$/;"	m	class:CScheduler
 m_TraceRoute	TRM_WEB/CScheduler.hpp	/^	CTraceRoute	    		m_TraceRoute;	\/\/ Trace Route info$/;"	m	class:CScheduler
 m_cnmsession	BACKUP/20160531/CMain.hpp	/^				CNMSession *m_cnmsession;$/;"	m	class:CMain
 m_cnmsession	CMain.hpp	/^				CNMSession *m_cnmsession;$/;"	m	class:CMain

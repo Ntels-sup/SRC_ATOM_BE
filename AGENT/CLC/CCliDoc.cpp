@@ -71,7 +71,7 @@ int CCliDoc::Encode(CliDoc *a_stDoc, CCliReq &a_cReq)
 
 		nRet = ArgEncode(argDoc, a_cReq);
 		if(nRet != CLC_OK){
-			CLC_LOG(CLC_ERR,"Argument setting failed(ret=%d)\n",nRet);
+			CLC_LOG(CLC_ERR,false,"Argument setting failed(ret=%d)\n",nRet);
 			return CLC_NOK;
 		}
 

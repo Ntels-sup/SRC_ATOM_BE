@@ -103,10 +103,7 @@ picture_error :
 
 /*!
  * Function Name : AscTime
- * Description   : ¿¿ ¿¿¿ time¿¿ Asc String¿¿ ¿¿¿¿.
- *                 picture ¿ ¿¿ format¿ ¿¿¿¿ ¿¿¿ ¿ ¿¿.
  * Parameters    : char *picture - asc string format
- * Return value  : char *: ¿¿¿ Date ¿¿.
  */
 
 char *CATMTime::AscTime(char *_picture)
@@ -383,7 +380,6 @@ CATMTime& CATMTime::operator-=(CATMTime &nowTime)
 
 /*!
 * Function Name : GetYear
-* Description   : ¿¿ ¿¿¿ time¿¿¿ Year¿ ¿¿¿.
 * Parameters    : None
 * Return value  :
 *                 int : year
@@ -400,7 +396,6 @@ int CATMTime::GetYear(void)
 
 /*!
 * Function Name : GetMonth
-* Description   : ¿¿ ¿¿¿ time¿¿¿ Month¿ ¿¿¿.
 * Parameters    : None
 * Return value  :
 *                 int : month
@@ -417,7 +412,6 @@ int CATMTime::GetMonth(void)
 
 /*!
 * Function Name : GetDay
-* Description   : ¿¿ ¿¿¿ date¿¿¿ day¿ ¿¿¿.
 * Parameters    : None
 * Return value  :
 *                 int : day
@@ -434,7 +428,6 @@ int CATMTime::GetDay(void)
 
 /*!
 * Function Name : GetHour
-* Description   : ¿¿ ¿¿¿ time¿¿¿ hour¿ ¿¿¿.
 * Parameters    : None
 * Return value  :
 *                 int : hour
@@ -451,7 +444,6 @@ int CATMTime::GetHour(void)
 
 /*!
 * Function Name : GetMin
-* Description   : ¿¿ ¿¿¿ time¿¿¿ minute¿ ¿¿¿.
 * Parameters    : None
 * Return value  :
 *                 int : minute
@@ -468,7 +460,6 @@ int CATMTime::GetMin(void)
 
 /*!
 * Function Name : GetMin
-* Description   : ¿¿ ¿¿¿ time¿¿¿ second ¿ ¿¿¿.
 * Parameters    : None
 * Return value  :
 *                 int : second

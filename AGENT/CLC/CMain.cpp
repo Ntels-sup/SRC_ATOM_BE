@@ -36,7 +36,6 @@ int CMain::Init()
     const char *szTmpCfg[5];
     CGlobal *cGlob = NULL;
     CFileLog *cLog = NULL;
-    //CConfig cCliLocalCfg;
     string strLocalPath;
     string strLocalCfg;
     CClaInterface *cInter = NULL;
@@ -58,13 +57,13 @@ int CMain::Init()
     /* Get local path */
     nRet = m_cConfig.Initialize((char*)strLocalCfg.c_str());
     if(nRet != 0){
-        CLC_LOG(CLC_ERR,"local Config init failed\n");
+        CLC_LOG(CLC_ERR,true,"Local Config Load failed(check \"~/.atomclirc\")\n");
         return CLC_NOK;
     }
 
     strLocalPath = m_cConfig.GetConfigValue("GLOBAL","LOCAL_PATH");
     if(strLocalPath.size() == 0){
-        CLC_LOG(CLC_ERR,"Local path config not exist\n");
+        CLC_LOG(CLC_ERR,true,"LOCAL_PATH config not exist\n");
         return CLC_NOK;
     }
 
@@ -74,7 +73,7 @@ int CMain::Init()
     //m_cConfig.Initialize();
     nRet = m_cConfig.Initialize((char*)strLocalCfg.c_str());
     if(nRet != 0){
-        CLC_LOG(CLC_ERR,"ATOM Config init failed\n");
+        CLC_LOG(CLC_ERR,true ,"ATOM Config init failed\n");
         return CLC_NOK;
     }
 
@@ -84,12 +83,12 @@ int CMain::Init()
 
     szTmpCfg[0] = m_cConfig.GetConfigValue("GLOBAL","LOG_PATH");
     if(szTmpCfg[0] == NULL){
-        CLC_LOG(CLC_ERR,"LOG_PATH config not exist\n")
+        CLC_LOG(CLC_ERR,true,"LOG_PATH config not exist\n")
             return CLC_NOK;
     }
     nRet = cLog->Initialize(szTmpCfg[0], NULL, (char*)"CLC", 0, LV_ERROR);
     if(nRet != 0){
-        CLC_LOG(CLC_ERR,"Log init failed(nRet=%d)\n", nRet);
+        CLC_LOG(CLC_ERR,true,"Log init failed(nRet=%d)\n", nRet);
         return CLC_NOK;
     }
 
@@ -97,18 +96,18 @@ int CMain::Init()
 
     szTmpCfg[0] = m_cConfig.GetConfigValue("CLA","LISTEN_IP");
     if(szTmpCfg[0] == NULL){
-        CLC_LOG(CLC_ERR,"LISTEN_IP not exist\n");
+        CLC_LOG(CLC_ERR,true,"LISTEN_IP not exist\n");
         return CLC_NOK;
     }
     szTmpCfg[1] = m_cConfig.GetConfigValue("CLA","LISTEN_PORT");
     if(szTmpCfg[1] == NULL){
-        CLC_LOG(CLC_ERR,"LISTEN_PORT not exist\n");
+        CLC_LOG(CLC_ERR,true,"LISTEN_PORT not exist\n");
         return CLC_NOK;
     }
 
     szTmpCfg[2] = m_cConfig.GetConfigValue("CLC","CONN_RETRY_TIME");
     if(szTmpCfg[2] == NULL){
-        CLC_LOG(CLC_ERR,"CONN_RETRY_TIME not exist\n");
+        CLC_LOG(CLC_ERR,true,"CONN_RETRY_TIME not exist\n");
         return CLC_NOK;
     }
 
@@ -117,7 +116,7 @@ int CMain::Init()
 
     szTmpCfg[0] = m_cConfig.GetConfigValue("CLC","MESSAGE_TIMEOUT");
     if(szTmpCfg[0] == NULL){
-        CLC_LOG(CLC_ERR,"MESSAGE_TIMEOUT not exist\n");
+        CLC_LOG(CLC_ERR,true,"MESSAGE_TIMEOUT not exist\n");
         return CLC_NOK;
     }
 
@@ -127,31 +126,31 @@ int CMain::Init()
 
     szTmpCfg[0] = m_cConfig.GetConfigValue("GLOBAL","DB_DATABASE");
     if(szTmpCfg[0] == NULL){
-        CLC_LOG(CLC_ERR,"DB_DATABASE not exist\n");
+        CLC_LOG(CLC_ERR,true,"DB_DATABASE not exist\n");
         return CLC_NOK;
     }
 
     szTmpCfg[1] = m_cConfig.GetConfigValue("GLOBAL","DB_HOST");
     if(szTmpCfg[1] == NULL){
-        CLC_LOG(CLC_ERR,"DB_HOST not exist\n");
+        CLC_LOG(CLC_ERR,true,"DB_HOST not exist\n");
         return CLC_NOK;
     }
 
     szTmpCfg[2] = m_cConfig.GetConfigValue("GLOBAL","DB_PORT");
     if(szTmpCfg[2] == NULL){
-        CLC_LOG(CLC_ERR,"DB_PORT not exist\n");
+        CLC_LOG(CLC_ERR,true,"DB_PORT not exist\n");
         return CLC_NOK;
     }
 
     szTmpCfg[3] = m_cConfig.GetConfigValue("GLOBAL","DB_USER");
     if(szTmpCfg[3] == NULL){
-        CLC_LOG(CLC_ERR,"DB_USER not exist\n");
+        CLC_LOG(CLC_ERR,true,"DB_USER not exist\n");
         return CLC_NOK;
     }
 
     szTmpCfg[4] = m_cConfig.GetConfigValue("GLOBAL","DB_PASS");
     if(szTmpCfg[4] == NULL){
-        CLC_LOG(CLC_ERR,"DB_PATH not exist\n");
+        CLC_LOG(CLC_ERR,true,"DB_PATH not exist\n");
         return CLC_NOK;
     }
 
@@ -161,13 +160,13 @@ int CMain::Init()
 
     szTmpCfg[0] = m_cConfig.GetConfigValue("CLC","USER_DUMP_FILE");
     if(szTmpCfg[0] == NULL){
-        CLC_LOG(CLC_ERR,"USER_DUMP_FILE not exist\n");
+        CLC_LOG(CLC_ERR,true,"USER_DUMP_FILE not exist\n");
         return CLC_NOK;
     }
 
     szTmpCfg[1] = m_cConfig.GetConfigValue("CLC","CMD_DUMP_FILE");
     if(szTmpCfg[1] == NULL){
-        CLC_LOG(CLC_ERR,"CMD_DUMP_FILE not exist\n");
+        CLC_LOG(CLC_ERR,true,"CMD_DUMP_FILE not exist\n");
         return CLC_NOK;
     }
 
@@ -176,7 +175,7 @@ int CMain::Init()
 
     szTmpCfg[0] = m_cConfig.GetConfigValue("CLC","LOGIN_RETRY_COUNT");
     if(szTmpCfg[0] == NULL){
-        CLC_LOG(CLC_ERR,"LOGIN_RETYR_COUNT not exist\n");
+        CLC_LOG(CLC_ERR,true,"LOGIN_RETYR_COUNT not exist\n");
         return CLC_NOK;
     }
     cConsoleThread->LoginRetryCntCfg(atoi(szTmpCfg[0]));
@@ -230,7 +229,7 @@ int CMain::ConsoleHandler()
 		if(nRet == CThreadQueue<CConsoleSession*>::CTHRD_Q_EMPTY){
 			return CLC_OK;
 		}
-		CLC_LOG(CLC_ERR,"Queue pop failed(nRet=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"Queue pop failed(nRet=%d)\n",nRet);
 		return CLC_NOK;
 	}
 
@@ -256,7 +255,7 @@ int CMain::ConsoleHandler()
 
 		nRet = cInter->Send(cProto);
 		if(nRet != CClaInterface::RESULT_OK){
-			CLC_LOG(CLC_ERR,"CLA Send failed(ret=%d, %s)\n", nRet, cInter->errBuffer);
+			CLC_LOG(CLC_ERR,false,"CLA Send failed(ret=%d, %s)\n", nRet, cInter->errBuffer);
 
 			cSession->SetResultCode(CLC_RSLT_CODE_SEND_ERROR ,"MESSAGE SEND ERORR");
 			m_cConsoleSndQueue->Push(cSession);
@@ -299,7 +298,7 @@ int CMain::CmdResponseProcess(CCliRsp &a_cDecRsp)
 
 	cSession = FindConsoleSession(nSessionId);
 	if(cSession == NULL) {
-		CLC_LOG(CLC_ERR,"Console session not found(id=%d)\n", nSessionId);
+		CLC_LOG(CLC_ERR,false,"Console session not found(id=%d)\n", nSessionId);
 		return CLC_NOK;
 	}
 
@@ -340,7 +339,7 @@ int CMain::ExternalHandler()
 		chFlag = cProto->GetFlag();
 
 		if((chFlag != CProtocol::FLAG_RESPONSE)){
-			CLC_LOG(CLC_ERR,"Invalid Flag(flag=%d)\n",chFlag);
+			CLC_LOG(CLC_ERR,false,"Invalid Flag(flag=%d)\n",chFlag);
 			delete cProto;
 			continue;
 		}
@@ -360,14 +359,14 @@ int CMain::ExternalHandler()
 
 					nRet = cDecRsp.DecodeMessage(vecPayload);
 					if(nRet != CCliApi::RESULT_OK){
-						CLC_LOG(CLC_ERR,"Response message decoding failed(ret=%d)\n",nRet);
+						CLC_LOG(CLC_ERR,false,"Response message decoding failed(ret=%d)\n",nRet);
 						delete cProto;
 						continue;
 					}
 
 					nRet = CmdResponseProcess(cDecRsp);
 					if(nRet != CLC_OK){
-						CLC_LOG(CLC_ERR,"Comamnd response process failed(ret=%d)\n",nRet);
+						CLC_LOG(CLC_ERR,false,"Comamnd response process failed(ret=%d)\n",nRet);
 						delete cProto;
 						continue;
 					}
@@ -375,7 +374,7 @@ int CMain::ExternalHandler()
 				break;
 			default:
 				{
-					CLC_LOG(CLC_ERR,"Invalid command code(%d)\n",nCmdCode);
+					CLC_LOG(CLC_ERR,false,"Invalid command code(%d)\n",nCmdCode);
 					delete cProto;
 					continue;
 				}
@@ -395,7 +394,7 @@ int CMain::Run()
 
 	nRet = Init();
 	if(nRet != CLC_OK){
-		CLC_LOG(CLC_ERR,"Init failed(nRet=%d)\n",nRet);
+		CLC_LOG(CLC_ERR,false,"Init failed(nRet=%d)\n",nRet);
 		return CLC_NOK;
 	}
 

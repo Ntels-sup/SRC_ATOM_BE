@@ -140,7 +140,6 @@ int CNMSession::RecvMsg(DB * a_pDB, ST_BatchRequest *a_batchrequest, ST_BatchRes
 	if(nRecvFlag < 0)
 	{
         g_pcLog->ERROR("message receive failed errorno=%d", errno);
-//       	printf("socket, %s\n", m_sock.CSocket::m_strErrorMsg.c_str());
         g_pcLog->ERROR("socket, %s", m_sock.CSocket::m_strErrorMsg.c_str());
 		m_sock.Clear();
 		return BJM_RECV_ERROR;

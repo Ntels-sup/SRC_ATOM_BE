@@ -42,23 +42,15 @@ CNMSession::~CNMSession()
 {
 	Final();
 
-    if(m_pDB != NULL)
-    {
-        delete m_pDB;   
-        m_pDB = NULL;   
-    }
-
-	m_sock.Close();
-	delete g_pcLog;
-	g_pcLog = NULL;
 }
 
 int CNMSession::Initial()
 {
 	// Connect to MN
     if(m_sock.Connect(g_pcCFG.NM.m_strNMAddr.c_str(), g_pcCFG.NM.m_nNMPort) == false)
+//    if(m_sock.Connect("127.0.0.1", 10000) == false)
     {	
-        printf("Connection IP : %s, Port : %d Failed\n", g_pcCFG.NM.m_strNMAddr.c_str(), g_pcCFG.NM.m_nNMPort );
+        printf("Connection Failed : IP : %s, Port : %d\n", g_pcCFG.NM.m_strNMAddr.c_str(), g_pcCFG.NM.m_nNMPort );
         return TRM_NOK;
     }
 
@@ -69,9 +61,7 @@ int CNMSession::Regist(ST_COWORK_INFO *a_coworkinfo)
 	int 		nret = 0;
 
     m_sock.SetSource(a_coworkinfo->node_no, a_coworkinfo->trm_proc_no);             // Src TRM
-//    m_sock.SetSource(1, 11);				// Src TRM
     m_sock.SetDestination(a_coworkinfo->node_no, a_coworkinfo->nm_proc_no);             // Src NM
-//    m_sock.SetDestination(1, 8);				// Src NM
     m_sock.SetFlagRequest();
 	m_sock.SetCommand(TRM_REGIST);
 
@@ -89,7 +79,7 @@ int CNMSession::Regist(ST_COWORK_INFO *a_coworkinfo)
 	nret = m_sock.SendMesg();
 	
     if (nret < 0) {
-        g_pcLog->INFO("message send failed : %s", m_sock.CSocket::m_strErrorMsg.c_str());
+        g_pcLog->ERROR("Fail to Send Message : %s", m_sock.CSocket::m_strErrorMsg.c_str());
         return TRM_NOK;
     }
 
@@ -106,15 +96,16 @@ int CNMSession::Run()
 	return TRM_OK;
 }
 
-// which Message is ?
 int CNMSession::RecvMsg()
 {
     int  			nRecvFlag = 0;
 	int  			nRetRecv = 0;
-//	char 			imsi[256];
-//	int  			nLength = 0;
-//	string 			strimsi;
-//	string 			strpayload;
+#ifdef TRM_DEBUG
+	char 			imsi[256];
+	int  			nLength = 0;
+	string 			strimsi;
+	string 			strpayload;
+#endif
     string 			strBuf;
 
     if( m_sock.IsConnected() == false)
@@ -125,7 +116,7 @@ int CNMSession::RecvMsg()
 	nRecvFlag = m_sock.RecvMesg(NULL, -1);
 	if(nRecvFlag < 0)
 	{
-        g_pcLog->INFO("message receive failed errorno=%d, socket [%s]", 
+        g_pcLog->ERROR("message receive failed errorno=%d, socket [%s]", 
 									errno, m_sock.CSocket::m_strErrorMsg.c_str());
         printf("socket, %s\n", m_sock.CSocket::m_strErrorMsg.c_str());
 
@@ -134,20 +125,21 @@ int CNMSession::RecvMsg()
 		return TRM_RECV_ERROR;
 	}
 
-	// header
-//    g_pcLog->INFO("Version: %d", m_sock.GetVersion());
     m_sock.GetCommand(strBuf);
-//    g_pcLog->INFO("Command: %s", strBuf.c_str());
+#ifdef TRM_DEBUG
+	// header
+    g_pcLog->INFO("Version: %d", m_sock.GetVersion());
+    g_pcLog->INFO("Command: %s", strBuf.c_str());
 
-	// Debug 
-//	strpayload = m_sock.GetPayload();
-//    g_pcLog->INFO("payload: [%s]", strpayload.c_str());
-//	strimsi = m_sock.GetFlag();
-//    g_pcLog->INFO("flag: %s", strimsi.c_str());
-//	nLength = m_sock.GetLength();
-//    g_pcLog->INFO("Length: %d", nLength);
-//	strcpy(imsi, strBuf.c_str());
-	
+	strpayload = m_sock.GetPayload();
+    g_pcLog->INFO("payload: [%s]", strpayload.c_str());
+	strimsi = m_sock.GetFlag();
+    g_pcLog->INFO("flag: %s", strimsi.c_str());
+	nLength = m_sock.GetLength();
+    g_pcLog->INFO("Length: %d", nLength);
+	strcpy(imsi, strBuf.c_str());
+#endif
+
     // Receive
 	if(strncmp(TRM_REGIST, strBuf.c_str(), strBuf.length()) == 0) 	// TRACE_ON
 	{
@@ -181,7 +173,6 @@ int CNMSession::RecvMsg()
 	}
 	else
 	{
-// 		g_pcLog->INFO("IsFlagRequest Other");
 		m_sock.Clear();
 		return TRM_NOK;
 	}
@@ -191,7 +182,6 @@ int CNMSession::RecvMsg()
 
 int CNMSession::ProcessCtrl()
 {
-    cout << "----- READ 2 " << endl;
     std::string			strLogPayload;
 	std::string			strAction;
 	int					nLogLevel = 0;
@@ -205,11 +195,12 @@ int CNMSession::ProcessCtrl()
         doc.parse(strLogPayload.c_str());
 
         strAction = string(doc["BODY"]["action"].as_string());
-        cout << "[BODY][action]    :" << "[" << strAction << "]" << endl;
-
         nLogLevel = doc["BODY"]["loglevel"].as_int();
-        cout << "[BODY][LogLevel]    :" << "[" << nLogLevel << "]" << endl;
 
+#ifdef TRM_DEBUG
+        cout << "[BODY][action]    :" << "[" << strAction << "]" << endl;
+        cout << "[BODY][LogLevel]    :" << "[" << nLogLevel << "]" << endl;
+#endif
         if(strAction.compare(TRM_ACTION_LOGLEVEL) == 0)
         {
             g_pcLog->SetLogLevel(nLogLevel);
@@ -291,7 +282,9 @@ int CNMSession::SetRequestMsg(ST_TRACE_REQUEST *a_tracerequest)
     g_pcLog->INFO("cmd [%s]", stTraceRequest.cmd);
     menu["cmd"]    = stTraceRequest.cmd;
 
+#ifdef TRM_DEBUG
     cout << m_root.str() << endl;
+#endif	
 	m_sock.SetPayload(m_root.str());
 
 	return TRM_OK;
@@ -305,13 +298,9 @@ int CNMSession::SendInitResponseMsg(int ret, ST_COWORK_INFO *a_coworkinfo, ST_TR
 	ST_TRACE_REQUEST	st_batchrequest;
 	st_batchrequest = *a_tracerequest;
 
-//    g_pcLog->INFO("src : id_snode : %d, id_sproc : %d, dst : id_dnode : %d, ip_dproc : %d",
-//	          st_batchrequest.id_snode, st_batchrequest.id_sproc, st_batchrequest.id_dnode, st_batchrequest.id_dproc);
 	m_sock.SetCommand(ATOM_PROC_CTL);
     m_sock.SetSource(a_coworkinfo->node_no, a_coworkinfo->trm_proc_no);             // Src TRM
-//    m_sock.SetSource(1, 10);				// Src TRM
     m_sock.SetDestination(a_coworkinfo->node_no, a_coworkinfo->nm_proc_no);             // Src NM
-//    m_sock.SetDestination(36, 23);				// Src NM
     m_sock.SetFlagResponse();			// response
 
     g_pcLog->INFO("src : id_snode : %d, id_sproc : %d, dst : id_dnode : %d, ip_dproc : %d",
@@ -331,13 +320,12 @@ int CNMSession::SendInitResponseMsg(int ret, ST_COWORK_INFO *a_coworkinfo, ST_TR
 	    menu["success"]    = true;
 	}
 
-//    cout << objRecvRoot.str() << endl;
 	m_sock.SetPayload(objRecvRoot.str());
-	nret = m_sock.SendMesg();
 
 	g_pcLog->INFO("CNMSession Send Init Response Msg");
+	nret = m_sock.SendMesg();
     if (nret < 0) {
-        g_pcLog->INFO("message send failed : %s", m_sock.CSocket::m_strErrorMsg.c_str());
+        g_pcLog->DEBUG("CNMSession SendInitResponseMsg, Fail to Send Message : %s", m_sock.CSocket::m_strErrorMsg.c_str());
 		m_sock.Clear();
         return TRM_NOK;
     }
@@ -358,11 +346,8 @@ int CNMSession::SendWSMResponseMg(ST_COWORK_INFO *a_coworkinfo, ST_TRACE_REQUEST
 		m_sock.SetCommand(TRM_TRACE_DATA);
 
     m_sock.SetSource(a_coworkinfo->node_no, a_coworkinfo->trm_proc_no);             // Src TRM
-//    m_sock.SetSource(1, 11);				// Src Node_No, Src Process_No
     m_sock.SetDestination(a_coworkinfo->node_no, a_coworkinfo->wsm_proc_no);                // WSM
-//    m_sock.SetDestination(1, 46);				// WSM Node_No, WSM Process_No
-    m_sock.SetFlagResponse();			// response
-//    m_sock.GetSequence();
+    m_sock.SetFlagResponse();
 	m_sock.SetSequence(st_TraceRequest.sequence);
 
 	rabbit::object  	objRecvRoot;
@@ -385,13 +370,14 @@ int CNMSession::SendWSMResponseMg(ST_COWORK_INFO *a_coworkinfo, ST_TRACE_REQUEST
         menu["success"]    = true;
     }
 
+#ifdef TRM_DEBUG
     cout << objRecvRoot.str() << endl;
-    
+#endif    
 	m_sock.SetPayload(objRecvRoot.str());
 
 	g_pcLog->INFO("CNMSession Send Response Msg to WSM");
     if (m_sock.SendMesg() < 0) {
-        g_pcLog->INFO("CNMSession Send message failed : %s", m_sock.CSocket::m_strErrorMsg.c_str());
+        g_pcLog->ERROR("CNMSession, SendWSMResponseMg, Fail to Send Message : %s", m_sock.CSocket::m_strErrorMsg.c_str());
 		m_sock.Clear();
         return TRM_NOK;
     }
@@ -406,7 +392,7 @@ int CNMSession::SendWSMResponseMsg(ST_COWORK_INFO *a_coworkinfo, ST_TRACE_RESPON
 	ST_TRACE_RESPONSE st_TraceResponse;
 	st_TraceResponse = *a_traceresponse;
 
-	g_pcLog->INFO("a_nOffData =[%d]", a_nOffData);
+	g_pcLog->DEBUG("a_nOffData =[%d]", a_nOffData);
 
 	if (a_nOffData == 0)
 		m_sock.SetCommand(TRM_TRACE_ON);
@@ -414,11 +400,13 @@ int CNMSession::SendWSMResponseMsg(ST_COWORK_INFO *a_coworkinfo, ST_TRACE_RESPON
 		m_sock.SetCommand(TRM_TRACE_OFF);
 	else
 		m_sock.SetCommand(TRM_TRACE_DATA);
-
+#if 1
     m_sock.SetSource(a_coworkinfo->node_no, a_coworkinfo->trm_proc_no);             // Src TRM
-//    m_sock.SetSource(1, 10);				// Src Node_No, Src Process_No
     m_sock.SetDestination(a_coworkinfo->node_no, a_coworkinfo->wsm_proc_no);                // WSM
-//    m_sock.SetDestination(1, 46);				// WSM Node_No, WSM Process_No
+#else
+    m_sock.SetSource(1, 10);				// Src Node_No, Src Process_No
+    m_sock.SetDestination(1, 46);				// WSM Node_No, WSM Process_No
+#endif
     m_sock.SetFlagResponse();			// response
     m_sock.SetSequence(m_stTraceRequest.sequence);
 
@@ -442,7 +430,9 @@ int CNMSession::SendWSMResponseMsg(ST_COWORK_INFO *a_coworkinfo, ST_TRACE_RESPON
         menu["success"]    = true;
     }
 
+#ifdef TRM_DEBUG
     cout << objRecvRoot.str() << endl;
+#endif
     
 	m_sock.SetPayload(objRecvRoot.str());
 
@@ -465,17 +455,12 @@ int CNMSession::SendRequestMsg(ST_COWORK_INFO *a_coworkinfo, ST_TRACE_REQUEST *a
 	ST_TRACE_REQUEST 	stTraceRequest;
 	stTraceRequest 		= *a_tracerequest;
 
-    m_sock.SetCommand(TRM_TRACE_ON);	// TRM_TRACE_ON
-    m_sock.SetFlagRequest();			// request
+    m_sock.SetCommand(TRM_TRACE_ON);
+    m_sock.SetFlagRequest();
 	m_sock.SetSequence(stTraceRequest.sequence);
-
-//	nnode_id = atoi(getenv("NODEID"));
-//	nproc_id = atoi(getenv("PROCID"));
 
     m_sock.SetSource(a_coworkinfo->node_no, a_coworkinfo->trm_proc_no);             // Src TRM
     m_sock.SetDestination(stTraceRequest.node_no, stTraceRequest.proc_no);		// Dst Node_No, Dst Process_No
-//    m_sock.SetDestination(36, 23);		// Dst Node_No, Dst Process_No
-//    nSendSeq = m_sock.SetSequence();
 
 	if(&stTraceRequest.pkg_name != NULL && &stTraceRequest.oper_no != 0)
 	{
@@ -486,7 +471,7 @@ int CNMSession::SendRequestMsg(ST_COWORK_INFO *a_coworkinfo, ST_TRACE_REQUEST *a
 			g_pcLog->INFO("CNMSession SendMsg strPayload [%s]", strPayload.c_str());
 		    if (m_sock.SendMesg() < 0) 
 			{
-	        	g_pcLog->INFO("message send failed : %s", m_sock.CSocket::m_strErrorMsg.c_str());
+	        	g_pcLog->INFO("Fail to Send Message : %s", m_sock.CSocket::m_strErrorMsg.c_str());
 	            m_sock.Clear();
 		        return TRM_NOK;
 	    	}
@@ -499,6 +484,7 @@ int CNMSession::SendRequestMsg(ST_COWORK_INFO *a_coworkinfo, ST_TRACE_REQUEST *a
 	return TRM_OK;
 }
 
+#ifdef TRM_DEBUG
 // for Web Test
 int CNMSession::TestWebGetTraceData(double a_oper_no, char* start_date, char* end_date, ST_TRACE_RESPONSE *a_traceresponse)
 {
@@ -506,53 +492,41 @@ int CNMSession::TestWebGetTraceData(double a_oper_no, char* start_date, char* en
 	char 						imsi[255];
 	std::string					strTraceResponse;
 
-//	CheckRecvMsg();
-
-//	a_traceresponse->sequence = m_sock.GetSequence();
-
-//	strTraceResponse = m_sock.GetPayload();
+	CheckRecvMsg();
 
     g_pcLog->INFO("GetTraceData strTraceResponse : [%s]", strTraceResponse.c_str());
 
-//    try {
+    try {
         rabbit::document    doc;
-//        doc.parse(strTraceResponse.c_str());
 
-//        double value = doc["BODY"]["oper_no"].as_int64();
 		a_traceresponse->oper_no = a_oper_no;
         cout << "[BODY][oper_no]    :" << "[" << a_traceresponse->oper_no << "]" << endl;
 
-        string value3 = "on"; //string(doc["BODY"]["trace"].as_string());
+        string value3 = "on";
 		strncpy(a_traceresponse->trace, value3.c_str(), sizeof(value3));
         cout << "[BODY][trace]    :" << "[" << a_traceresponse->trace << "]" << endl;
 
-		string status = "process"; //string(doc["BODY"]["status"].as_string());
+		string status = "process";
 		strncpy(a_traceresponse->status, status.c_str(), sizeof(status));
         cout << "[BODY][status]    :" << "[" << a_traceresponse->status << "]" << endl;
 
-//        string value9 = string(doc["BODY"]["start_date"].as_string());
-//		strncpy(imsi, value9.c_str(), sizeof(value9) + 6);
 		strncpy(imsi, start_date, sizeof(start_date) + 6);
 		strncpy(a_traceresponse->start_date, space_remove(imsi), sizeof(imsi));
         cout << "[BODY][start_date]    :" << "[" << a_traceresponse->start_date << "]" << endl;
 
-//        string end_date = string(doc["BODY"]["end_date"].as_string());
-//		strncpy(imsi, end_date.c_str(), sizeof(end_date) + 6);
 		strncpy(imsi, end_date, sizeof(end_date) + 6);
 		strncpy(a_traceresponse->end_date, space_remove(imsi), sizeof(imsi));
         cout << "[BODY][end_date]    :" << "[" << a_traceresponse->end_date << "]" << endl;
 
-        bool success_yn = true; //doc["BODY"]["success"].as_bool();
+        bool success_yn = true;
 		a_traceresponse->success = success_yn;
         cout << "[BODY][success]    :" << "[" << a_traceresponse->success << "]" << endl;
 
-/*        string msg = "인공지능 컴퓨터의 세계 양대 산맥은 구글의 알파고와 IBM의 왓슨입니다. 미국 퀴즈쇼에서 우승하면서 유명세를 탄 왓슨은 특>히 언어를 인식하는데 뛰어납니다.IBM이 이번에는 왓슨 기술을 바탕으로 사람의 성격을 분석할 수 있는 새 로봇나오미를 내놨습니다. 박소정 기자입니다.[기자]2015년 12월생인 인공지능 로봇 나오미.질문에 대답도 하고 춤도 춥니다.이뿐 아니라 이마에 달린 카메라로 사물이나 사>람을 인식해 성격도 분석합니다.IBM이 인공지능 컴퓨터 왓슨의 기술을 탑재해 내놓은 새로운 로봇입니다.왓슨은 과거 체스 대회에서 인간을 꺾은 딥블루의 기반이자 퀴즈쇼에서 우승해 알파고보다 먼저 유명해진 인공지능입니다.IBM은 인공지능이라는 말 대신 사람과 상호작용을 할 수 있다는 뜻으로 코그너티브 컴퓨팅, 즉 인지 기술이라고 설명합니다.[김연주 / 한국IBM 왓슨 총괄 상무 : 법률 전문가로서 서비스해줄 수>도 있고, 금융 분야로 가면 금융 전문가가 되고, 인간의 전문성을 도와서 증폭시키고 서비스를 개선하는 데 활용되는 모델입니다.] 사람처럼 인지하고 추론하는 능력을 갖춘 왓슨 기술은 로봇으로 구현되는 기술뿐 아니라 금융이나 의료, 패션 등 사회의 다양한 산업으로 펼쳐지고 >있습니다.최근 국립환경과학원은 미세먼지 예보에 왓슨을 도입하려고 논의 중입니다.아이들과 놀아주는 장난감뿐 아니라 자산 관리 상담 등>에도 널리 쓰이고 있습니다.[안태규 / 한국IBM 차장 : 고객의 성향을 파악하는 것과 동시에 고객의 자산 현황을 파악해 그 사람에게 상품을 추천해주는 것을 인공지능 기술을 사용해서…] IBM은 왓슨이 올해 말에는 자연스럽게 한국어로 대화하는 능력도 갖추게 될 것이라고 밝혔습니다. 또, 알파고를 제치고 전 세계 모든 산업의 기반 기술로 활용될 것이라는 자신감을내비쳤습니.dsfasdfdsfdsaffsafdfaffasfdas~~~~~~~~~~~~~~~~~~~~";	 //string(doc["BODY"]["msg"].as_string());
-*/
 		string msg = "Kimbo Slice wasn't a great professional fighter. He appeared in only one official UFC fight and was knocked out in the second round. But technical skill isn't why you know his name or why we're remembering him following his death on Monday. Fighting record aside, Slice was a cult hero, and no one appreciated his uncompromising style and unconventional path to the top more than the hip-hop community.";
   	  	strncpy(a_traceresponse->msg, msg.c_str(), msg.length());
         cout << "[BODY][msg]    :" << "[" << a_traceresponse->msg << "]" << endl;
 
-/*    } catch(rabbit::type_mismatch   e) {
+    } catch(rabbit::type_mismatch   e) {
         cout << e.what() << endl;
         m_sock.Clear();
     } catch(rabbit::parse_error e) {
@@ -562,14 +536,13 @@ int CNMSession::TestWebGetTraceData(double a_oper_no, char* start_date, char* en
         g_pcLog->INFO("Unkown Error");
         m_sock.Clear();
     }
-*/
+
 	return TRM_OK;
 }
-
+#endif
 
 int CNMSession::GetTraceData(ST_TRACE_RESPONSE *a_traceresponse)
 {
-    cout << "----- READ Trace Data" << endl;
 	char		imsi[255];
 	string		strTraceResponse;
 	double 		oper_no = 0;
@@ -580,7 +553,10 @@ int CNMSession::GetTraceData(ST_TRACE_RESPONSE *a_traceresponse)
 	bool 		success_yn = false;
 	string 		msg;
 
+#ifdef TRM_DEBUG	
+    cout << "----- READ Trace Data" << endl;
 	CheckRecvMsg();
+#endif
 
 	a_traceresponse->sequence = m_sock.GetSequence();
 
@@ -594,33 +570,36 @@ int CNMSession::GetTraceData(ST_TRACE_RESPONSE *a_traceresponse)
 
         oper_no = doc["BODY"]["oper_no"].as_int64();
 		a_traceresponse->oper_no = oper_no;
-        cout << "[BODY][oper_no]    :" << "[" << a_traceresponse->oper_no << "]" << endl;
 
         trace = string(doc["BODY"]["trace"].as_string());
 		strncpy(a_traceresponse->trace, trace.c_str(), sizeof(trace));
-        cout << "[BODY][trace]    :" << "[" << a_traceresponse->trace << "]" << endl;
 
 		status = string(doc["BODY"]["status"].as_string());
 		strncpy(a_traceresponse->status, status.c_str(), sizeof(status));
-        cout << "[BODY][status]    :" << "[" << a_traceresponse->status << "]" << endl;
 
         start_date = string(doc["BODY"]["start_date"].as_string());
 		strncpy(imsi, start_date.c_str(), sizeof(start_date) + 6);
 		strncpy(a_traceresponse->start_date, space_remove(imsi), sizeof(imsi));
-        cout << "[BODY][start_date]    :" << "[" << a_traceresponse->start_date << "]" << endl;
 
         end_date = string(doc["BODY"]["end_date"].as_string());
 		strncpy(imsi, end_date.c_str(), sizeof(end_date) + 6);
 		strncpy(a_traceresponse->end_date, space_remove(imsi), sizeof(imsi));
-        cout << "[BODY][end_date]    :" << "[" << a_traceresponse->end_date << "]" << endl;
 
         success_yn = doc["BODY"]["success"].as_bool();
 		a_traceresponse->success = success_yn;
-        cout << "[BODY][success]    :" << "[" << a_traceresponse->success << "]" << endl;
 
         msg = string(doc["BODY"]["msg"].as_string());
 		strncpy(a_traceresponse->msg, msg.c_str(), msg.length());
+
+#ifdef TRM_DEBUG	
+        cout << "[BODY][oper_no]    :" << "[" << a_traceresponse->oper_no << "]" << endl;
+        cout << "[BODY][trace]    :" << "[" << a_traceresponse->trace << "]" << endl;
+        cout << "[BODY][status]    :" << "[" << a_traceresponse->status << "]" << endl;
+        cout << "[BODY][start_date]    :" << "[" << a_traceresponse->start_date << "]" << endl;
+        cout << "[BODY][end_date]    :" << "[" << a_traceresponse->end_date << "]" << endl;
+        cout << "[BODY][success]    :" << "[" << a_traceresponse->success << "]" << endl;
         cout << "[BODY][msg]    :" << "[" << a_traceresponse->msg << "]" << endl;
+#endif
 
         m_sock.Clear();
 
@@ -644,7 +623,9 @@ int CNMSession::GetResponseMsg(ST_TRACE_RESPONSE *a_traceresponse)
 	char 						imsi[255];
 	std::string					strTraceResponse;
 
+#ifdef TRM_DEBUG
 	CheckRecvMsg();
+#endif
 
 	a_traceresponse->sequence = m_sock.GetSequence();
 	strTraceResponse = m_sock.GetPayload();
@@ -657,33 +638,36 @@ int CNMSession::GetResponseMsg(ST_TRACE_RESPONSE *a_traceresponse)
 
         double value = doc["BODY"]["oper_no"].as_int64();
 		a_traceresponse->oper_no = value;
-        cout << "[BODY][oper_no]    :" << "[" << a_traceresponse->oper_no << "]" << endl;
 
         string value3 = string(doc["BODY"]["trace"].as_string());
 		strncpy(a_traceresponse->trace, value3.c_str(), sizeof(value3));
-        cout << "[BODY][trace]    :" << "[" << a_traceresponse->trace << "]" << endl;
 
 		string status = string(doc["BODY"]["status"].as_string());
 		strncpy(a_traceresponse->status, status.c_str(), sizeof(status));
-        cout << "[BODY][status]    :" << "[" << a_traceresponse->status << "]" << endl;
 
         string value9 = string(doc["BODY"]["start_date"].as_string());
 		strncpy(imsi, value9.c_str(), sizeof(value9) + 6);
 		strncpy(a_traceresponse->start_date, space_remove(imsi), sizeof(imsi));
-        cout << "[BODY][start_date]    :" << "[" << a_traceresponse->start_date << "]" << endl;
 
         string value10 = string(doc["BODY"]["end_date"].as_string());
         strncpy(imsi, value10.c_str(), sizeof(value10) + 6);
         strncpy(a_traceresponse->end_date, space_remove(imsi), sizeof(imsi));
-        cout << "[BODY][end_date]    :" << "[" << a_traceresponse->end_date << "]" << endl;
 
         bool success_yn = doc["BODY"]["success"].as_bool();
 		a_traceresponse->success = success_yn;
-        cout << "[BODY][success]    :" << "[" << a_traceresponse->success << "]" << endl;
 
         string msg = string(doc["BODY"]["msg"].as_string());
 		strncpy(a_traceresponse->msg, msg.c_str(), msg.length());
+
+#ifdef TRM_DEBUG
+        cout << "[BODY][oper_no]    :" << "[" << a_traceresponse->oper_no << "]" << endl;
+        cout << "[BODY][trace]    :" << "[" << a_traceresponse->trace << "]" << endl;
+        cout << "[BODY][status]    :" << "[" << a_traceresponse->status << "]" << endl;
+        cout << "[BODY][start_date]    :" << "[" << a_traceresponse->start_date << "]" << endl;
+        cout << "[BODY][end_date]    :" << "[" << a_traceresponse->end_date << "]" << endl;
+        cout << "[BODY][success]    :" << "[" << a_traceresponse->success << "]" << endl;
         cout << "[BODY][msg]    :" << "[" << a_traceresponse->msg << "]" << endl;
+#endif
 
     } catch(rabbit::type_mismatch   e) {
         cout << e.what() << endl;
@@ -702,10 +686,25 @@ int CNMSession::GetResponseMsg(ST_TRACE_RESPONSE *a_traceresponse)
 int CNMSession::GetRequestMsg(int nOnOff, ST_TRACE_REQUEST *a_tracerequest)
 {
     cout << "----- READ Request" << endl;
-	char 						imsi[255];
-	std::string					strTraceRequest;
+	char 				imsi[255];
+	std::string			strTraceRequest;
+	long long 			nOper_no = 0;
+	string 				strPkg_name;
+	int 				nNode_no = 0;
+	string				strTrace;
+	int	 				nProtocol = 0;
+	int 				nSearchMode = 0;
+	string 				strKeyword;
+	int					nRunMode = 0;
+	string 				nUserId;
+	string 				strStartDate;
+	string 				strEndDate;
+	string				strUserId;
 
+#ifdef TRM_DEBUG
 	CheckRecvMsg();
+#endif
+
 	a_tracerequest->sequence = m_sock.GetSequence();
 	strTraceRequest = m_sock.GetPayload();
 
@@ -715,64 +714,55 @@ int CNMSession::GetRequestMsg(int nOnOff, ST_TRACE_REQUEST *a_tracerequest)
         rabbit::document    doc;
         doc.parse(strTraceRequest.c_str());
 
-        long long value = doc["BODY"]["oper_no"].as_int64();
-		a_tracerequest->oper_no = value;
+        nOper_no = doc["BODY"]["oper_no"].as_int64();
+		a_tracerequest->oper_no = nOper_no;
         cout << "[BODY][oper_no]    :" << "[" << a_tracerequest->oper_no << "]" << endl;
 
-        string value1 = string(doc["BODY"]["pkg_name"].as_string());
-		strncpy(a_tracerequest->pkg_name, value1.c_str(), sizeof(value1));
+        strPkg_name = string(doc["BODY"]["pkg_name"].as_string());
+		strncpy(a_tracerequest->pkg_name, strPkg_name.c_str(), strPkg_name.length());
         cout << "[BODY][pkg_name]    :" << "[" << a_tracerequest->pkg_name << "]" << endl;
 
-        int value2 = doc["BODY"]["node_no"].as_int();
-		a_tracerequest->node_no = value2;
+        nNode_no = doc["BODY"]["node_no"].as_int();
+		a_tracerequest->node_no = nNode_no;
         cout << "[BODY][node_no]    :" << "[" << a_tracerequest->node_no << "]" << endl;
 
-        string value3 = string(doc["BODY"]["trace"].as_string());
-		strncpy(a_tracerequest->trace, value3.c_str(), sizeof(value3));
+        strTrace = string(doc["BODY"]["trace"].as_string());
+		strncpy(a_tracerequest->trace, strTrace.c_str(), strTrace.length());
         cout << "[BODY][trace]    :" << "[" << a_tracerequest->trace << "]" << endl;
 
-        int value4 = doc["BODY"]["protocol"].as_int();
-		a_tracerequest->protocol = value4;
+        nProtocol = doc["BODY"]["protocol"].as_int();
+		a_tracerequest->protocol = nProtocol;
         cout << "[BODY][protocol]    :" << "[" << a_tracerequest->protocol << "]" << endl;
 
-        int value5 = doc["BODY"]["search_mode"].as_int();
-		a_tracerequest->search_mode = value5;
+        nSearchMode = doc["BODY"]["search_mode"].as_int();
+		a_tracerequest->search_mode = nSearchMode;
         cout << "[BODY][search_mode    :" << "[" << a_tracerequest->search_mode << "]" << endl;
 
-        string value6 = string(doc["BODY"]["keyword"].as_string());
-		strncpy(a_tracerequest->keyword, value6.c_str(), sizeof(value6) + 12);
+        strKeyword = string(doc["BODY"]["keyword"].as_string());
+		strncpy(a_tracerequest->keyword, strKeyword.c_str(), sizeof(strKeyword) + 12);
         cout << "[BODY][keyword]    :" << "[" << a_tracerequest->keyword << "]" << endl;
 
-        int value7 = doc["BODY"]["run_mode"].as_int();
-		a_tracerequest->run_mode = value7;
+        nRunMode = doc["BODY"]["run_mode"].as_int();
+		a_tracerequest->run_mode = nRunMode;
         cout << "[BODY][run_mode]    :" << "[" << a_tracerequest->run_mode << "]" << endl;
 
-        string value8 = string(doc["BODY"]["user_id"].as_string());
-		strncpy(a_tracerequest->user_id, value8.c_str(), sizeof(value8));
+        strUserId = string(doc["BODY"]["user_id"].as_string());
+		strncpy(a_tracerequest->user_id, strUserId.c_str(), strUserId.length());
         cout << "[BODY][user_id]    :" << "[" << a_tracerequest->user_id << "]" << endl;
 
-        string value9 = string(doc["BODY"]["start_date"].as_string());
-		strncpy(imsi, value9.c_str(), sizeof(value9) + 6);
+        strStartDate = string(doc["BODY"]["start_date"].as_string());
+		strncpy(imsi, strStartDate.c_str(), sizeof(strStartDate) + 6);
 		strncpy(a_tracerequest->start_date, space_remove(imsi), sizeof(imsi));
         cout << "[BODY][start_date]    :" << "[" << a_tracerequest->start_date << "]" << endl;
 
         if(nOnOff == 1)
         {
-            string end_date = string(doc["BODY"]["end_date"].as_string());
-	    	strncpy(imsi, end_date.c_str(), sizeof(end_date) + 6);
+            strEndDate = string(doc["BODY"]["end_date"].as_string());
+	    	strncpy(imsi, strEndDate.c_str(), sizeof(strEndDate) + 6);
 		    strncpy(a_tracerequest->end_date, space_remove(imsi), sizeof(imsi));
             cout << "[BODY][end_date]    :" << "[" << a_tracerequest->end_date << "]" << endl;
         }
-/*        cout << "---- PROC_NO" << endl;
-        int value11 = doc["BODY"]["proc_no"].as_int();
-		a_tracerequest->proc_no = value11;
-        cout << "[BODY][proc_no]    :" << "[" << a_tracerequest->proc_no << "]" << endl;
 
-        cout << "---- CMD" << endl;
-        string value12 = string(doc["BODY"]["cmd"].as_string());
-		strncpy(a_tracerequest->cmd, value12.c_str(), sizeof(value12));
-        cout << "[BODY][cmd]    :" << "[" << a_tracerequest->cmd << "]" << endl;
-*/
     } catch(rabbit::type_mismatch   e) {
         cout << e.what() << endl;
         m_sock.Clear();
@@ -793,7 +783,9 @@ int CNMSession::GetRegistRouteInfo(ST_TRACE_ROUTE *a_traceroute)
 	
 	std::string					strTraceRoute;
 
+#ifdef TRM_DEBUG	
 	CheckRecvMsg();
+#endif
 
 	a_traceroute->sequence = m_sock.GetSequence();
 	strTraceRoute = m_sock.GetPayload();
@@ -862,6 +854,7 @@ int CNMSession::IsRequest()
 	return -1;
 }
 
+#ifdef TRM_DEBUG
 int CNMSession::CheckRecvMsg()
 {
 	g_pcLog->INFO("CNMSession CheckRecvMsg");
@@ -891,10 +884,20 @@ int CNMSession::CheckRecvMsg()
 
 	return TRM_OK;
 }
+#endif
 
 int CNMSession::Final()
 {
+    if(m_pDB != NULL)
+    {
+        delete m_pDB;   
+        m_pDB = NULL;   
+    }
+
 	m_sock.Close();
+
+	delete g_pcLog;
+	g_pcLog = NULL;
 
 	return TRM_OK;
 }

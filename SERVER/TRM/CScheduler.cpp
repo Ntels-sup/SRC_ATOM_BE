@@ -29,7 +29,7 @@ CScheduler::CScheduler()
 
 	if(Initial() != TRM_OK)
 	{
-		g_pcLog->INFO("CScheduler Initialize error");
+		g_pcLog->ERROR("CScheduler Initialize error");
 		m_nStartFlag = TRM_NOK;
 	}
 }
@@ -51,7 +51,7 @@ int CScheduler::Initial()
     m_pDB = new (std::nothrow) MariaDB();
     if(m_pDB == NULL)
     {
-        g_pcLog->INFO("new operator Fail [%d:%s]", errno, strerror(errno));
+        g_pcLog->ERROR("New operator Error [%d:%s]", errno, strerror(errno));
         return TRM_NOK;
     }
 
@@ -65,7 +65,7 @@ int CScheduler::Initial()
 
 	if(nDbRet < 0)
     {
-        g_pcLog->INFO("Connect Fail [%d:%s]", nDbRet, m_pDB->GetErrorMsg(nDbRet));
+        g_pcLog->ERROR("Connection Fail [%d:%s]", nDbRet, m_pDB->GetErrorMsg(nDbRet));
         return TRM_NOK;
     }
 
@@ -74,20 +74,20 @@ int CScheduler::Initial()
 	// TAT_TRC_ROUTE init
     if(m_TraceRoute.Init(m_pDB) != TRM_OK)
     {
-        g_pcLog->INFO("CTraceRoute - Init fail\n");
+        g_pcLog->ERROR("CTraceRoute - Init fail\n");
         return TRM_NOK;
     }
 
 	// TAT_TRC_HIST init
     if(m_TraceHist.Init(m_pDB) != TRM_OK)
     {
-        g_pcLog->INFO("CTraceHist - Init fail\n");
+        g_pcLog->ERROR("CTraceHist - Init fail\n");
         return TRM_NOK;
     }
 
     if(m_Process.Init(m_pDB) != TRM_OK)
     {
-        g_pcLog->INFO("CProcess - Init fail\n");
+        g_pcLog->ERROR("CProcess - Init fail\n");
         return TRM_NOK;
     }
 
@@ -98,7 +98,7 @@ int CScheduler::Initial()
 							  (char *)g_pcCFG.LOG.m_strWsmName.c_str(), 
 							  m_stcoworkinfo) == TRM_NOK)
     {
-        g_pcLog->INFO("CScheduler LoadCoworkNo Error");
+        g_pcLog->ERROR("CScheduler LoadCoworkNo Error");
         return TRM_NOK;
     }
         g_pcLog->INFO("Pkg_Name : %s, Node_Type : %s, Node_No : %d, Proc_No(NM) : %d, Proc_No(TRM) : %d, Proc_No(WSM) : %d"
@@ -123,7 +123,7 @@ int CScheduler::Run()
 
 	if(LoadTraceInfo() == TRM_NOK)
 	{
-		g_pcLog->INFO("CScheduler LoadTraceInfo Error");
+		g_pcLog->ERROR("CScheduler LoadTraceInfo Error");
 		return false;
 	}
 
@@ -176,25 +176,25 @@ void CScheduler::SetTraceResponse(char * a_strCurrent_date)
 
 int CScheduler::ReceiveData(ST_COWORK_INFO a_stcoworkinfo)
 {
-	CATMTime nowT;
-	char strCurrent_date[TRM_GROUP_START_DATE_SIZE + 1] = "";
-	char strTemp_date[TRM_GROUP_START_DATE_SIZE + 1] = "";
-	char strExpire_date[TRM_GROUP_START_DATE_SIZE + 1] = "";
-	unsigned int  nElaspsed = 0;
-	unsigned int  nTraceTimeOut = 0;
-	int  nRecvFlag = 0;
-	int  nCommand = 0;
-	int  nTimeoutFlag = 0;
+	CATMTime 		nowT;
+	char 			strCurrent_date[TRM_GROUP_START_DATE_SIZE + 1] = "";
+	char 			strTemp_date[TRM_GROUP_START_DATE_SIZE + 1] = "";
+	char 			strExpire_date[TRM_GROUP_START_DATE_SIZE + 1] = "";
+	unsigned int  	nElaspsed = 0;
+	unsigned int  	nTraceTimeOut = 0;
+	int  			nRecvFlag = 0;
+	int 			nCommand = 0;
+	int  			nTimeoutFlag = 0;
+
+    ST_COWORK_INFO  stcoworkinfo;
+    stcoworkinfo = 	a_stcoworkinfo;
 
 	nowT = time(NULL);
 
 // Receive Message
 	nRecvFlag = g_pcNM.RecvMsg();
 	nCommand = g_pcNM.IsRequest();
-    ST_COWORK_INFO          stcoworkinfo;
-    stcoworkinfo = a_stcoworkinfo;
 
-//	g_pcLog->INFO("nRecvFlag[%d], nCommand [%d]", nRecvFlag, nCommand);
 	switch(nRecvFlag)
 	{
 		case TRM_RECV_TRACE_ON:
@@ -202,7 +202,7 @@ int CScheduler::ReceiveData(ST_COWORK_INFO a_stcoworkinfo)
 			{
 				if(g_pcNM.GetRequestMsg(0, m_stTraceRequest) == TRM_NOK)
 				{       
-					g_pcLog->INFO("RecvRequestMsg : false");
+					g_pcLog->ERROR("RecvRequestMsg : false");
 					return TRM_NOK;
 				}
 				else
@@ -211,7 +211,7 @@ int CScheduler::ReceiveData(ST_COWORK_INFO a_stcoworkinfo)
 
 				    if(g_pcNM.SendRequestMsg(&stcoworkinfo, m_stTraceRequest) == TRM_NOK)
 				    {
-				        g_pcLog->INFO("SendRequestMsg, Error");
+				        g_pcLog->ERROR("SendRequestMsg, Error");
 				        return TRM_NOK;
 				    }
 					
@@ -221,31 +221,32 @@ int CScheduler::ReceiveData(ST_COWORK_INFO a_stcoworkinfo)
 						g_pcLog->INFO("CreateTraceFile Error[%x]", m_stTraceRequest);
 					}
 
-// 	Debug - Web 답변 처리 위한 
-//					if(g_pcNM.SendWSMResponseMg(&stcoworkinfo, m_stTraceRequest, 0, 1)  == TRM_NOK )
-//					{
-//					    g_pcLog->INFO("SendWSMResponseMsg Error");
-//					    return TRM_NOK;
-//					}
-
-					// Time Out 시간 60초 이후 Trace Off 발생시킴
+					// Time Out Check
 					sprintf(strTemp_date, "%s", nowT.AscTime("CCYYMMDDhhmmss"));
 				    g_pcLog->DEBUG("strCurrent_date : %s, strTemp_date : %s", strCurrent_date, strTemp_date);
 					sprintf(strExpire_date, "%s", nowT.AscTime("CCYYMMDDhhmmss"));
+#ifdef TRM_DEBUG
+					if(g_pcNM.SendWSMResponseMg(&stcoworkinfo, m_stTraceRequest, 0, 1)  == TRM_NOK )
+					{
+					    g_pcLog->INFO("SendWSMResponseMsg Error");
+					    return TRM_NOK;
+					}
 
+					goto trace_data_debug;					
+#endif	
 					while(1)
 					{
 						nowT.Now();
 		        		sprintf(strCurrent_date, "%s", nowT.AscTime("CCYYMMDDhhmmss"));
-						nElaspsed = atoi(strCurrent_date) - atoi(strTemp_date);		// no data
+						nElaspsed = atoi(strCurrent_date) - atoi(strTemp_date);
 						nTraceTimeOut = atoi(strCurrent_date) - atoi(strExpire_date);	// Auto Expire Time
 		
-						if(nElaspsed >= g_pcCFG.TRM.m_nTimeout || nTraceTimeOut >= g_pcCFG.TRM.m_nAutoExpireTime)		//60
+						if(nElaspsed >= g_pcCFG.TRM.m_nTimeout || nTraceTimeOut >= g_pcCFG.TRM.m_nAutoExpireTime)
 						{
 
 							nTimeoutFlag = 1;
 
-			            	g_pcLog->INFO("strCurrent_date : %s, strTemp_date : %s", strCurrent_date, strTemp_date);
+			            	g_pcLog->ERROR("strCurrent_date : %s, strTemp_date : %s", strCurrent_date, strTemp_date);
 							SetTraceResponse(strCurrent_date);
 		        		  	break;
 						}
@@ -265,7 +266,7 @@ int CScheduler::ReceiveData(ST_COWORK_INFO a_stcoworkinfo)
 					g_pcLog->INFO("SendResponseMsg False");
 					if(g_pcNM.SendWSMResponseMsg(&stcoworkinfo, m_stTraceResponse, 0, false)  == TRM_NOK )
 					{
-					    g_pcLog->INFO("SendWSMResponseMsg Error");
+					    g_pcLog->ERROR("SendWSMResponseMsg Error");
 					    return TRM_NOK;
 					}				    
 				}
@@ -274,7 +275,7 @@ int CScheduler::ReceiveData(ST_COWORK_INFO a_stcoworkinfo)
 					g_pcLog->INFO("SendResponseMsg True");
 				    if(g_pcNM.SendWSMResponseMsg(&stcoworkinfo, m_stTraceResponse, 0, true)  == TRM_NOK )	
 				    {
-				        g_pcLog->INFO("SendWSMResponseMsg Error");
+				        g_pcLog->ERROR("SendWSMResponseMsg Error");
 				        return TRM_NOK;
 				    }
 				}
@@ -292,9 +293,9 @@ int CScheduler::ReceiveData(ST_COWORK_INFO a_stcoworkinfo)
 			nTimeoutFlag = 0;
 			if(nCommand == 0)	// Request
 			{
-				if(g_pcNM.GetRequestMsg(1, m_stTraceRequest) == TRM_NOK)	// From WSM
+				if(g_pcNM.GetRequestMsg(1, m_stTraceRequest) == TRM_NOK)
 				{       
-					g_pcLog->INFO("RecvRequestMsg : false");
+					g_pcLog->ERROR("RecvRequestMsg : false");
 					return TRM_NOK;
 				}
 				else
@@ -303,17 +304,19 @@ int CScheduler::ReceiveData(ST_COWORK_INFO a_stcoworkinfo)
 
 					if(g_pcNM.SendRequestMsg(m_stcoworkinfo, m_stTraceRequest)  == TRM_NOK)
 					{	
-			        	g_pcLog->INFO("SendRequestMsg, Error");
+			        	g_pcLog->ERROR("SendRequestMsg, Error");
 						return TRM_NOK;
 					}
 				}
 
+#ifdef TRM_DEBUG
 // 	Debug - Web 답변 처리 위한 
-//				if(g_pcNM.SendWSMResponseMg(&stcoworkinfo, m_stTraceRequest, 1, 1)  == TRM_NOK )
-//				{
-//				    g_pcLog->INFO("SendWSMResponseMsg Error");
-//				    return TRM_NOK;
-//				}
+				if(g_pcNM.SendWSMResponseMg(&stcoworkinfo, m_stTraceRequest, 1, 1)  == TRM_NOK )
+				{
+				    g_pcLog->ERROR("SendWSMResponseMsg Error");
+				    return TRM_NOK;
+				}
+#endif
 			}
 			else if(nCommand == 1) // Response
 			{
@@ -323,7 +326,7 @@ GoTo_TimeOut:
 					g_pcLog->INFO("RecvResponseOffMsg : false");
 					if(g_pcNM.SendWSMResponseMsg(&stcoworkinfo, m_stTraceResponse, 1, false)  == TRM_NOK )
 					{
-					    g_pcLog->INFO("SendWSMResponseMsg Error");
+					    g_pcLog->ERROR("SendWSMResponseMsg Error");
 					}				    
 					return TRM_NOK;
 
@@ -334,7 +337,7 @@ GoTo_TimeOut:
 					g_pcLog->INFO("SetTraceOffHist m_stTraceResponse [%x]", m_stTraceResponse);
 					if(g_pcNM.SendWSMResponseMsg(&stcoworkinfo, m_stTraceResponse, 1, true)  == TRM_NOK )
 					{
-					    g_pcLog->INFO("SendWSMResponseMsg Error");
+					    g_pcLog->ERROR("SendWSMResponseMsg Error");
 					}				    
 				}
 
@@ -346,18 +349,23 @@ GoTo_TimeOut:
 			}	
 			break;
 		case TRM_RECV_TRACE_DATA:
-//trace_data_debug:
+#ifdef TRM_DEBUG
+trace_data_debug:
+#endif
 			//Recv Data는 Response
 			nTimeoutFlag = 1;
 			sprintf(strTemp_date, "%s", nowT.AscTime("CCYYMMDDhhmmss"));
 
+#ifdef TRM_DEBUG
+			if(g_pcNM.TestWebGetTraceData(m_stTraceRequest->oper_no, 
+						m_stTraceRequest->start_date, 
+						strTemp_date, 
+						m_stTraceResponse)== TRM_NOK)
+#else
 			if(g_pcNM.GetTraceData(m_stTraceResponse) == TRM_NOK)
-//			if(g_pcNM.TestWebGetTraceData(m_stTraceRequest->oper_no, 
-//						m_stTraceRequest->start_date, 
-//						strTemp_date, 
-//						m_stTraceResponse)== TRM_NOK)
+#endif
 			{
-				g_pcLog->INFO("RecvResponseOffMsg : false");
+				g_pcLog->ERROR("RecvResponseOffMsg : false");
 				return TRM_NOK;
 			}
 			else
@@ -365,7 +373,7 @@ GoTo_TimeOut:
 				g_pcLog->INFO("SendResponseMsg True");
 				if(g_pcNM.SendWSMResponseMsg(&stcoworkinfo, m_stTraceResponse, 2, true)  == TRM_NOK )	
 				{
-				   g_pcLog->INFO("SendWSMResponseMsg Error");
+				   g_pcLog->ERROR("SendWSMResponseMsg Error");
 				   return TRM_NOK;
 				}
                 WriteTraceFile(m_stTraceResponse);
@@ -389,7 +397,7 @@ GoTo_TimeOut:
 		case TRM_RECV_REGIST_ROUTE:
 			if(g_pcNM.GetRegistRouteInfo(m_stTraceRoute) == TRM_NOK)
 			{
-				g_pcLog->INFO("GetRegistRouteInfo : false");
+				g_pcLog->ERROR("GetRegistRouteInfo : false");
 				return TRM_NOK;
 			}
 			else
@@ -435,7 +443,7 @@ int CScheduler::CreateTraceFile(ST_TRACE_REQUEST *a_tracerequest)
     FILE* fp = fopen(strFileName, "a");
     if(!fp)
     {
-        g_pcLog->INFO("Can not Open File [%s]", strFileName);
+        g_pcLog->ERROR("Can not Open File [%s]", strFileName);
     }
 
 	SetTraceHist(strFileName, m_stTraceRequest);
@@ -468,7 +476,7 @@ int CScheduler::WriteTraceFile(ST_TRACE_RESPONSE *a_traceresponse)
 	FILE* fp = fopen(strFileName, "a");
 	if(!fp)
 	{
-		g_pcLog->INFO("Can not Open File [%s]", strFileName);
+		g_pcLog->ERROR("Can not Open File [%s]", strFileName);
 	}
 
     fseek(fp, 0, SEEK_END);
@@ -481,30 +489,35 @@ int CScheduler::WriteTraceFile(ST_TRACE_RESPONSE *a_traceresponse)
 int CScheduler::CheckCurrentTime()
 {
 	CATMTime nowT;
-//    char strCurrent_date[TRM_GROUP_START_DATE_SIZE + 1] = "";
-//    char strTemp_date[TRM_GROUP_START_DATE_SIZE + 1] = "";
-//	int  nElaspsed = 0;
-
+#ifdef TRM_DEBUG
+    char strCurrent_date[TRM_GROUP_START_DATE_SIZE + 1] = "";
+    char strTemp_date[TRM_GROUP_START_DATE_SIZE + 1] = "";
+	int  nElaspsed = 0;
+#endif
     ST_COWORK_INFO         stcoworkinfo;
     stcoworkinfo =  *m_stcoworkinfo;
 
 	nowT = time(NULL);
 	
-//	sprintf(strTemp_date, "%s", nowT.AscTime("CCYYMMDDhhmmss"));
+#ifdef TRM_DEBUG
+	sprintf(strTemp_date, "%s", nowT.AscTime("CCYYMMDDhhmmss"));
+#endif
 
 	while(1)	
 	{
 		// Check Current Time For Debug
 		nowT.Now();
-		
-//		sprintf(strCurrent_date, "%s", nowT.AscTime("CCYYMMDDhhmmss"));
+	
+#ifdef TRM_DEBUG
+		sprintf(strCurrent_date, "%s", nowT.AscTime("CCYYMMDDhhmmss"));
 
-//		if(nElaspsed >= 60)	//60 Sec
-//		{
-//			g_pcLog->INFO("strCurrent_date : %s, strTemp_date : %s", strCurrent_date, strTemp_date);
-//            sprintf(strTemp_date, "%s", nowT.AscTime("CCYYMMDDhhmmss"));
-//            nElaspsed = 0;
-//		}
+		if(nElaspsed >= 60)	//60 Sec
+		{
+			g_pcLog->INFO("strCurrent_date : %s, strTemp_date : %s", strCurrent_date, strTemp_date);
+            sprintf(strTemp_date, "%s", nowT.AscTime("CCYYMMDDhhmmss"));
+            nElaspsed = 0;
+		}
+#endif
 
 		if(ReceiveData(stcoworkinfo) == TRM_RECV_ERROR)
 		{
@@ -524,7 +537,7 @@ int CScheduler::LoadTraceInfo()
 	m_nTraceRouteCount = m_TraceRoute.LoadRouteInfo(m_stTraceRoute);
 	if(m_nTraceRouteCount < 0)
 	{
-		g_pcLog->INFO("LoadRouteInfo Error");
+		g_pcLog->ERROR("LoadRouteInfo Error");
 		return TRM_NOK;
 	}
 	else
@@ -536,7 +549,7 @@ int CScheduler::LoadTraceInfo()
 
 			if(LoadProcessInfo(i) == TRM_NOK)
 			{
-				g_pcLog->INFO("LoadProcInfo Error");
+				g_pcLog->ERROR("LoadProcInfo Error");
 				return TRM_NOK;
 			}
 		}

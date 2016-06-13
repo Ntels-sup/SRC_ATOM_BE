@@ -504,7 +504,15 @@ int CNodeInfo::SendProcess(CSessionInfo *cSession)
 
         cResReqApi.Init(cSession->GetSessionId(), curTm);
 
+		/* debug */
+		int size= 0;
+		string test;
+		size = lstGrpIdList->size();
+		/*---------*/
         for(iter = lstGrpIdList->begin();iter != lstGrpIdList->end();iter++){
+			/* debug */
+			test = *iter;
+			/*-------*/
             cResReqApi.InsertRscGrpId(*iter);
         }
 

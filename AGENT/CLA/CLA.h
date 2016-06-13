@@ -16,10 +16,13 @@
 #define CMD_DEST_LEN 18
 
 #define CLA_ERR 1
-#define CLA_LOG(_LVL,...){\
+#define CLA_LOG(_LVL,_DISP_FLG,...){\
 	CGlobal *d_inst = NULL;\
 	d_inst = CGlobal::GetInstance();\
 	d_inst->GetLogP()->ERROR(__VA_ARGS__);\
+	if((_DISP_FLG) == true){\
+		fprintf(stderr,__VA_ARGS__);\
+	}\
 }
 
 #endif

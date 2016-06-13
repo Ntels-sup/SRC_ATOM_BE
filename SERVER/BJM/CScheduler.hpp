@@ -55,6 +55,9 @@ private:
 	int				m_nDBInitFlag;
 	int				m_nInitInfoFlag;
 
+    char            m_lastScheduleDate_[BJM_MAX_BATCH_JOB][APPLY_DATE_SIZE + 1] ;
+    char            nextScheduleDate_[BJM_MAX_BATCH_JOB][APPLY_DATE_SIZE + 1] ;
+
 	vector<ST_BatchGroup *> 	m_vBatchGroup;
 	vector<ST_BatchJob *>  		m_vBatchJob;
 	vector<ST_PROCESS *>		m_vProcess;
@@ -63,23 +66,21 @@ private:
 	vector<ST_BatchFlow *>		m_vNextFlow;		// for Next job
 	vector<ST_MULTI_JOB_FLOW *>	m_vMultiFlow;		// multi job
 
-    char            m_lastScheduleDate_[BJM_MAX_BATCH_JOB][APPLY_DATE_SIZE + 1] ;
-    char            nextScheduleDate_[BJM_MAX_BATCH_JOB][APPLY_DATE_SIZE + 1] ;
-
     void 			SetNextScheduleMinute       (int a_nCount) ;
     void 			SetNextScheduleHour         (int a_nCount) ;
     void 			SetNextScheduleDay          (int a_nCount) ;
     void 			SetNextScheduleWeek         (int a_nCount) ;
     void 			SetNextScheduleMonth        (int a_nCount) ;
     void 			SetNextScheduleMonthLast    (int a_nCount) ;
+	void 			RunSchedule					(char *a_strCurrent_date);
+	void 			CheckNextDate(int a_nJobCount, int a_nGroupCount);
+	void			FindNextJobInfo				(char * a_strJobName);
 
 	int				ReceiveData					(ST_COWORK_INFO a_stcoworkinfo);
 	int				SearchBatchJob				(ST_BatchRequest *a_stBatchrequest);
 	int 			SearchNextJob				(ST_BatchResponse *a_stBatchresponse);
-	void			FindNextJobInfo				(char * a_strJobName);
 	int				FindGroupInfo				(char * a_strJobName, char * a_strGroupName);
 	int		 		CheckMultiJob				(char * a_strGroupName, char * a_strJobName, int a_nExitCd);
-	void 			RunSchedule					(char *a_strCurrent_date);
 	int 			ExcuteJobInfo				(int a_nGrpCnt, int a_wsm);
 
 public:
@@ -90,6 +91,7 @@ public:
     int             Run    () ;
     int             SetNextSchedule(ST_BatchGroup *a_stBatchGroupInfo, char *a_nextExecDate, int a_nCount) ;
 	int 			SetBatchHist(ST_BatchJob *a_stBatchJobInfo, ST_PROCESS *a_stProcess, int a_count, int a_nWsmflag = 0);
+	int 			CheckCondition(char * a_strJobName, int a_nExitCd);
 
     char 			*GetPkgName ()             { return m_batchGroupInfo_->pkg_name ; }
     char 			*GetGroupName ()           { return m_batchGroupInfo_->group_name ; }

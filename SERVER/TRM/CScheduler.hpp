@@ -17,7 +17,7 @@ class CScheduler
 private:
 	DB * 					m_pDB;
 
-	CTraceRoute	    		m_TraceRoute;	// Trace Route info
+	CTraceRoute	    		m_TraceRoute;
 	CTraceHist				m_TraceHist;
 	CProcess 				m_Process;		
 

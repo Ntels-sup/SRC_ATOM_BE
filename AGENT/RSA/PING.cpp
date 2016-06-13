@@ -68,7 +68,9 @@ int PING::Initialize(CFileLog *a_pclsLog, RESOURCE *a_pRsc, void *a_pclsMain)
 		}
 */
 		// ALWAYS SELECT EDIT _ cjr 20160610
-		it->second->pData = (void*)new PING_VALUE;
+		if(it->second->pData == NULL)
+			it->second->pData = (void*)new PING_VALUE;
+
 		pstPingData = (PING_VALUE*)it->second->pData;
 		pstPingData->vecPeerInfo.erase(pstPingData->vecPeerInfo.begin(), pstPingData->vecPeerInfo.end() );
 		GetPeerInfo(pstPingData->vecPeerInfo);
