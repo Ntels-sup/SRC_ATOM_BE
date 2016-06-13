@@ -1,0 +1,1 @@
+~/BIN/ATOM_NA -c /UDBS/ATOM/CFG/ATOM.cfg -u uuid-atom -d /UDBS/ATOM/SRC_ATOM_BE/AGENT/RSA -m ATOM_NA_RSA.so

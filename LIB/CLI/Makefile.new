@@ -1,0 +1,53 @@
+.SUFFIXEDS	: .c .o
+
+#HP-UX
+#CC			= cc
+
+#LINUX
+CC			= g++
+
+AR			= ar
+
+INC_POS     = ../../include
+INC         = -I$(INC_POS) -I../../include
+
+
+LIBS		= $(SYS_LIB) $(USR_LIB)
+
+OPT         = #-DRLYLIB_LOG
+
+CFLAGS		= -Wall -g -m64 $(OPT) $(DFLAG) $(WFLAG) $(INC) $(LIBS)
+#CFLAGS		= -Wall -g -m64 -O2 -finline-functions $(OPT) $(DFLAG) $(WFLAG) $(INC) $(LIBS)
+
+SRCS		= cli_arg.c\
+			  cli_cmd.c\
+			  cli_doc.c\
+			  cli_main.c\
+			  cli_parse.c\
+			  cli_pkg.c\
+			  cli_rl.c\
+			  lnkLst_dbl.c\
+
+
+OBJS		= $(SRCS:.c=.o)
+
+TARGET_BASE = ../..
+
+TARGET		= libatomcli.a
+TARGET_DIR	= $(TARGET_BASE)/lib/
+
+$(TARGET)	: $(OBJS)
+	$(AR) rcv $@ $(OBJS)
+	cp $(TARGET) $(TARGET_DIR)
+
+all			: clean $(TARGET)
+
+clean		:
+	rm -rf $(OBJS) $(TARGET) core
+
+dep 		:
+	makedepend -- $(CFLAGS) -- $(SRCS)
+
+new			:
+	$(MAKE) clean
+	$(MAKE)

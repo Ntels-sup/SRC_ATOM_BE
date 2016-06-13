@@ -1,0 +1,3 @@
+export ATOM_NODENO=25
+export ATOM_PROCNO=50
+./test_send vOFCS TEST AP vOFCS-AP-25 TEST01

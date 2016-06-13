@@ -1,0 +1,30 @@
+#
+# ATOM Node Agent
+#
+include ../../Makefile.inc
+
+CXXFLAGS += -g #-DHEHE_HOHO
+
+
+INC_PATH += -I$(ATOM_SRC_HOME)/AGENT/API/INCLUDE
+
+LIB_PATH += -L$(ATOM_SRC_HOME)/AGENT/API/LIB
+
+LIBS     += -latomstmapi -latomstaapi -latomlog -latomprotocol
+
+TARGET = ATOM_STA
+
+OBJS = CGlobal.o \
+		CAppInfo.o\
+		CEmsInfo.o\
+		CMain.o\
+		CSessionInfo.o\
+		CStsValue.o\
+		CStsValueList.o\
+		CTableInfo.o \
+		CTableList.o \
+
+all :: $(TARGET)
+
+$(TARGET) : $(OBJS)
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(INC_PATH) $(LIB_PATH) $(LIBS)

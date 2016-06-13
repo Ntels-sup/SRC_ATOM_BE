@@ -1,0 +1,12 @@
+{
+  "BODY": {
+    "oper_no" : 10111111,
+    "trace" : "on",
+    "run_mode" : 1,
+    "status" : "process",
+    "start_date" : "20160512201237",
+    "end_date" : "20160530160045",
+    "success" : true,
+    "msg" : "~~~~~~~~~~~~~~~~~~~~~~~~~~~fdsfasdfdsfdsaffsafdfaffasfdas~~~~~~~~~~~~~~~~~~~~"
+   }
+}

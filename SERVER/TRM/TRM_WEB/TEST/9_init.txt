@@ -1,0 +1,6 @@
+{
+   "BODY": {
+     "action": "INIT",
+     "loglevel": 3
+    }
+}

@@ -1,0 +1,16 @@
+{
+  "BODY": {
+    "oper_no" : 10,
+    "pkg_name" : "vOFCS",
+    "node_no" : 36,
+    "node_type" : "AP",
+    "trace" : "off",
+    "protocol" : 1,
+    "search_mode" : 1,
+    "keyword" : "821012231123",
+    "run_mode" : 2,
+    "user_id" : "abc123",
+    "start_date" : "20160430160045",
+    "end_date" : "20160430160045"
+  }
+}

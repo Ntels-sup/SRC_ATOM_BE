@@ -1,0 +1,13 @@
+    {
+        "BODY" : {
+            "message"     : "node status change",
+            "pkg_name"    : "vOFCS",
+            "node_no"     : 2,
+            "node_name"   : "AP1",
+            "node_version": "OFCS1.2",
+            "node_type"   : "AP",
+            "node_status" : "SCALE-OUT",
+            "prc_date"    : "2016-04-21 19:20:17.21",
+            "dst_yn"      : "N"
+        }
+    }

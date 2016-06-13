@@ -1,0 +1,80 @@
+1. ALA -> ALM 알람 전송
+
+ 1-1. ALA -> ALM SEQUENCE 확인 시험
+    
+	1-1-1. 경계값 전송 후, 0 전송하여 문제 없음을 확인
+	1-1-2. 경계값 전송 후, 1 전송하여 문제 발생을 확인
+	
+		1-1-2-1. 문제 발생 시, 재전송을 ALA 에게 요청하는지 확인
+
+		1-1-2-2. 현재 처리중인 알람은 TAT_ALM_STATUS 나, TAT_ALM_HIST 에 반영하지 않고 버리는지 확인
+		
+		
+
+ 1-2. 신규 알람 발생 CASE 확인
+ 
+    # TAT_ALM_STATUS 에 INSERT 확인
+    # TAT_ALM_HIST 에 INSERT 확인
+
+    # WSM 으로 전송 시도 확인
+    # SMS 체크 루틴 타는지 확인
+    # Email  체크 루틴 타는지 확인
+    # SNMP 체크 루틴 타는지 확인
+
+ 1-3. 중복 알람 발생 CASE 확인
+
+   1-3-1. 중복 알람 방지 Flag = ON 일 때,
+    # 중복 발생 로그 확인
+	
+	1-3-1-1. ALA 로, 중복 알람 방지 메시지 전송 여부 확인
+	
+   1-3-2. 중복 알람 방지 Flag = OFF 일 때,
+    # TAT_ALM_HIST 에 INSERT 되는지 확인 , 특히 ASSOCIATED_MSG_ID 값 확인
+	# TAT_ALM_STATUS 에 변동 없는지 확인
+	
+ 1-4. 동일 알람이나, SEVERITY 값이 다른 CASE 확인
+ 
+   # 이전 TAT_ALM_STATUS 의 CONFIRM 값이 승계되는지 여부 확인
+   # TAT_ALM_STATUS 에 신규 값으로 변경되었는지 여부 확인
+   # TAT_ALM_HIST 에 INSERT 확인
+   # 이전에 존재하는 TAT_ALM_HIST 의 ASSOCIATE_MSG_ID 값이 신규 알람으로 변경되었는지 여부 확인
+    
+ 1-5. 동일 알람이나, CLEARED 인 CASE 확인
+ 
+   # TAT_ALM_STATUS 에 DELETE 되었는지 여부 확인
+   # TAT_ALM_HIST 에 INSERT 되었는지 확인
+   # TAT_ALM_HIST 에 기존 발생 ASSOCIATE MSG 들에 대하여 CLEARE_MSG_ID 와 CLEAR 시각이 변경되었는지 여부 확인
+ 
+ 1-6. USER 가 알람을 CLEAR 한 CASE 확인
+ 
+   # USER 가 CLEAR 한 알람을 수신하여, TAT_ALM_HIST 에 INSERT 되었는지 확인
+   # TAT_ALM_STATUS 에 알람이 삭제되었음을 확인
+   
+ 1-7. USER 가 알람 등급을 변경한 CASE 확인
+ 
+   # USER 가 변경한 알람을 수신하여, TAT_ALM_HIST 에 INSERT 되었는지 확인
+   # TAT_ALM_STATUS 에 알람 등급이 변경되었음을 확인 ( 다른 메시지로 변신 )
+   
+   # WSM 으로 전송 시도 확인
+   # SMS 체크 루틴 타는지 확인
+   # Email  체크 루틴 타는지 확인
+   # SNMP 체크 루틴 타는지 확인
+ 
+ 1-8. RSA 의 TCA 확인 후, 알람 발생 CASE 확인
+ 
+   # TAT_ALM_STATUS 에 INSERT 확인
+   # TAT_ALM_HIST 에 INSERT 확인
+   
+   # WSM 으로 전송 시도 확인
+
+ 1-9. CODE_DEF 의 YN 값에 따른 시도 여부 확인
+ 
+   # 알람 발생 시, 해당 알람이 SMS YN 에 따라, 루틴을 타는지 여부 확인
+   # 알람 발생 시, 해당 알람이 EMAIL YN 에 따라, 루틴을 타는지 여부 확인
+   # 알람 발생 시, 해당 알람이 SNMP YN 에 따라, 루틴을 타는지 여부 확인
+ 
+ 1-10. 프로세스 종료 Alarm 에 따른, 처리 상태 확인
+ 
+ 
+   
+	

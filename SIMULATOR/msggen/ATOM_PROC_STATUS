@@ -1,0 +1,26 @@
+#/HEAD=command,flag,srcnode,srcproc,dstnode,dstproc
+#     - flag : REQUEST, NOTIFY
+#/BODY=
+#/{
+#/    "BODY" : {
+#/        ....,
+#/        ....
+#/    }
+#/}
+
+# message 1, empty BODY
+/HEAD=9,NOTIFY,1,8,1,46
+/BODY=
+/{
+/   "BODY": {
+/      "worst_status": "SUSPEND",
+/      "process_status": [
+/           {"procno": 8, "procname": "NM"},
+/           {"procno": 10, "procname": "BJM"},
+/           {"procno": 11, "procname": "TRM"},
+/           {"procno": 12, "procname": "ALM"},
+/           {"procno": 13, "procname": "STM"},
+/           {"procno": 46, "procname": "WSM"}
+/      ]
+/   }
+/}

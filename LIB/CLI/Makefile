@@ -1,0 +1,29 @@
+include ../../Makefile.inc
+
+CFLAGS = -std=gnu99 -m64 -Wall -DATOM_DEVELOPMENT -g
+CXXFLAGS += -g 
+
+TARGET = libatomcli.a
+
+OBJS	= cli_arg.o\
+		  cli_cmd.o\
+		  cli_doc.o\
+		  cli_main.o\
+		  cli_glob.o\
+		  cli_parse.o\
+		  cli_pkg.o\
+		  cli_rl.o\
+		  lnkLst_dbl.o\
+
+all:: library
+	
+library: $(OBJS)
+	ar rc $(TARGET) $(OBJS)
+
+install::
+	cp $(TARGET) ..
+	cp cli.h lnkLst.h ../../INCLUDE
+
+clean::
+	rm -f *.o
+	rm -f $(TARGET)

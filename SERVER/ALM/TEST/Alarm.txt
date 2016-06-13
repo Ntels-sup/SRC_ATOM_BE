@@ -1,0 +1,21 @@
+    {
+        "BODY" : {
+            "node_seq_id" : 13,
+            "node_no"     : 2,
+            "proc_no"     : 15,
+            "severity_id" : 2,
+            "pkg_name"    : "vOFCS",
+            "code"        : "90300102",
+            "alias_code"  : "90300102",
+            "probable_cause" : "ALRM-DISK_OVER",
+            "additional_text" : "By jhchoi",
+            "location"    : "/ATOM/RSA",
+            "target"      : "/home",
+            "complement"  : "",
+            "value"       : "88.5",
+            "node_version": "1.0",
+            "node_type"   : "LB",
+            "prc_date"    : "2016-04-19 19:52:27.91",
+            "dst_yn"      : "N"
+        }
+    }

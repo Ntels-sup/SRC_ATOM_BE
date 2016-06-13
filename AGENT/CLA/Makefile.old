@@ -1,0 +1,36 @@
+#
+## ATOM Node Agent
+#
+include ../../Makefile.inc
+
+CXXFLAGS += -g
+CXXFLAGS += -DNM_DEBUG
+
+INC_PATH += -I$(MYSQL_INC)
+LIB_PATH += -L$(MYSQL_LIB)
+
+LIBS     += -lpthread
+LIBS     += -latomsocket
+LIBS     += -latomlog
+LIBS     += -latomcliapi
+LIBS     += -lmysqlclient
+LIBS     += -latomdb
+LIBS     += -latomthread
+
+TARGET = ATOM_CLA
+
+OBJS    =   CMain.o\
+			CGlobal.o\
+			CCliRoute.o\
+			CConfig.o\
+			CCliRoute.o\
+			CCliPeer.o\
+			CSession.o\
+
+all :: $(TARGET)
+
+$(TARGET) : $(OBJS)
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(INC_PATH) $(LIB_PATH) $(LIBS)
+
+install::
+#cp $(TARGET) $(ATOM_INSTALL_PATH)

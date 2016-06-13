@@ -1,0 +1,6 @@
+{
+   "BODY": {
+     "action": "STOP",
+     "loglevel": 3
+    }
+}

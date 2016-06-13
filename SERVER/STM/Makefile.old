@@ -1,0 +1,64 @@
+##################################################################################################
+# Makefile
+# # - Aimed to 4.3.0.0 for Integrated CGW PFNM P.cppkage
+# # - Modified by JHL. Orignally written by GYKIM.
+# # - Si.cppe 2015.02.09
+# #
+# # DB_TYPE, USE_XML is defined in $(NMD_DEV_PATH)/BUILD/NMD_Makehead.mk
+# # If DB_TYPE is MYSQL, Binary will be.cppompiled in MYSQL environment.
+# # Just type 'make'. No long need to type 'make mysql', 'xml_mysql', 'or.cpple' for e.cpph DB settings.
+# ##################################################################################################
+#i.cpplude $(NMD_PFM_PATH)/BUILD/makehead
+#i.cpplude $(NMD_DEV_PATH)/BUILD/NMD_Makehead.mk
+
+CC = g++ 
+DB_TYPE = MYSQL
+MYSQL_HOME = /MYSQL/mysql-5.6.24
+#DEFINES		+= -D_PFM_MGMT_DEBUG -DPFM_CM_DEBUG
+IFLAGS		+= -I../../INCLUDE #-I$(ALIVE_INC_PATH) -I$(COPEN_INC_PATH)
+LFLAGS		+= -L../../LIB -latomstmapi -latomregapi -latomdb -latomsocket -latomlog -latomtimer #-L$(NMD_LIB_PATH) -lalive -.cppopen
+MYSQL_IFLAGS    = -I$(MYSQL_HOME)/include
+MYSQL_LFLAGS    = -L$(MYSQL_HOME)/lib -lmysqlclient_r -lz
+CFLAGS = -Wall -g 
+
+TARGET		 = STM 
+#OBJS		 = CColumnInfo.o \
+#			CTableInfo.o \
+#			CSessionInfo.o \
+#			CNodeInfo.o \
+#			CP.cppkageInfo.o \
+#			CMain.o \
+
+SRCS		= CGlobal.cpp \
+			CColumnInfo.cpp \
+			CTableInfo.cpp \
+			CSessionInfo.cpp \
+			CNodeInfo.cpp \
+			CPackageInfo.cpp \
+			CConfig.cpp \
+			CTCAInfo.cpp \
+			CTCARule.cpp \
+			CMain.cpp \
+
+OBJS = $(SRCS:.cpp=.o)
+
+ifeq ($(DB_TYPE), MYSQL)
+	IFLAGS  += $(MYSQL_IFLAGS)
+	LFLAGS  += $(MYSQL_LFLAGS)
+#	LFLAGS  += $(MYSQL_LIB)
+endif
+
+all : $(TARGET)
+
+.cpp.o:
+	$(CC) $(CFLAGS) $(IFLAGS) -c $<;
+
+
+$(TARGET) : $(OBJS)
+	$(CC) -o $(TARGET) $(OBJS) $(DB_OBJ) $(LFLAGS)
+
+clean :
+	$(RM) -f $(OBJS) $(TARGET)
+
+install :
+	$(CP) -rf $(TARGET) 

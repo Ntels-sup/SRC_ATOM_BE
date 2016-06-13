@@ -1,0 +1,249 @@
+./BOND.cpp:		m_pclsLog->INFO("Name : %s, Args : %s, Idx : %d", 
+./BOND.cpp:		m_pclsLog->ERROR("slave fopen(%s) (%s) error (%d)", szFileName, a_pszIF, errno);
+./BOND.cpp:		m_pclsLog->ERROR("active-slave fopen(%s) (%s) error (%d)", szFileName, a_pszIF, errno);
+./BOND.cpp:				m_pclsLog->WARNING("ioctl(SIOCGIFHWADDR) error");
+./BOND.cpp:				m_pclsLog->WARNING("ioctl(SIOCGIFFLAGS) error");
+./BOND.cpp:				m_pclsLog->DEBUG("iface(%s) = loopback", pidx->if_name);
+./BOND.cpp:				m_pclsLog->DEBUG("iface(%s) = !bcast, !mcast", pidx->if_name);
+./BOND.cpp:		m_pclsLog->DEBUG("BOND(%s) Status %s, Slaves %s, Active Slaves %s"
+./CPU.cpp:		m_pclsLog->INFO("Name : %s, Args : %s, Idx : %d", 
+./CPU.cpp:		m_pclsLog->ERROR("Fail to Init CPU Module");
+./CPU.cpp:		m_pclsLog->ERROR("Fail to DB Connect in DB Resource Checker");
+./CPU.cpp:		m_pclsLog->ERROR("Failed to DB Connect / host[%s], port[%s], user[%s], pw[%s], db[%s], [%d:%s]"
+./CPU.cpp:		m_pclsLog->ERROR("Fail to Init CPU Module");
+./CPU.cpp:		m_pclsLog->ERROR("Execute Fail [%d] [%s] [%d:%s]", ret, szBuffer, m_pclsDB->GetError(), m_pclsDB->GetErrorMsg());
+./CPU.cpp:			m_pclsLog->ERROR("Execute Fail [%d] [%s] [%d:%s]", ret, szBuffer, m_pclsDB->GetError(), m_pclsDB->GetErrorMsg());
+./CPU.cpp:			m_pclsLog->ERROR("popen() error (%s)", szBuffer);
+./CPU.cpp:			m_pclsLog->DEBUG("CPU NO %u, User %u, Nice %u, Sys %u, Idle %u, Wait %u, unHardIRQ %u, unSoftIRQ %u",
+./CPU.cpp:				m_pclsLog->ERROR("Total Duration time of CPU is zero");
+./CPU.cpp:			m_pclsLog->DEBUG("NEW CPU NO %u/%u, Usage %.2f/%u, User %.2f/%u, Nice %.2f/%u, Sys %.2f/%u, Idle %.2f/%u, Wait %.2f/%u",
+./DIMM.cpp:		m_pclsLog->INFO("Name : %s, Args : %s, Idx : %d", 
+./DIMM.cpp:		m_pclsLog->ERROR("popen() error (%s)", szBuffer);
+./DISK.cpp:		m_pclsLog->INFO("Name : %s, Args : %s, Idx : %d", 
+./DISK.cpp:		m_pclsLog->ERROR("Fail to Init CPU Module");
+./DISK.cpp:		m_pclsLog->ERROR("Fail to DB Connect in DB Resource Checker");
+./DISK.cpp:		m_pclsLog->ERROR("Failed to DB Connect / host[%s], port[%s], user[%s], pw[%s], db[%s], [%d:%s]"
+./DISK.cpp:		m_pclsLog->ERROR("Fail to Init CPU Module");
+./DISK.cpp:		m_pclsLog->ERROR("Execute Fail [%d] [%s] [%d:%s]", ret, szBuffer, m_pclsDB->GetError(), m_pclsDB->GetErrorMsg());
+./DISK.cpp:			m_pclsLog->ERROR("Execute Fail [%d] [%s] [%d:%s]", ret, szBuffer, m_pclsDB->GetError(), m_pclsDB->GetErrorMsg());
+./DISK.cpp:			m_pclsLog->ERROR("popen() error (%s)", szBuffer);
+./DISK.cpp:		m_pclsLog->DEBUG("NEW DISK Usage %.2f, Total %.2f, Free %.2f, Used %.2f",
+./EX_DISK.cpp:		m_pclsLog->INFO("Name : %s, Args : %s, Idx : %d", 
+./EX_DISK.cpp:			m_pclsLog->ERROR("popen() error (%s)", szBuffer);
+./EX_DISK.cpp:			m_pclsLog->ERROR("EX_DISK mtab Read Failed");
+./EX_DISK.cpp:			m_pclsLog->ERROR("popen() error (%s)", szBuffer);
+./EX_DISK.cpp:			m_pclsLog->ERROR("EX_DISK iostat Read Failed");
+./EX_DISK.cpp:		m_pclsLog->DEBUG("DISK %s, Status %s, Device %s, FileSystem %s, Util %s"
+./FAN.cpp:		m_pclsLog->INFO("Name : %s, Args : %s, Idx : %d", 
+./FAN.cpp:		m_pclsLog->ERROR("popen() error (%s)", szBuffer);
+./Init:./BOND.cpp:		m_pclsLog->INFO("Name : %s, Args : %s, Idx : %d", 
+./Init:./BOND.cpp:		m_pclsLog->ERROR("slave fopen(%s) (%s) error (%d)", szFileName, a_pszIF, errno);
+./Init:./BOND.cpp:		m_pclsLog->ERROR("active-slave fopen(%s) (%s) error (%d)", szFileName, a_pszIF, errno);
+./Init:./BOND.cpp:				m_pclsLog->WARNING("ioctl(SIOCGIFHWADDR) error");
+./Init:./BOND.cpp:				m_pclsLog->WARNING("ioctl(SIOCGIFFLAGS) error");
+./Init:./BOND.cpp:				m_pclsLog->DEBUG("iface(%s) = loopback", pidx->if_name);
+./Init:./BOND.cpp:				m_pclsLog->DEBUG("iface(%s) = !bcast, !mcast", pidx->if_name);
+./Init:./BOND.cpp:		m_pclsLog->DEBUG("BOND(%s) Status %s, Slaves %s, Active Slaves %s"
+./INVENTORY.cpp:		m_pclsLog->ERROR("Failed to Connect DB");
+./INVENTORY.cpp:	m_pclsLog->INFO("Inventory Initialized"); 
+./INVENTORY.cpp:		m_pclsLog->ERROR("Fail to DB Connect in DB Resource Checker");
+./INVENTORY.cpp:		m_pclsLog->ERROR("Failed to DB Connect / host[%s], port[%s], user[%s], pw[%s], db[%s], [%d:%s]"
+./INVENTORY.cpp:		m_pclsLog->ERROR("popen() error (%s)", szBuffer);
+./INVENTORY.cpp:		m_pclsLog->ERROR("fgets() error (%s)", szBuffer);
+./INVENTORY.cpp:	m_pclsLog->INFO("CPU Model : %s", szBuffer);
+./INVENTORY.cpp:			m_pclsLog->ERROR("Failed to Insert CPU Info ");
+./INVENTORY.cpp:		m_pclsLog->ERROR("(%s) Insert CPU Info Failed [%d:%s]", szQuery, m_pclsDB->GetError(), m_pclsDB->GetErrorMsg());
+./INVENTORY.cpp:		m_pclsLog->ERROR("popen() error (%s)", szBuffer);
+./INVENTORY.cpp:		m_pclsLog->ERROR("fgets() error (%s)", szBuffer);
+./INVENTORY.cpp:	m_pclsLog->INFO("Kernel Version : %s", szBuffer);
+./INVENTORY.cpp:			m_pclsLog->ERROR("Failed to Insert Kerenel Info ");
+./INVENTORY.cpp:		m_pclsLog->ERROR("(%s) Insert Kernel Info Failed [%d:%s]", szQuery, m_pclsDB->GetError(), m_pclsDB->GetErrorMsg());
+./INVENTORY.cpp:		m_pclsLog->ERROR("popen() error (%s)", szBuffer);
+./INVENTORY.cpp:		m_pclsLog->ERROR("fgets() error (%s)", szBuffer);
+./INVENTORY.cpp:	m_pclsLog->INFO("Memory : %s", szBuffer);
+./INVENTORY.cpp:			m_pclsLog->ERROR("Failed to Insert Memory Info ");
+./INVENTORY.cpp:		m_pclsLog->ERROR("(%s) Insert MEMORY Info Failed [%d:%s]", szQuery, m_pclsDB->GetError(), m_pclsDB->GetErrorMsg());
+./INVENTORY.cpp:		m_pclsLog->ERROR("Fail to Query (%s) [%d:%s]", szBuffer, m_pclsDB->GetError(), m_pclsDB->GetErrorMsg());
+./INVENTORY.cpp:	m_pclsLog->INFO("DB Total String : %s", szBuffer);
+./INVENTORY.cpp:			m_pclsLog->ERROR("Failed to Insert DB Info ");
+./INVENTORY.cpp:		m_pclsLog->ERROR("(%s) Insert DB Info Failed [%d:%s]", szQuery, m_pclsDB->GetError(), m_pclsDB->GetErrorMsg());
+./INVENTORY.cpp:		m_pclsLog->ERROR("popen() error (%s)", szBuffer);
+./INVENTORY.cpp:		m_pclsLog->ERROR("fgets() error (%s)", szBuffer);
+./INVENTORY.cpp:	m_pclsLog->DEBUG("OS Version : %s", szBuffer);
+./INVENTORY.cpp:			m_pclsLog->ERROR("Failed to Insert OS Info ");
+./INVENTORY.cpp:		m_pclsLog->ERROR("(%s) Insert OS Info Failed [%d:%s]", szQuery, m_pclsDB->GetError(), m_pclsDB->GetErrorMsg());
+./INVENTORY.cpp:	m_pclsLog->DEBUG("Python Version : %s", PY_VERSION);
+./INVENTORY.cpp:			m_pclsLog->ERROR("Failed to Insert Python Info ");
+./INVENTORY.cpp:		m_pclsLog->ERROR("(%s) Insert Python Info Failed [%d:%s]", szQuery, m_pclsDB->GetError(), m_pclsDB->GetErrorMsg());
+./INVENTORY.cpp:		m_pclsLog->ERROR( "socket() error");
+./INVENTORY.cpp:			m_pclsLog->ERROR( "ioctl(SIOCGIFFLAGS) error");
+./INVENTORY.cpp:			m_pclsLog->INFO( "iface(%s) = loopback", pidx->if_name);
+./INVENTORY.cpp:			m_pclsLog->ERROR("ioctl(SIOCGIFADDR) error");
+./INVENTORY.cpp:		m_pclsLog->INFO("NIC : %s, IP Address : %s", pidx->if_name, inet_ntoa(ipaddr->sin_addr));
+./INVENTORY.cpp:			m_pclsLog->ERROR("(%s) Insert IP Info Failed [%d:%s]", szQuery, m_pclsDB->GetError(), m_pclsDB->GetErrorMsg());
+./INVENTORY.cpp:			m_pclsLog->ERROR("Failed to Run Inventory ");
+./INVENTORY.cpp:		m_pclsLog->ERROR("Query (%s) Failed [%d:%s]", szBuffer, m_pclsDB->GetError(), m_pclsDB->GetErrorMsg());
+./MEMORY.cpp:		m_pclsLog->INFO("Name : %s, Args : %s, Idx : %d", 
+./MEMORY.cpp:		m_pclsLog->ERROR("Fail to Init CPU Module");
+./MEMORY.cpp:		m_pclsLog->ERROR("Fail to DB Connect in DB Resource Checker");
+./MEMORY.cpp:		m_pclsLog->ERROR("Failed to DB Connect / host[%s], port[%s], user[%s], pw[%s], db[%s], [%d:%s]"
+./MEMORY.cpp:		m_pclsLog->ERROR("Fail to Init CPU Module");
+./MEMORY.cpp:		m_pclsLog->ERROR("Execute Fail [%d] [%s] [%d:%s]", ret, szBuffer, m_pclsDB->GetError(), m_pclsDB->GetErrorMsg());
+./MEMORY.cpp:			m_pclsLog->ERROR("Execute Fail [%d] [%s] [%d:%s]", ret, szBuffer, m_pclsDB->GetError(), m_pclsDB->GetErrorMsg());
+./MEMORY.cpp:			m_pclsLog->ERROR("popen() error (%s)", szBuffer);
+./MEMORY.cpp:		m_pclsLog->DEBUG("MEMORY Total %u, Free %u, Used %u, Buffer %u, Cached %u",
+./MEMORY.cpp:		m_pclsLog->DEBUG("NEW MEMORY Usage %.2f, Total %.2f, Free %.2f, Used %.2f",
+./NIC.cpp:		m_pclsLog->INFO("Name : %s, Args : %s, Idx : %d", 
+./NIC.cpp:				m_pclsLog->WARNING("ioctl(SIOCGIFHWADDR) error");
+./NIC.cpp:				m_pclsLog->WARNING("ioctl(SIOCGIFFLAGS) error");
+./NIC.cpp:				m_pclsLog->DEBUG("iface(%s) = loopback", pidx->if_name);
+./NIC.cpp:				m_pclsLog->DEBUG("iface(%s) = !bcast, !mcast", pidx->if_name);
+./NIC.cpp:			m_pclsLog->WARNING("ifName (%s) is not found", pstRsc->szArgs);
+./NIC.cpp:			m_pclsLog->ERROR("popen() error (%s)", szBuffer);
+./NIC.cpp:		m_pclsLog->DEBUG("NIC(%s) Status %s, OldRX Byte %llu, OldTX Byte %llu,  RX Byte %s, TX Byte %s"
+./PHY_DRIVE.cpp:		m_pclsLog->INFO("Name : %s, Args : %s, Idx : %d", 
+./PHY_DRIVE.cpp:		m_pclsLog->ERROR("popen() error (%s)", szBuffer);
+./PING.cpp:		m_pclsLog->INFO("Name : %s, Args : %s", 
+./PING.cpp:		m_pclsLog->ERROR("Fail to DB Conncnect in PING Checker");
+./PING.cpp:		m_pclsLog->ERROR("Failed to DB Connect / host[%s], port[%s], user[%s], pw[%s], db[%s], [%d:%s]"
+./PING.cpp:	m_pclsLog->DEBUG("Query : %s", szQuery);
+./PING.cpp:		m_pclsLog->ERROR("Fail to Query (%s) [%d:%s]", szQuery, pclsDB->GetError(), pclsDB->GetErrorMsg());
+./PING.cpp:	m_pclsLog->DEBUG("Query : %s", szQuery);
+./PING.cpp:		m_pclsLog->ERROR("Fail to Query (%s) [%d:%s]", szQuery, pclsDB->GetError(), pclsDB->GetErrorMsg());
+./PING.cpp:	m_pclsLog->DEBUG("Query : %s", szQuery);
+./PING.cpp:		m_pclsLog->ERROR("Fail to Query (%s) [%d:%s]", szQuery, pclsDB->GetError(), pclsDB->GetErrorMsg());
+./PING.cpp:		m_pclsLog->INFO("PeerIP [%d], %s", i, a_vecPeerInfo[i].strPeerIP.c_str());
+./PING.cpp:			m_pclsLog->DEBUG("ping Command  %s", szBuffer);
+./PING.cpp:				m_pclsLog->ERROR("poepn() error (%s)", szBuffer);
+./PING.cpp:				m_pclsLog->DEBUG("szBuffer %s", szBuffer);
+./PING.cpp:						m_pclsLog->ERROR("Wrong Command Result %d : %s", ret, szBuffer);
+./PING.cpp:			m_pclsLog->DEBUG("PING_RESULT, PeerNo %d, PeerIP %s, Result, %s",
+./POWER.cpp:		m_pclsLog->INFO("Name : %s, Args : %s, Idx : %d", 
+./POWER.cpp:		m_pclsLog->ERROR("popen() error (%s)", szBuffer);
+./PROCESSOR.cpp:		m_pclsLog->INFO("Name : %s, Args : %s, Idx : %d", 
+./PROCESSOR.cpp:		m_pclsLog->ERROR("popen() error (%s)", szBuffer);
+./QUEUE.cpp:		m_pclsLog->INFO("Name : %s, Args : %s, Idx : %d", 
+./QUEUE.cpp:		m_pclsLog->ERROR("CLQManager Init Failed");
+./QUEUE.cpp:		m_pclsLog->ERROR("CLQManager Pointer is NULL");
+./QUEUE.cpp:			m_pclsLog->DEBUG("Memory Pool : %25s  / Usage %3.2f", arrRing[i]->name, fUsage);
+./QUEUE.cpp:			m_pclsLog->DEBUG("Queue       : %25s  / Usage %3.2f", arrRing[i]->name, fUsage);
+./RSAMain.cpp:	m_pclsLog->INFO("RSA Initialize Func Start");
+./RSAMain.cpp:	m_pclsLog->INFO("DB HOST : %s", m_pszDBInfo[IDX_DB_CONN_INFO_HOST]);
+./RSAMain.cpp:	m_pclsLog->INFO("DB PORT : %s", m_pszDBInfo[IDX_DB_CONN_INFO_PORT]);
+./RSAMain.cpp:	m_pclsLog->INFO("DB USER : %s", m_pszDBInfo[IDX_DB_CONN_INFO_USER]);
+./RSAMain.cpp:	m_pclsLog->INFO("DB PASS : %s", m_pszDBInfo[IDX_DB_CONN_INFO_PASS]);
+./RSAMain.cpp:	m_pclsLog->INFO("DB DATABASE : %s", m_pszDBInfo[IDX_DB_CONN_INFO_DB]);
+./RSAMain.cpp:		m_pclsLog->ERROR("Fail to Load Config");
+./RSAMain.cpp:        m_pclsLog->ERROR("Fail to Init Event API in RSAMsg");
+./RSAMain.cpp:        m_pclsLog->WARNING("Fail to Init RSA Msg");
+./RSAMain.cpp:		m_pclsLog->ERROR("Fail to Load Shared Library");
+./RSAMain.cpp:		m_pclsLog->ERROR("Fail to DB Connect");
+./RSAMain.cpp:		m_pclsLog->ERROR("Failed to DB Connect / host[%s], port[%s], user[%s], pw[%s], db[%s], [%d:%s]"
+./RSAMain.cpp:		m_pclsLog->ERROR("Fail to Query (%s) [%d:%s]", szQuery, pclsDB->GetError(), pclsDB->GetErrorMsg());
+./RSAMain.cpp:			m_pclsLog->ERROR("Invalid Period");
+./RSAMain.cpp:		m_pclsLog->INFO("\n");
+./RSAMain.cpp:		m_pclsLog->INFO("Group ID : %s, Group Name : %-10s, Plug-in Name : %s, Period : %d, VNFM : %d"
+./RSAMain.cpp:			m_pclsLog->ERROR("Fail to Query (%s) [%d:%s]", szQuery, pclsDB->GetError(), pclsDB->GetErrorMsg());
+./RSAMain.cpp:			m_pclsLog->INFO("-- Resource ID : %s, Resource Name : %-10s, Args : %s"
+./RSAMain.cpp:	m_pclsLog->INFO("\n");
+./RSAMain.cpp:		m_pclsLog->INFO("PlugIn Names %s", szBuff);
+./RSAMain.cpp:			m_pclsLog->ERROR("dlopen Error %s", dlerror());
+./RSAMain.cpp://		m_pclsLog->DEBUG("dddddddddddddddddddddd %s", m_pstRsc[i].strStatJson.c_str());
+./RSAMain.cpp:			m_pclsLog->DEBUG("Receive Message");
+./RSAMain.cpp:	p_clsLog->Initialize(
+./RSAMain.cpp:		p_clsLog->ERROR("Failed to RSAMain Init");
+./RSAMain.cpp:		p_clsLog->ERROR("Fail to Run Process");
+./RSAMsg.cpp:			m_pclsLog->DEBUG("Recv Sts Rsa Req");
+./RSAMsg.cpp:			m_pclsLog->DEBUG("Recv Monitoring Report Stop Req");
+./RSAMsg.cpp:			m_pclsLog->DEBUG("Recv Summary Report Stop Req");
+./RSAMsg.cpp:			m_pclsLog->DEBUG("Recv Performance Report Req");
+./RSAMsg.cpp:			m_pclsLog->DEBUG("Recv Monitoring Report Req");
+./RSAMsg.cpp:			m_pclsLog->DEBUG("Recv Summary Report Req");
+./RSAMsg.cpp:		m_pclsLog->ERROR("Fail to Create Root Socket");
+./RSAMsg.cpp:		m_pclsLog->ERROR("Fail to Connect Root Socket");
+./RSAMsg.cpp:		m_pclsLog->ERROR("message send failed\n");
+./RSAMsg.cpp:		m_pclsLog->ERROR("- %s\n", m_pclsRootSock->CSocket::m_strErrorMsg.c_str());
+./RSAMsg.cpp:		m_pclsLog->ERROR("message receive failed, errno=%d", errno);
+./RSAMsg.cpp:		m_pclsLog->ERROR("Socket, %s", m_pclsRootSock->CSocket::m_strErrorMsg.c_str());
+./RSAMsg.cpp:		m_pclsLog->ERROR("Protocol, %s", m_pclsRootSock->CProtocol::m_strErrorMsg.c_str());
+./RSAMsg.cpp:        m_pclsLog->DEBUG("SendTrap : Code, %s, Target, %s, Value, %s", o_code.str().c_str(), o_target.str().c_str(), o_value.str().c_str());
+./RSAMsg.cpp:	m_pclsLog->DEBUG("Doc => %s", strbuf.GetString());
+./RSAMsg.cpp:	m_pclsLog->DEBUG("Summary => %s", strbuf.GetString());
+./RSAMsg.cpp:	m_pclsLog->DEBUG("Stat => %s", strbuf.GetString());
+./RSARoot.cpp:	m_pclsLog->INFO("RSA Root Initialize Func Start");
+./RSARoot.cpp:		m_pclsLog->ERROR("Failed to Init Config");
+./RSARoot.cpp:	m_pclsLog->INFO("DB HOST : %s", m_pszDBInfo[IDX_DB_CONN_INFO_HOST]);
+./RSARoot.cpp:	m_pclsLog->INFO("DB PORT : %s", m_pszDBInfo[IDX_DB_CONN_INFO_PORT]);
+./RSARoot.cpp:	m_pclsLog->INFO("DB USER : %s", m_pszDBInfo[IDX_DB_CONN_INFO_USER]);
+./RSARoot.cpp:	m_pclsLog->INFO("DB PASS : %s", m_pszDBInfo[IDX_DB_CONN_INFO_PASS]);
+./RSARoot.cpp:	m_pclsLog->INFO("DB DATABASE : %s", m_pszDBInfo[IDX_DB_CONN_INFO_DB]);
+./RSARoot.cpp:		m_pclsLog->ERROR("Fail to Load Config");
+./RSARoot.cpp:		m_pclsLog->ERROR("Fail to Load Shared Library");
+./RSARoot.cpp:		m_pclsLog->ERROR("Fail to Create Socket");
+./RSARoot.cpp:		m_pclsLog->ERROR("Fail to Run Process");
+./RSARoot.cpp:		m_pclsLog->ERROR("Fail to DB Connect");
+./RSARoot.cpp:		m_pclsLog->ERROR("Failed to DB Connect / host[%s], port[%s], user[%s], pw[%s], db[%s], [%d:%s]"
+./RSARoot.cpp:		m_pclsLog->ERROR("Fail to Query (%s) [%d:%s]", szQuery, pclsDB->GetError(), pclsDB->GetErrorMsg());
+./RSARoot.cpp:			m_pclsLog->ERROR("Invalid Period");
+./RSARoot.cpp:		m_pclsLog->INFO("\n");
+./RSARoot.cpp:		m_pclsLog->INFO("Group ID : %s, Group Name : %-10s, Plug-in Name : %s, Period : %d, VNFM : %d"
+./RSARoot.cpp:			m_pclsLog->ERROR("Fail to Query (%s) [%d:%s]", szQuery, pclsDB->GetError(), pclsDB->GetErrorMsg());
+./RSARoot.cpp:			m_pclsLog->INFO("-- Resource ID : %s, Resource Name : %-10s, Args : %s"
+./RSARoot.cpp:	m_pclsLog->INFO("\n");
+./RSARoot.cpp:		m_pclsLog->INFO("PlugIn Names %s", szBuff);
+./RSARoot.cpp:			m_pclsLog->ERROR("dlopen Error %s", dlerror());
+./RSARoot.cpp:		m_pclsLog->ERROR("message send failed");
+./RSARoot.cpp:		m_pclsLog->ERROR("- %s", a_pclsClient->m_strErrorMsg.c_str());
+./RSARoot.cpp:		m_pclsLog->ERROR("message receive failed, errno=%d", errno);
+./RSARoot.cpp:		m_pclsLog->ERROR("Socket, %s", a_pclsClient->m_strErrorMsg.c_str());
+./RSARoot.cpp:		m_pclsLog->ERROR("Protocol, %s", m_pclsSock->CProtocol::m_strErrorMsg.c_str());
+./RSARoot.cpp:		m_pclsLog->ERROR("Connect Failed");
+./RSARoot.cpp:			m_pclsLog->ERROR("%s", client->m_strErrorMsg.c_str());
+./RSARoot.cpp:		m_pclsLog->DEBUG("Connected, peer IP : %s, PORT : %d", strIp.c_str(), nPort);
+./RSARoot.cpp:	pLog->Initialize(NULL, NULL, (char*)"RSA", 3, LV_DEBUG);
+./RSARoot.cpp:	pLog->INFO("RSA Test Start");
+./SNMP.cpp:		m_pclsLog->ERROR("SNMP TRAP LOG PATH is Null");
+./SNMP.cpp:		m_pclsLog->INFO("Name : %s, Args : %s, Idx : %d", 
+./SNMP.cpp:        m_pclsLog->ERROR("Fail to Init Event API in PIng Moduel");
+./SNMP.cpp:		m_pclsLog->WARNING("There is no Trap Log File (%s) ", szBuffer);
+./SNMP.cpp:		m_pclsLog->ERROR("popen() error (%s)", szBuffer);
+./SNMP.cpp:		m_pclsLog->DEBUG("szBuffer %s\n", szBuffer);
+./SNMP.cpp:					m_pclsLog->WARNING("Unknown severity(%d): %s", nSeverity, szBuffer);
+./SNMP.cpp:			m_pclsLog->WARNING("Input format wrong: Count(%d) Buffer(%s)", ret, szBuffer);
+./SNMP.cpp:		m_pclsLog->DEBUG("nSeverity %d, nMessageCode %d, nNodeId %d, szDetails %s", 
+./SYSLOG.cpp:		m_pclsLog->ERROR("SYS LOG PATH is Null");
+./SYSLOG.cpp:		m_pclsLog->ERROR("Old SYS LOG PATH is Null");
+./SYSLOG.cpp:        m_pclsLog->ERROR("Fail to Open System Log (%s)", m_strSysLogPath.c_str());
+./SYSLOG.cpp:            m_pclsLog->ERROR("Syslog message read failure");
+./SYSLOG.cpp:		m_pclsLog->INFO("Name : %s, Args : %s, Idx : %d", 
+./SYSLOG.cpp:        m_pclsLog->ERROR("Format size too long") ;
+./SYSLOG.cpp:		m_pclsLog->ERROR("popen() error (%s)", szBuffer);
+./SYSLOG.cpp:        m_pclsLog->ERROR("Syslog message read failure");
+./SYSLOG.cpp:		m_pclsLog->ERROR("popen() error (%s)", szBuffer);
+./SYSLOG.cpp:		m_pclsLog->DEBUG("szBuffer %s\n", szBuffer);
+./SYSLOG.cpp:        m_pclsLog->DEBUG("szLogDate %s, szLogTime %s", szLogDate, szLogTime);
+./SYSLOG.cpp:		    m_pclsLog->WARNING("SysLog Occur : %s", szBuffer);
+./TABLESPACE.cpp:		m_pclsLog->INFO("Name : %s, Args : %s, Idx : %d", 
+./TABLESPACE.cpp:		m_pclsLog->ERROR("Fail to Init CPU Module");
+./TABLESPACE.cpp:		m_pclsLog->ERROR("Fail to DB Connect in DB Resource Checker");
+./TABLESPACE.cpp:		m_pclsLog->ERROR("Failed to DB Connect / host[%s], port[%s], user[%s], pw[%s], db[%s], [%d:%s]"
+./TABLESPACE.cpp:		m_pclsLog->ERROR("Fail to Init CPU Module");
+./TABLESPACE.cpp:		m_pclsLog->ERROR("Execute Fail [%d] [%s] [%d:%s]", ret, szBuffer, m_pclsDB->GetError(), m_pclsDB->GetErrorMsg());
+./TABLESPACE.cpp:			m_pclsLog->ERROR("Execute Fail [%d] [%s] [%d:%s]", ret, szBuffer, m_pclsDB->GetError(), m_pclsDB->GetErrorMsg());
+./TABLESPACE.cpp:			m_pclsLog->ERROR("DB Max File Count is Over");
+./TABLESPACE.cpp:			m_pclsLog->ERROR("DB File Size Parsing Error\n");
+./TABLESPACE.cpp:			m_pclsLog->ERROR("Fail to DB Connect in DB Resource Checker");
+./TABLESPACE.cpp:			m_pclsLog->ERROR("Fail to Query (%s) [%d:%s]", szBuffer, pclsDB->GetError(), pclsDB->GetErrorMsg());
+./TABLESPACE.cpp:		m_pclsLog->DEBUG("DB Variable Name : %s, VariableValue : %s",
+./TABLESPACE.cpp:			m_pclsLog->ERROR("DB File Size Parsing Error");
+./TABLESPACE.cpp:			m_pclsLog->ERROR("Fail to Query (%s) [%d:%s]", szBuffer, pclsDB->GetError(), pclsDB->GetErrorMsg());
+./TABLESPACE.cpp:		m_pclsLog->DEBUG("NEW DB Usage %.2f, Total %.2f, Free %.2f, Used %.2f",
+./TEMP.cpp:		m_pclsLog->INFO("Name : %s, Args : %s, Idx : %d", 
+./TEMP.cpp:			m_pclsLog->ERROR("popen() error (%s)", szBuffer);
+./TEMP.cpp:		m_pclsLog->DEBUG("TEMP CPU %u, Celsius %u",
+./TEMP.cpp:		m_pclsLog->DEBUG("TEMP CPU %.2f, Avg %.2f, Max %.2f, Min %.2f",
+./TOT_CPU.cpp:		m_pclsLog->INFO("Name : %s, Args : %s, Idx : %d", 
+./TOT_CPU.cpp:			m_pclsLog->ERROR("popen() error (%s)", szBuffer);
+./TOT_CPU.cpp:			m_pclsLog->DEBUG("TOT CPU NO %u, User %u, Nice %u, Sys %u, Idle %u, Wait %u, unHardIRQ %u, unSoftIRQ %u",
+./TOT_CPU.cpp:				m_pclsLog->ERROR("Total Duration time of CPU is zero");
+./TOT_CPU.cpp:			m_pclsLog->DEBUG("NEW TOTAL_CPU NO %u, Usage %.2f, User %.2f, Nice %.2f, Sys %.2f, Idle %.2f, Wait %.2f",

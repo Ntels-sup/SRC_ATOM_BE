@@ -1,0 +1,4961 @@
+('127.0.0.1', 49730)
+===== RECV =
+---------- HEADER 
+Content-Length           = 124
+Content-Type             = application/json
+---------- BODY  -
+{"ready":{"server-uuid":"Unknown","timestamp":"2016-06-11 16:14:36.66","action-uri":"http://192.168.10.43:9000/vnf/action"}}
+==============
+
+----------- 12341234
+---------  DEBUG uuid finds %s 6de136239d445c6d916e62538-3d2a1f112-4
+===== SEND =
+HTTP/1.1 202 Accept
+Connection: close
+Content-Length: 220
+Content-Type: application/json
+
+{
+            "server" : {
+                "created_at" : "2016-06-11 16:14:36",
+                "name" : "Test-by-Vnfm-Sim",
+                "server-uuid" : "6de136239d445c6d916e62538-3d2a1f112-4"
+           }
+        }
+==============
+
+===== SEND =
+POST /vnf/action/start HTTP/1.1
+Content-Length: 174
+Content-Type: application/json
+
+{
+            "start" : {
+                "server-uuid" : "6de136239d445c6d916e62538-3d2a1f112-4",
+                "timestamp" : "2016-06-11 16:14:36"
+            }
+        }
+==============
+
+===== RECV =
+---------- HEADER 
+Content-Length           = 124
+Content-Type             = application/json
+---------- BODY  -
+
+==============
+
+('127.0.0.1', 49732)
+===== RECV =
+---------- HEADER 
+Content-Length           = 104
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 50086)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 50408)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 50743)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 51093)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 51462)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 51831)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 52203)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 52564)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 52936)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 53297)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 53669)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 54031)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 54402)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 54768)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 55136)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 55497)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 55865)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 56219)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 56582)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 56946)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 57314)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 57666)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 58033)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 58394)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 58761)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 59125)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 59493)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 59861)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 60222)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 60591)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 60956)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 33091)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 33456)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 33823)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 34191)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 34556)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 34916)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 35261)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 35625)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 35994)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 36362)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 36723)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 37087)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 37456)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 37821)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 38188)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 38553)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 38920)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 39290)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 39651)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 40020)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 40386)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 40754)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 41125)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 41489)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 41854)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 42219)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 42583)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 42952)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 43313)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 43677)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 44046)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 44411)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 44772)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 45140)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 45505)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 45874)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 46239)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 46603)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 46971)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 47335)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 47699)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 48065)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 48429)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 48793)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 49157)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 49526)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 49891)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 50251)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 50612)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 50980)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 51350)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 51714)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 52079)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 52446)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 52811)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 53172)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 53536)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 53902)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 54268)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 54630)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 54997)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 55362)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 55728)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 56091)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 56454)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 56823)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 57182)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 57550)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 57915)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 58281)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 58649)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 59013)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 59378)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 59738)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 60098)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 60463)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 60833)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 32965)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 33329)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 33697)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 34055)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 34421)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 34789)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 35154)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 35514)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 35877)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 36242)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 36611)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 36971)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 37337)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 37705)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 38066)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 38431)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 38799)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 39165)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 39522)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 39886)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 40251)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 40619)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 40985)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 41354)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 41719)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 42083)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 42451)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 42816)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 43184)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 43549)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 43917)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 44282)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 44650)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 45011)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 45376)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 45747)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 46106)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 46472)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 46840)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 47205)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 47565)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 47933)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 48298)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 48666)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 49030)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 49395)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 49754)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 50118)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 50479)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 50847)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 51206)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 51576)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 51937)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 52304)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 52670)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 53032)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 53401)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 53767)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 54124)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 54487)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 54848)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 55215)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 55582)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 55954)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 56320)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 56684)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 57051)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 57418)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 57784)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 58153)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 58520)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 58888)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 59250)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 59608)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 59970)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 60333)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 60701)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 32836)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 33197)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 33561)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 33922)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 34288)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 34656)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 35021)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 35383)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 35747)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 36136)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 36602)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 37068)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 37535)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 38000)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 38472)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 38935)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 39405)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 39868)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 40334)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 40791)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 41262)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 41842)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 42479)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 43040)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 43503)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 43972)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 44438)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 44904)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 45371)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 45831)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 46300)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 46762)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 47228)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 47695)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 48163)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 48640)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 49109)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 49575)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 50042)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 50513)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 50968)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 51437)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 51886)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 52348)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 52814)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 53279)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 53745)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 54208)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 54680)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 55140)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 55598)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 56073)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 56528)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 56991)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 57462)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 57873)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 58241)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 58604)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 58971)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 59336)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 59705)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 60070)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 60436)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 60804)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 32938)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 33303)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 33669)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 34030)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 34399)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 34764)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 35104)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 35393)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 35678)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 35971)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 36251)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 36539)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 36818)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 37105)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 37393)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 37677)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 37965)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 38253)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 38545)
+===== RECV =
+---------- HEADER 
+Content-Length           = 0
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 16:14:36.79"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('127.0.0.1', 40546)
+===== RECV =
+---------- HEADER 
+Content-Length           = 124
+Content-Type             = application/json
+---------- BODY  -
+{"ready":{"server-uuid":"Unknown","timestamp":"2016-06-11 20:59:18.76","action-uri":"http://192.168.10.43:9000/vnf/action"}}
+==============
+
+----------- 12341234
+---------  DEBUG uuid finds %s 6de136239d445c6d916e62538-3d2a1f112-4
+===== SEND =
+HTTP/1.1 202 Accept
+Connection: close
+Content-Length: 220
+Content-Type: application/json
+
+{
+            "server" : {
+                "created_at" : "2016-06-11 20:59:18",
+                "name" : "Test-by-Vnfm-Sim",
+                "server-uuid" : "6de136239d445c6d916e62538-3d2a1f112-4"
+           }
+        }
+==============
+
+===== SEND =
+POST /vnf/action/start HTTP/1.1
+Content-Length: 174
+Content-Type: application/json
+
+{
+            "start" : {
+                "server-uuid" : "6de136239d445c6d916e62538-3d2a1f112-4",
+                "timestamp" : "2016-06-11 20:59:18"
+            }
+        }
+==============
+
+===== RECV =
+---------- HEADER 
+Content-Length           = 124
+Content-Type             = application/json
+---------- BODY  -
+
+==============
+
+('127.0.0.1', 40548)
+===== RECV =
+---------- HEADER 
+Content-Length           = 104
+Content-Type             = application/json
+---------- BODY  -
+{"started":{"server-uuid":"6de136239d445c6d916e62538-3d2a1f112-4","timestamp":"2016-06-11 20:59:18.86"}}
+==============
+
+===== SEND =
+HTTP/1.1 200 Ok
+Connection: close
+Content-Length: 0
+Content-Type: application/json
+
+
+==============
+
+('192.168.32.94', 60958)
+===== RECV =
+---------- HEADER 
+Content-Length           = 124
+Content-Type             = application/json
+---------- BODY  -
+{"ready":{"server-uuid":"Unknown","timestamp":"2016-06-11 21:02:38.62","act

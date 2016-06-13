@@ -1,0 +1,14 @@
+    {
+        "BODY" : {
+            "message"     : "tca alarm",
+            "pkg_name"    : "vOFCS",
+            "node_no"     : 5,
+            "severity_id" : 2,
+            "target"      : "/vOFCS/TBL_NAME/COL_NAME",
+            "complement"  : "OVER",
+            "value"       : "30",
+            "additional_text" : "By jhchoi",
+            "prc_date"    : "2016-04-21 18:20:17.21",
+            "dst_yn"      : "N"
+        }
+    }

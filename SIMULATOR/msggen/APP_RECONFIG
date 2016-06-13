@@ -1,0 +1,13 @@
+#/HEAD=command,flag,srcnode,srcproc,dstnode,dstproc
+#     - flag : REQUEST, NOTIFY
+#/BODY=
+#/{
+#/    "BODY" : {
+#/        ....,
+#/        ....
+#/    }
+#/}
+
+# message 1, empty BODY
+/HEAD=10000,NOTIFY,1,1000,31,2147483493
+/BODY=NONE

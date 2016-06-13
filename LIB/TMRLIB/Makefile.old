@@ -1,0 +1,69 @@
+#!/bin/sh
+
+#HP-UX
+#CC				= cc
+
+#LINUX
+CC				= g++
+
+RM				= rm -f
+DEPEND			= makedepend
+LINT			= lint
+
+BASE_HOME = ../..
+SRC_HOME  = .
+
+OUT_DIR   = .
+DST_DIR   = $(BASE_HOME)/bin
+INC_DIR   = $(BASE_HOME)/include
+LIB_DIR   = $(BASE_HOME)/lib
+
+#API_DIR   = $(BASE_HOME)/api/include
+#API_LIB_DIR = $(BASE_HOME)/api/lib
+
+OBJ       = o
+
+#Fixed System Flag 
+###################################
+#              LIST               #
+###################################
+SYS_FIXED_FLAG  = AUTO
+
+ENV = -Wall 
+
+COPTS     = -g -O2 #-finline-functions 
+IOPTS     = -I$(INC_DIR) -I$(API_DIR) -DRLYLIB_LOG
+
+IHLROPTS  = -I. 
+
+POPTS     = $(DEBUG) $(DEBUG_TRC)
+
+LIBS      = \
+
+SRCS		= Timer.cpp \
+			  TimerNode.cpp \
+			  TimerEntry.cpp \
+			  TimerEvent.cpp\
+			  main.cpp \
+
+OBJS			= $(SRCS:.c=.o)
+
+AOUT			= timer_test 
+
+DEST			= ./
+
+#
+#---------------------------------------------------------------------
+#
+all:: $(AOUT) install
+
+.SUFFIXES: .cpp .o
+.c.o:
+		$(CC) $(COPTS) $(ENV) $(LOPTS) $(IOPTS) $(POPTS) $(IHLROPTS) -c $<;
+
+$(AOUT): $(OBJS)
+		$(CC) $(COPTS) $(ENV) $(LOPTS) -o $(AOUT) $(IOPTS) $(POPTS) $(IHLROPTS) $(OBJS) $(LIBS);
+
+install:
+
+clean:

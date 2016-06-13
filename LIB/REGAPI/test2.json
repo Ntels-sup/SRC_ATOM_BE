@@ -1,0 +1,9 @@
+{
+	"BODY":
+	{
+		"session_id":1,
+			"seq_type":2,
+			"result_code":1,
+			"text":"HOST            REALM      IP           PORT\n-------------------------------------------------\nCSCF.STK.COM    STK.COM    192.168.0.1  3868      \nTAS.STK.COM     STK.COM    192.168.0.1  3868      \nHLR.STK.COM     STK.COM    192.168.0.1  3868      \n-------------------------------------------------\n"
+	}
+}

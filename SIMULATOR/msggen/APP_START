@@ -1,0 +1,23 @@
+#/HEAD=command,flag,srcnode,srcproc,dstnode,dstproc
+#     - flag : REQUEST, NOTIFY
+#/BODY=
+#/{
+#/    "BODY" : {
+#/        ....,
+#/        ....
+#/    }
+#/}
+
+# message 1, empty BODY
+/HEAD=10003,NOTIFY,1,1000,71,2147483493
+/BODY=
+/{
+/   "BODY": {
+/         "all": true,
+/         "process" : [
+/               {"procno": 1, "procname": "APP01"},
+/               {"procno": 2, "procname": "APP02"},
+/               {"procno": 3, "procname": "APP03"}
+/         ]
+/    }
+/}

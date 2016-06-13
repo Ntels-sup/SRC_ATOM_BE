@@ -1,0 +1,18 @@
+env = Environment(CPPPATH=['/UDBS/ATOM/SRC_ATOM_BE/LIB/DB','.'],
+                  LIBPATH=['/MYSQL/mysql-5.6.24/lib'],
+                  CXXFLAGS=["-std=c++0x", '-Wall', '-O2', '-g', 
+					'-D_DEBUG_MACRO'])
+#env = Environment(CPPPATH=['/UDBS/ATOM/SRC_ATOM_BE/LIB/DB','.'],
+#                  LIBPATH=['/MYSQL/mysql-5.6.24/lib'],
+#                  CXXFLAGS=["-std=c++0x", '-Wall', '-O2', '-g', 
+#                  '-D_DEBUG_MACRO'])
+#env.Program(target='db-test',
+#            source=Split('dbTest.cpp ../MariaDB.cpp ../FetchMaria.cpp' ), 
+#            LIBS=['mysqlclient'])
+env.Program(target='db-sample',
+            source=Split('dbSample.cpp ../MariaDB.cpp ../FetchMaria.cpp' ), 
+            LIBS=['mysqlclient'])
+#env.Program(target='db-config',
+#            source=Split('dbConfigTest.cpp ../MariaDB_r.cpp ../MariaDB.cpp ../FetchMaria.cpp' ), 
+#            LIBS=['pthread', 'mysqlclient', 'rt'])
+Repository('/MYSQL/mysql-5.6.24/include')

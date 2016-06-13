@@ -1,0 +1,36 @@
+#/HEAD=command,flag,srcnode,srcproc,dstnode,dstproc
+#     - flag : REQUEST, NOTIFY
+#/BODY=
+#/{
+#/    "BODY" : {
+#/        ....,
+#/        ....
+#/    }
+#/}
+
+# STATUS_CONNECT_EVENT
+/HEAD=20000,NOTIFY,1,1000,1,46
+/BODY=
+/{
+/    "BODY" : {
+/        "message" : "alarm",
+/        "sequence_id" : 1,
+/        "node_no" : 5000,
+/        "node_name" : "aaa",
+/        "proc_no" : 1001,
+/        "severity_id": 2,
+/        "pkg_name" : "VOFCS",
+/        "code" : "90300102",
+/        "alias_code" : "90300102 ",
+/        "probable_cause" : "ALRM-DISK_OVER",
+/        "additional_text" : "",
+/        "location" : "/OFCS/RSA",
+/        "target" : "/data",
+/        "complement": "%",
+/        "value" : "93.7",
+/        "node_version" : "OFCS1.2",
+/        "node_type" : "AP",
+/        "prc_date" : "2016-04-26 09:14:53.92",
+/        "dst_yn" : "N"
+/    }
+/}

@@ -1,0 +1,3 @@
+#../../../BIN/ATOM_NA -d $PWD -m ATOM_NA_PRA.so -u pra-test
+#../../../BIN/ATOM_NA -c $HOME/CFG/ATOM.cfg -d /UDBS/ATOM/SRC_ATOM_BE/AGENT/PRA -u pra-test
+../NA/ATOM_NA -c $HOME/CFG/ATOM.cfg -d /UDBS/ATOM/SRC_ATOM_BE/AGENT/PRA -u 52fe8307-4223-4918-a933-072cb76700c0

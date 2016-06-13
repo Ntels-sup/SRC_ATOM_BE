@@ -1,0 +1,25 @@
+#/HEAD=command,flag,srcnode,srcproc,dstnode,dstproc
+#     - flag : REQUEST, NOTIFY
+#/BODY={
+#/    "BODY" : {
+#/        ....,
+#/        ....
+#/    }
+#/}
+
+# STATUS_NODE_EVENT
+/HEAD=20002,NOTIFY,1,1000,1,46
+/BODY=
+/{
+/   "BODY":{
+/       "message":"node status change",
+/       "pkg_name":"vOFCS",
+/       "node_no":23,
+/       "node_name":"NA",
+/       "node_version":"",
+/       "node_type":"AP",
+/       "node_status":"ACTIVE",
+/       "prc_date":"2016-05-06 19:12:26.22",
+/       "dst_yn":"N"
+/    }
+/}

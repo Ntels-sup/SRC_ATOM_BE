@@ -1,0 +1,13 @@
+#/HEAD=command,flag,srcnode,srcproc,dstnode,dstproc
+#     - flag : REQUEST, NOTIFY
+#/BODY=
+#/{
+#/    "BODY" : {
+#/        ....,
+#/        ....
+#/    }
+#/}
+
+# STATUS_CONNECT_EVENT
+/HEAD=20004,NOTIFY,1,1000,1,46
+/BODY=NONE

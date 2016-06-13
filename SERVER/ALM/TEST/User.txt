@@ -1,0 +1,11 @@
+{
+	"BODY": {
+		"message" : "alarm change by user",
+        "msg_id" : 13,
+        "oper_no" : 3,
+        "user_id" : "jhchoi",
+        "severity_id" : 5,
+        "prc_date" : "2016-04-20 11:23:57",
+        "dst_yn" : "N" 
+	}
+}

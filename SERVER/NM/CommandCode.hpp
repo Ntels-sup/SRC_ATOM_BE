@@ -1,0 +1,2 @@
+#define CMD_AUTH	"0000000001"
+#define CMD_PING	"0000000002"

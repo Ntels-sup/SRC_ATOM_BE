@@ -1,0 +1,7 @@
+# Node Agent module
+#
+include ../Makefile.inc
+
+SUBDIR = NA ALA CLA CLC EXA NA PRA RSA STA 
+
+default: all

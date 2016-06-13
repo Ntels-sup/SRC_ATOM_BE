@@ -1,0 +1,9 @@
+	{
+	   "BODY" : {
+        	"pkg_name" : "ATOM",
+	        "node_type" : "EMS",
+    	    "proc_name" : "ATOM_BJM",
+        	"proc_no" : 12
+	   }
+	}
+

@@ -1,0 +1,623 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+ATOM_PROC_CTL	TRM_Define.hpp	57;"	d
+ATOM_PROC_CTL	sample/TRM_Define.hpp	57;"	d
+ATOM_PROC_CTL	sample_20160523/TRM_Define.hpp	65;"	d
+CTRACE_API_HPP__	CTraceAPI.hpp	2;"	d
+CTRACE_API_HPP__	sample/CTraceAPI.hpp	2;"	d
+CTRACE_API_HPP__	sample_20160523/CTraceAPI.hpp	2;"	d
+CTraceAPI	CTraceAPI.cpp	/^CTraceAPI::CTraceAPI()$/;"	f	class:CTraceAPI
+CTraceAPI	CTraceAPI.hpp	/^class CTraceAPI{$/;"	c
+CTraceAPI	sample/CTraceAPI.cpp	/^CTraceAPI::CTraceAPI()$/;"	f	class:CTraceAPI
+CTraceAPI	sample/CTraceAPI.hpp	/^class CTraceAPI{$/;"	c
+CTraceAPI	sample_20160523/CTraceAPI.cpp	/^CTraceAPI::CTraceAPI()$/;"	f	class:CTraceAPI
+CTraceAPI	sample_20160523/CTraceAPI.cpp	/^CTraceAPI::CTraceAPI(int* a_pnRet)$/;"	f	class:CTraceAPI
+CTraceAPI	sample_20160523/CTraceAPI.hpp	/^class CTraceAPI{$/;"	c
+CheckCalledIP	CTraceAPI.cpp	/^int CTraceAPI::CheckCalledIP(string a_TargetString)$/;"	f	class:CTraceAPI
+CheckCalledIP	sample/CTraceAPI.cpp	/^int CTraceAPI::CheckCalledIP(string a_TargetString)$/;"	f	class:CTraceAPI
+CheckCallingIP	CTraceAPI.cpp	/^int CTraceAPI::CheckCallingIP(string a_TargetString)$/;"	f	class:CTraceAPI
+CheckCallingIP	sample/CTraceAPI.cpp	/^int CTraceAPI::CheckCallingIP(string a_TargetString)$/;"	f	class:CTraceAPI
+CheckIMSI	CTraceAPI.cpp	/^int CTraceAPI::CheckIMSI(string a_TargetString)$/;"	f	class:CTraceAPI
+CheckIMSI	sample/CTraceAPI.cpp	/^int CTraceAPI::CheckIMSI(string a_TargetString)$/;"	f	class:CTraceAPI
+CheckMSISDN	CTraceAPI.cpp	/^int CTraceAPI::CheckMSISDN(string a_TargetString)$/;"	f	class:CTraceAPI
+CheckMSISDN	sample/CTraceAPI.cpp	/^int CTraceAPI::CheckMSISDN(string a_TargetString)$/;"	f	class:CTraceAPI
+CheckString	CTraceAPI.cpp	/^int CTraceAPI::CheckString(int a_nMode, string a_TargetString)$/;"	f	class:CTraceAPI
+CheckString	sample/CTraceAPI.cpp	/^int CTraceAPI::CheckString(int a_nMode, string a_TargetString)$/;"	f	class:CTraceAPI
+DEF_BUFFER_128	CTraceAPI.hpp	9;"	d
+DEF_BUFFER_128	sample/CTraceAPI.hpp	9;"	d
+DEF_BUFFER_128	sample_20160523/CTraceAPI.hpp	12;"	d
+GetCount	sample_20160523/CTraceAPI.hpp	/^	int			 GetCount()	   			{ return m_nTraceCount; 				};$/;"	f	class:CTraceAPI
+GetHostName	sample_20160523/CTraceAPI.cpp	/^int CTraceAPI::GetHostName()$/;"	f	class:CTraceAPI
+GetKeyWord	CTraceAPI.hpp	/^	char*		 GetKeyWord(int n)		{ return m_vTraceRequest[n]->keyword; 	};$/;"	f	class:CTraceAPI
+GetKeyWord	sample/CTraceAPI.hpp	/^	char*		 GetKeyWord(int n)		{ return m_vTraceRequest[n]->keyword; 	};$/;"	f	class:CTraceAPI
+GetKeyWord	sample_20160523/CTraceAPI.hpp	/^	char*		 GetKeyWord(int n)		{ return m_vTraceRequest[n]->keyword; 	};$/;"	f	class:CTraceAPI
+GetNodeType	sample_20160523/CTraceAPI.hpp	/^    string 		 GetNodeType() 			{ return m_strNodeType; 				};$/;"	f	class:CTraceAPI
+GetPkgName	sample_20160523/CTraceAPI.hpp	/^    string 		 GetPkgName()  			{ return m_strPkgName;  				};$/;"	f	class:CTraceAPI
+GetProcName	sample_20160523/CTraceAPI.hpp	/^    string 		 GetProcName() 			{ return m_strProcName; 				};$/;"	f	class:CTraceAPI
+GetProcNo	sample_20160523/CTraceAPI.hpp	/^	int 	  	 GetProcNo()   			{ return m_nProcNo; 					};$/;"	f	class:CTraceAPI
+GetRunMode	CTraceAPI.hpp	/^	int 		 GetRunMode(int n) 		{ return m_vTraceRequest[n]->run_mode;  };$/;"	f	class:CTraceAPI
+GetRunMode	sample/CTraceAPI.hpp	/^	int 		 GetRunMode(int n) 		{ return m_vTraceRequest[n]->run_mode;  };$/;"	f	class:CTraceAPI
+GetRunMode	sample_20160523/CTraceAPI.hpp	/^	int 		 GetRunMode(int n) 		{ return m_vTraceRequest[n]->run_mode;  };$/;"	f	class:CTraceAPI
+GetSearchMode	CTraceAPI.hpp	/^	int 		 GetSearchMode(int n) 	{ return m_vTraceRequest[n]->search_mode;    };$/;"	f	class:CTraceAPI
+GetSearchMode	sample/CTraceAPI.hpp	/^	int 		 GetSearchMode(int n) 	{ return m_vTraceRequest[n]->search_mode;    };$/;"	f	class:CTraceAPI
+GetSearchMode	sample_20160523/CTraceAPI.hpp	/^	int 		 GetSearchMode(int n) 	{ return m_vTraceRequest[n]->search_mode;    };$/;"	f	class:CTraceAPI
+GetTraceCount	CTraceAPI.hpp	/^	int 		 GetTraceCount() 		{ return m_nTraceCount;  };$/;"	f	class:CTraceAPI
+GetTraceCount	sample/CTraceAPI.hpp	/^	int 		 GetTraceCount() 		{ return m_nTraceCount;  };$/;"	f	class:CTraceAPI
+GetTraceRequest	CTraceAPI.cpp	/^int CTraceAPI::GetTraceRequest(CProtocol *a_pclsReqProtocol, CProtocol *a_pclsResProtocol)$/;"	f	class:CTraceAPI
+GetTraceRequest	sample/CTraceAPI.cpp	/^int CTraceAPI::GetTraceRequest(CProtocol *a_pclsProtocol, string a_strTraceRequest, int a_nSequence)$/;"	f	class:CTraceAPI
+GetTraceRequest	sample_20160523/CTraceAPI.cpp	/^int CTraceAPI::GetTraceRequest(int a_nOnOff, ST_TRACE_REQUEST *a_tracerequest)$/;"	f	class:CTraceAPI
+InitLog	sample/CTraceAPI.cpp	/^bool CTraceAPI::InitLog()$/;"	f	class:CTraceAPI
+Initialize	sample_20160523/CTraceAPI.cpp	/^int CTraceAPI::Initialize(char *a_szPkgName, char *a_szNodeType, char *a_szProcName, char *a_szNodeName)$/;"	f	class:CTraceAPI
+IsOn	CTraceAPI.cpp	/^bool CTraceAPI::IsOn()$/;"	f	class:CTraceAPI
+IsOn	sample/CTraceAPI.cpp	/^bool CTraceAPI::IsOn()$/;"	f	class:CTraceAPI
+IsOn	sample_20160523/CTraceAPI.cpp	/^int CTraceAPI::IsOn()$/;"	f	class:CTraceAPI
+LoadCoworkNo	sample_20160523/CTraceAPI.cpp	/^int CTraceAPI::LoadCoworkNo(DB *a_pDB, ST_COWORK_INFO *a_coworkinfo)$/;"	f	class:CTraceAPI
+OBJS	Makefile	/^OBJS =  CTraceAPI.o$/;"	m
+OBJS	sample/Makefile	/^OBJS = $(SRCS:.cpp=.o)$/;"	m
+OBJS	sample_20160523/Makefile	/^OBJS = $(SRCS:.cpp=.o)$/;"	m
+PROCID_ATOM_BLUECORE_ALA	TRM_Define.hpp	65;"	d
+PROCID_ATOM_BLUECORE_ALA	sample/TRM_Define.hpp	65;"	d
+PROCID_ATOM_BLUECORE_ALA	sample_20160523/TRM_Define.hpp	73;"	d
+PROCID_ATOM_BLUECORE_EXA	TRM_Define.hpp	66;"	d
+PROCID_ATOM_BLUECORE_EXA	sample/TRM_Define.hpp	66;"	d
+PROCID_ATOM_BLUECORE_EXA	sample_20160523/TRM_Define.hpp	74;"	d
+PROCID_ATOM_BLUECORE_PRA	TRM_Define.hpp	62;"	d
+PROCID_ATOM_BLUECORE_PRA	sample/TRM_Define.hpp	62;"	d
+PROCID_ATOM_BLUECORE_PRA	sample_20160523/TRM_Define.hpp	70;"	d
+PROCID_ATOM_BLUECORE_RSA	TRM_Define.hpp	63;"	d
+PROCID_ATOM_BLUECORE_RSA	sample/TRM_Define.hpp	63;"	d
+PROCID_ATOM_BLUECORE_RSA	sample_20160523/TRM_Define.hpp	71;"	d
+PROCID_ATOM_BLUECORE_STA	TRM_Define.hpp	64;"	d
+PROCID_ATOM_BLUECORE_STA	sample/TRM_Define.hpp	64;"	d
+PROCID_ATOM_BLUECORE_STA	sample_20160523/TRM_Define.hpp	72;"	d
+PROCID_ATOM_PRA	TRM_Define.hpp	59;"	d
+PROCID_ATOM_PRA	sample/TRM_Define.hpp	59;"	d
+PROCID_ATOM_PRA	sample_20160523/TRM_Define.hpp	67;"	d
+PROCID_ATOM_RSA	TRM_Define.hpp	60;"	d
+PROCID_ATOM_RSA	sample/TRM_Define.hpp	60;"	d
+PROCID_ATOM_RSA	sample_20160523/TRM_Define.hpp	68;"	d
+PingTest	sample_20160523/CTraceAPI.cpp	/^int CTraceAPI::PingTest()$/;"	f	class:CTraceAPI
+SPACE_REMOVE_BUF_SIZE	TRM_Define.hpp	6;"	d
+SPACE_REMOVE_BUF_SIZE	sample/TRM_Define.hpp	6;"	d
+SPACE_REMOVE_BUF_SIZE	sample_20160523/TRM_Define.hpp	14;"	d
+SRCS	sample/Makefile	/^SRCS        = CTraceAPI.cpp$/;"	m
+SRCS	sample_20160523/Makefile	/^SRCS        = trc_test.cpp \\$/;"	m
+ST_COWORK_INFO	TRM_Define.hpp	/^}ST_COWORK_INFO;$/;"	t	typeref:struct:__anon6
+ST_COWORK_INFO	sample/TRM_Define.hpp	/^}ST_COWORK_INFO;$/;"	t	typeref:struct:__anon18
+ST_COWORK_INFO	sample_20160523/TRM_Define.hpp	/^}ST_COWORK_INFO;$/;"	t	typeref:struct:__anon12
+ST_PROCESS	TRM_Define.hpp	/^} ST_PROCESS;$/;"	t	typeref:struct:__anon3
+ST_PROCESS	sample/TRM_Define.hpp	/^} ST_PROCESS;$/;"	t	typeref:struct:__anon15
+ST_PROCESS	sample_20160523/TRM_Define.hpp	/^} ST_PROCESS;$/;"	t	typeref:struct:__anon9
+ST_TRACE_HIST	TRM_Define.hpp	/^} ST_TRACE_HIST;$/;"	t	typeref:struct:__anon1
+ST_TRACE_HIST	sample/TRM_Define.hpp	/^} ST_TRACE_HIST;$/;"	t	typeref:struct:__anon13
+ST_TRACE_HIST	sample_20160523/TRM_Define.hpp	/^} ST_TRACE_HIST;$/;"	t	typeref:struct:__anon7
+ST_TRACE_REQUEST	TRM_Define.hpp	/^} ST_TRACE_REQUEST;$/;"	t	typeref:struct:__anon4
+ST_TRACE_REQUEST	sample/TRM_Define.hpp	/^} ST_TRACE_REQUEST;$/;"	t	typeref:struct:__anon16
+ST_TRACE_REQUEST	sample_20160523/TRM_Define.hpp	/^} ST_TRACE_REQUEST;$/;"	t	typeref:struct:__anon10
+ST_TRACE_RESPONSE	TRM_Define.hpp	/^} ST_TRACE_RESPONSE;$/;"	t	typeref:struct:__anon5
+ST_TRACE_RESPONSE	sample/TRM_Define.hpp	/^} ST_TRACE_RESPONSE;$/;"	t	typeref:struct:__anon17
+ST_TRACE_RESPONSE	sample_20160523/TRM_Define.hpp	/^} ST_TRACE_RESPONSE;$/;"	t	typeref:struct:__anon11
+ST_TRACE_ROUTE	TRM_Define.hpp	/^} ST_TRACE_ROUTE;$/;"	t	typeref:struct:__anon2
+ST_TRACE_ROUTE	sample/TRM_Define.hpp	/^} ST_TRACE_ROUTE;$/;"	t	typeref:struct:__anon14
+ST_TRACE_ROUTE	sample_20160523/TRM_Define.hpp	/^} ST_TRACE_ROUTE;$/;"	t	typeref:struct:__anon8
+SendMessage	CTraceAPI.cpp	/^int CTraceAPI::SendMessage(string a_strMessage)$/;"	f	class:CTraceAPI
+SendMessage	sample/CTraceAPI.cpp	/^int CTraceAPI::SendMessage(string a_strMessage)$/;"	f	class:CTraceAPI
+SendMessage	sample_20160523/CTraceAPI.cpp	/^int CTraceAPI::SendMessage(string a_strMessage)$/;"	f	class:CTraceAPI
+SendTraceData	CTraceAPI.cpp	/^string CTraceAPI::SendTraceData(int a_nTraceCount, bool a_bRet, string a_strData)$/;"	f	class:CTraceAPI
+SendTraceData	sample/CTraceAPI.cpp	/^string CTraceAPI::SendTraceData(int a_nTraceCount, bool a_bRet, string a_strData)$/;"	f	class:CTraceAPI
+SendTraceData	sample_20160523/CTraceAPI.cpp	/^string CTraceAPI::SendTraceData(int a_nTraceCount, bool a_bRet, string a_strData)$/;"	f	class:CTraceAPI
+SetTraceAPI	sample_20160523/CTraceAPI.cpp	/^int CTraceAPI::SetTraceAPI()$/;"	f	class:CTraceAPI
+SetTraceData	CTraceAPI.cpp	/^string CTraceAPI::SetTraceData(ST_TRACE_REQUEST *a_tracerequest, bool a_bRet, string a_strData)$/;"	f	class:CTraceAPI
+SetTraceData	sample/CTraceAPI.cpp	/^string CTraceAPI::SetTraceData(ST_TRACE_REQUEST *a_tracerequest, bool a_bRet, string a_strData)$/;"	f	class:CTraceAPI
+SetTraceData	sample_20160523/CTraceAPI.cpp	/^string CTraceAPI::SetTraceData(ST_COWORK_INFO *a_coworkinfo, ST_TRACE_REQUEST *a_tracerequest, bool a_bRet, string a_strData)$/;"	f	class:CTraceAPI
+SetTraceProcess	CTraceAPI.cpp	/^string CTraceAPI::SetTraceProcess(string a_strPkgName, string a_strNode_type, string a_strProc_name, int a_nProcNo, string a_cmd, int a_node_no, string a_node_name)$/;"	f	class:CTraceAPI
+SetTraceProcess	sample/CTraceAPI.cpp	/^string CTraceAPI::SetTraceProcess(string a_strPkgName, string a_strNode_type, string a_strProc_name, int a_nProcNo, string a_cmd, int a_node_no, string a_node_name)$/;"	f	class:CTraceAPI
+SetTraceProcess	sample_20160523/CTraceAPI.cpp	/^string CTraceAPI::SetTraceProcess(string a_cmd, int a_node_no, string a_node_name)$/;"	f	class:CTraceAPI
+SetTraceResponse	CTraceAPI.cpp	/^int CTraceAPI::SetTraceResponse(CProtocol *a_pclsResProtocol, ST_TRACE_REQUEST *a_tracerequest, bool a_bRet)$/;"	f	class:CTraceAPI
+SetTraceResponse	sample/CTraceAPI.cpp	/^string CTraceAPI::SetTraceResponse(ST_TRACE_REQUEST *a_tracerequest, bool a_traceOn, bool a_bRet)$/;"	f	class:CTraceAPI
+SetTraceResponse	sample_20160523/CTraceAPI.cpp	/^string CTraceAPI::SetTraceResponse(ST_COWORK_INFO *a_coworkinfo, ST_TRACE_REQUEST *a_tracerequest, bool a_traceOn, bool a_bRet)$/;"	f	class:CTraceAPI
+SetTraceResponseMsg	sample/CTraceAPI.cpp	/^string CTraceAPI::SetTraceResponseMsg(int a_nTraceCount, bool a_bTraceOn, bool a_bRet)$/;"	f	class:CTraceAPI
+TARGET	Makefile	/^TARGET = libatomtrace.a$/;"	m
+TARGET	sample/Makefile	/^TARGET      = trc_test$/;"	m
+TARGET	sample_20160523/Makefile	/^TARGET      = trc_test$/;"	m
+TRM_ACTION_INIT	TRM_Define.hpp	10;"	d
+TRM_ACTION_INIT	sample/TRM_Define.hpp	10;"	d
+TRM_ACTION_INIT	sample_20160523/TRM_Define.hpp	18;"	d
+TRM_ACTION_LOGLEVEL	TRM_Define.hpp	11;"	d
+TRM_ACTION_LOGLEVEL	sample/TRM_Define.hpp	11;"	d
+TRM_ACTION_LOGLEVEL	sample_20160523/TRM_Define.hpp	19;"	d
+TRM_ACTION_START	TRM_Define.hpp	8;"	d
+TRM_ACTION_START	sample/TRM_Define.hpp	8;"	d
+TRM_ACTION_START	sample_20160523/TRM_Define.hpp	16;"	d
+TRM_ACTION_STOP	TRM_Define.hpp	9;"	d
+TRM_ACTION_STOP	sample/TRM_Define.hpp	9;"	d
+TRM_ACTION_STOP	sample_20160523/TRM_Define.hpp	17;"	d
+TRM_ERR	sample_20160523/TRM_Define.hpp	9;"	d
+TRM_GROUP_CREATE_DATE_SIZE	TRM_Define.hpp	35;"	d
+TRM_GROUP_CREATE_DATE_SIZE	sample/TRM_Define.hpp	35;"	d
+TRM_GROUP_CREATE_DATE_SIZE	sample_20160523/TRM_Define.hpp	43;"	d
+TRM_GROUP_DESC_SIZE	TRM_Define.hpp	40;"	d
+TRM_GROUP_DESC_SIZE	sample/TRM_Define.hpp	40;"	d
+TRM_GROUP_DESC_SIZE	sample_20160523/TRM_Define.hpp	48;"	d
+TRM_GROUP_EXPIRE_DATE_SIZE	TRM_Define.hpp	38;"	d
+TRM_GROUP_EXPIRE_DATE_SIZE	sample/TRM_Define.hpp	38;"	d
+TRM_GROUP_EXPIRE_DATE_SIZE	sample_20160523/TRM_Define.hpp	46;"	d
+TRM_GROUP_GROUP_NAME_SIZE	TRM_Define.hpp	33;"	d
+TRM_GROUP_GROUP_NAME_SIZE	sample/TRM_Define.hpp	33;"	d
+TRM_GROUP_GROUP_NAME_SIZE	sample_20160523/TRM_Define.hpp	41;"	d
+TRM_GROUP_PKG_NAME_SIZE	TRM_Define.hpp	34;"	d
+TRM_GROUP_PKG_NAME_SIZE	sample/TRM_Define.hpp	34;"	d
+TRM_GROUP_PKG_NAME_SIZE	sample_20160523/TRM_Define.hpp	42;"	d
+TRM_GROUP_SCHEDULE_CYCLE_TYPE_SIZE	TRM_Define.hpp	37;"	d
+TRM_GROUP_SCHEDULE_CYCLE_TYPE_SIZE	sample/TRM_Define.hpp	37;"	d
+TRM_GROUP_SCHEDULE_CYCLE_TYPE_SIZE	sample_20160523/TRM_Define.hpp	45;"	d
+TRM_GROUP_START_DATE_SIZE	TRM_Define.hpp	36;"	d
+TRM_GROUP_START_DATE_SIZE	sample/TRM_Define.hpp	36;"	d
+TRM_GROUP_START_DATE_SIZE	sample_20160523/TRM_Define.hpp	44;"	d
+TRM_GROUP_USER_ID_SIZE	TRM_Define.hpp	39;"	d
+TRM_GROUP_USER_ID_SIZE	sample/TRM_Define.hpp	39;"	d
+TRM_GROUP_USER_ID_SIZE	sample_20160523/TRM_Define.hpp	47;"	d
+TRM_HIST_CMD_SIZE	TRM_Define.hpp	74;"	d
+TRM_HIST_CMD_SIZE	sample/TRM_Define.hpp	74;"	d
+TRM_HIST_CMD_SIZE	sample_20160523/TRM_Define.hpp	82;"	d
+TRM_HIST_END_DATE_SIZE	TRM_Define.hpp	73;"	d
+TRM_HIST_END_DATE_SIZE	sample/TRM_Define.hpp	73;"	d
+TRM_HIST_END_DATE_SIZE	sample_20160523/TRM_Define.hpp	81;"	d
+TRM_HIST_FILENAME_SiZE	TRM_Define.hpp	75;"	d
+TRM_HIST_FILENAME_SiZE	sample/TRM_Define.hpp	75;"	d
+TRM_HIST_FILENAME_SiZE	sample_20160523/TRM_Define.hpp	83;"	d
+TRM_HIST_NODE_NAME_SIZE	TRM_Define.hpp	69;"	d
+TRM_HIST_NODE_NAME_SIZE	sample/TRM_Define.hpp	69;"	d
+TRM_HIST_NODE_NAME_SIZE	sample_20160523/TRM_Define.hpp	77;"	d
+TRM_HIST_PKG_NAME_SIZE	TRM_Define.hpp	68;"	d
+TRM_HIST_PKG_NAME_SIZE	sample/TRM_Define.hpp	68;"	d
+TRM_HIST_PKG_NAME_SIZE	sample_20160523/TRM_Define.hpp	76;"	d
+TRM_HIST_PROTOCOL_SIZE	TRM_Define.hpp	71;"	d
+TRM_HIST_PROTOCOL_SIZE	sample/TRM_Define.hpp	71;"	d
+TRM_HIST_PROTOCOL_SIZE	sample_20160523/TRM_Define.hpp	79;"	d
+TRM_HIST_START_DATE_SIZE	TRM_Define.hpp	72;"	d
+TRM_HIST_START_DATE_SIZE	sample/TRM_Define.hpp	72;"	d
+TRM_HIST_START_DATE_SIZE	sample_20160523/TRM_Define.hpp	80;"	d
+TRM_HIST_STATUS_SIZE	TRM_Define.hpp	76;"	d
+TRM_HIST_STATUS_SIZE	sample/TRM_Define.hpp	76;"	d
+TRM_HIST_STATUS_SIZE	sample_20160523/TRM_Define.hpp	84;"	d
+TRM_HIST_USER_ID_SIZE	TRM_Define.hpp	70;"	d
+TRM_HIST_USER_ID_SIZE	sample/TRM_Define.hpp	70;"	d
+TRM_HIST_USER_ID_SIZE	sample_20160523/TRM_Define.hpp	78;"	d
+TRM_JOB_DESC_SIZE	TRM_Define.hpp	49;"	d
+TRM_JOB_DESC_SIZE	sample/TRM_Define.hpp	49;"	d
+TRM_JOB_DESC_SIZE	sample_20160523/TRM_Define.hpp	57;"	d
+TRM_JOB_GROUP_NAME_SIZE	TRM_Define.hpp	44;"	d
+TRM_JOB_GROUP_NAME_SIZE	sample/TRM_Define.hpp	44;"	d
+TRM_JOB_GROUP_NAME_SIZE	sample_20160523/TRM_Define.hpp	52;"	d
+TRM_JOB_JOB_NAME_SIZE	TRM_Define.hpp	45;"	d
+TRM_JOB_JOB_NAME_SIZE	sample/TRM_Define.hpp	45;"	d
+TRM_JOB_JOB_NAME_SIZE	sample_20160523/TRM_Define.hpp	53;"	d
+TRM_JOB_NODE_TYPE_SIZE	TRM_Define.hpp	48;"	d
+TRM_JOB_NODE_TYPE_SIZE	sample/TRM_Define.hpp	48;"	d
+TRM_JOB_NODE_TYPE_SIZE	sample_20160523/TRM_Define.hpp	56;"	d
+TRM_JOB_PKG_NAME_SIZE	TRM_Define.hpp	47;"	d
+TRM_JOB_PKG_NAME_SIZE	sample/TRM_Define.hpp	47;"	d
+TRM_JOB_PKG_NAME_SIZE	sample_20160523/TRM_Define.hpp	55;"	d
+TRM_JOB_PROC_NAME_SIZE	TRM_Define.hpp	46;"	d
+TRM_JOB_PROC_NAME_SIZE	sample/TRM_Define.hpp	46;"	d
+TRM_JOB_PROC_NAME_SIZE	sample_20160523/TRM_Define.hpp	54;"	d
+TRM_LOG	sample_20160523/TRM_Define.hpp	10;"	d
+TRM_MAX_PROCESS	TRM_Define.hpp	26;"	d
+TRM_MAX_PROCESS	sample/TRM_Define.hpp	26;"	d
+TRM_MAX_PROCESS	sample_20160523/TRM_Define.hpp	34;"	d
+TRM_MAX_REQUEST	TRM_Define.hpp	29;"	d
+TRM_MAX_REQUEST	sample/TRM_Define.hpp	29;"	d
+TRM_MAX_REQUEST	sample_20160523/TRM_Define.hpp	37;"	d
+TRM_MAX_RESPONSE	TRM_Define.hpp	30;"	d
+TRM_MAX_RESPONSE	sample/TRM_Define.hpp	30;"	d
+TRM_MAX_RESPONSE	sample_20160523/TRM_Define.hpp	38;"	d
+TRM_MAX_TRACE_HIST	TRM_Define.hpp	28;"	d
+TRM_MAX_TRACE_HIST	sample/TRM_Define.hpp	28;"	d
+TRM_MAX_TRACE_HIST	sample_20160523/TRM_Define.hpp	36;"	d
+TRM_MAX_TRACE_ROUTE	TRM_Define.hpp	27;"	d
+TRM_MAX_TRACE_ROUTE	sample/TRM_Define.hpp	27;"	d
+TRM_MAX_TRACE_ROUTE	sample_20160523/TRM_Define.hpp	35;"	d
+TRM_NOK	TRM_Define.hpp	13;"	d
+TRM_NOK	sample/TRM_Define.hpp	13;"	d
+TRM_NOK	sample_20160523/TRM_Define.hpp	21;"	d
+TRM_OK	TRM_Define.hpp	14;"	d
+TRM_OK	sample/TRM_Define.hpp	14;"	d
+TRM_OK	sample_20160523/TRM_Define.hpp	22;"	d
+TRM_PROC_CPU_BIND_CORE	TRM_Define.hpp	90;"	d
+TRM_PROC_CPU_BIND_CORE	sample/TRM_Define.hpp	90;"	d
+TRM_PROC_CPU_BIND_CORE	sample_20160523/TRM_Define.hpp	98;"	d
+TRM_PROC_EXEC_ARG	TRM_Define.hpp	88;"	d
+TRM_PROC_EXEC_ARG	sample/TRM_Define.hpp	88;"	d
+TRM_PROC_EXEC_ARG	sample_20160523/TRM_Define.hpp	96;"	d
+TRM_PROC_EXEC_BIN_SIZE	TRM_Define.hpp	87;"	d
+TRM_PROC_EXEC_BIN_SIZE	sample/TRM_Define.hpp	87;"	d
+TRM_PROC_EXEC_BIN_SIZE	sample_20160523/TRM_Define.hpp	95;"	d
+TRM_PROC_EXEC_ENV	TRM_Define.hpp	89;"	d
+TRM_PROC_EXEC_ENV	sample/TRM_Define.hpp	89;"	d
+TRM_PROC_EXEC_ENV	sample_20160523/TRM_Define.hpp	97;"	d
+TRM_PROC_MMR_BIND_NODE	TRM_Define.hpp	91;"	d
+TRM_PROC_MMR_BIND_NODE	sample/TRM_Define.hpp	91;"	d
+TRM_PROC_MMR_BIND_NODE	sample_20160523/TRM_Define.hpp	99;"	d
+TRM_PROC_NODE_NAME_SIZE	TRM_Define.hpp	92;"	d
+TRM_PROC_NODE_NAME_SIZE	sample/TRM_Define.hpp	92;"	d
+TRM_PROC_NODE_NAME_SIZE	sample_20160523/TRM_Define.hpp	100;"	d
+TRM_PROC_NODE_TYPE_SIZE	TRM_Define.hpp	86;"	d
+TRM_PROC_NODE_TYPE_SIZE	sample/TRM_Define.hpp	86;"	d
+TRM_PROC_NODE_TYPE_SIZE	sample_20160523/TRM_Define.hpp	94;"	d
+TRM_PROC_PKG_NAME_SIZE	TRM_Define.hpp	84;"	d
+TRM_PROC_PKG_NAME_SIZE	sample/TRM_Define.hpp	84;"	d
+TRM_PROC_PKG_NAME_SIZE	sample_20160523/TRM_Define.hpp	92;"	d
+TRM_PROC_PROC_NAME_SIZE	TRM_Define.hpp	85;"	d
+TRM_PROC_PROC_NAME_SIZE	sample/TRM_Define.hpp	85;"	d
+TRM_PROC_PROC_NAME_SIZE	sample_20160523/TRM_Define.hpp	93;"	d
+TRM_RECV_ERROR	TRM_Define.hpp	20;"	d
+TRM_RECV_ERROR	sample/TRM_Define.hpp	20;"	d
+TRM_RECV_ERROR	sample_20160523/TRM_Define.hpp	28;"	d
+TRM_RECV_INIT	TRM_Define.hpp	18;"	d
+TRM_RECV_INIT	sample/TRM_Define.hpp	18;"	d
+TRM_RECV_INIT	sample_20160523/TRM_Define.hpp	26;"	d
+TRM_RECV_PROC_CTRL	TRM_Define.hpp	21;"	d
+TRM_RECV_PROC_CTRL	sample/TRM_Define.hpp	21;"	d
+TRM_RECV_PROC_CTRL	sample_20160523/TRM_Define.hpp	29;"	d
+TRM_RECV_PROC_START	TRM_Define.hpp	22;"	d
+TRM_RECV_PROC_START	sample/TRM_Define.hpp	22;"	d
+TRM_RECV_PROC_START	sample_20160523/TRM_Define.hpp	30;"	d
+TRM_RECV_PROC_STOP	TRM_Define.hpp	23;"	d
+TRM_RECV_PROC_STOP	sample/TRM_Define.hpp	23;"	d
+TRM_RECV_PROC_STOP	sample_20160523/TRM_Define.hpp	31;"	d
+TRM_RECV_REGIST	TRM_Define.hpp	19;"	d
+TRM_RECV_REGIST	sample/TRM_Define.hpp	19;"	d
+TRM_RECV_REGIST	sample_20160523/TRM_Define.hpp	27;"	d
+TRM_RECV_REGIST_ROUTE	TRM_Define.hpp	24;"	d
+TRM_RECV_REGIST_ROUTE	sample/TRM_Define.hpp	24;"	d
+TRM_RECV_REGIST_ROUTE	sample_20160523/TRM_Define.hpp	32;"	d
+TRM_RECV_TRACE_DATA	TRM_Define.hpp	17;"	d
+TRM_RECV_TRACE_DATA	sample/TRM_Define.hpp	17;"	d
+TRM_RECV_TRACE_DATA	sample_20160523/TRM_Define.hpp	25;"	d
+TRM_RECV_TRACE_OFF	TRM_Define.hpp	16;"	d
+TRM_RECV_TRACE_OFF	sample/TRM_Define.hpp	16;"	d
+TRM_RECV_TRACE_OFF	sample_20160523/TRM_Define.hpp	24;"	d
+TRM_RECV_TRACE_ON	TRM_Define.hpp	15;"	d
+TRM_RECV_TRACE_ON	sample/TRM_Define.hpp	15;"	d
+TRM_RECV_TRACE_ON	sample_20160523/TRM_Define.hpp	23;"	d
+TRM_REGIST	TRM_Define.hpp	51;"	d
+TRM_REGIST	sample/TRM_Define.hpp	51;"	d
+TRM_REGIST	sample_20160523/TRM_Define.hpp	59;"	d
+TRM_RESP_MSG_SIZE	TRM_Define.hpp	95;"	d
+TRM_RESP_MSG_SIZE	sample/TRM_Define.hpp	95;"	d
+TRM_RESP_MSG_SIZE	sample_20160523/TRM_Define.hpp	103;"	d
+TRM_RESP_STATUS_SIZE	TRM_Define.hpp	94;"	d
+TRM_RESP_STATUS_SIZE	sample/TRM_Define.hpp	94;"	d
+TRM_RESP_STATUS_SIZE	sample_20160523/TRM_Define.hpp	102;"	d
+TRM_ROUTE_CMD_SIZE	TRM_Define.hpp	79;"	d
+TRM_ROUTE_CMD_SIZE	sample/TRM_Define.hpp	79;"	d
+TRM_ROUTE_CMD_SIZE	sample_20160523/TRM_Define.hpp	87;"	d
+TRM_ROUTE_NODE_NAME_SIZE	TRM_Define.hpp	80;"	d
+TRM_ROUTE_NODE_NAME_SIZE	sample/TRM_Define.hpp	80;"	d
+TRM_ROUTE_NODE_NAME_SIZE	sample_20160523/TRM_Define.hpp	88;"	d
+TRM_ROUTE_NODE_TYPE_SIZE	TRM_Define.hpp	81;"	d
+TRM_ROUTE_NODE_TYPE_SIZE	sample/TRM_Define.hpp	81;"	d
+TRM_ROUTE_NODE_TYPE_SIZE	sample_20160523/TRM_Define.hpp	89;"	d
+TRM_ROUTE_PKG_NAME_SIZE	TRM_Define.hpp	78;"	d
+TRM_ROUTE_PKG_NAME_SIZE	sample/TRM_Define.hpp	78;"	d
+TRM_ROUTE_PKG_NAME_SIZE	sample_20160523/TRM_Define.hpp	86;"	d
+TRM_TRACE_DATA	TRM_Define.hpp	54;"	d
+TRM_TRACE_DATA	sample/TRM_Define.hpp	54;"	d
+TRM_TRACE_DATA	sample_20160523/TRM_Define.hpp	62;"	d
+TRM_TRACE_OFF	TRM_Define.hpp	53;"	d
+TRM_TRACE_OFF	sample/TRM_Define.hpp	53;"	d
+TRM_TRACE_OFF	sample_20160523/TRM_Define.hpp	61;"	d
+TRM_TRACE_ON	TRM_Define.hpp	52;"	d
+TRM_TRACE_ON	sample/TRM_Define.hpp	52;"	d
+TRM_TRACE_ON	sample_20160523/TRM_Define.hpp	60;"	d
+TRM_TRACE_RECONFIG	TRM_Define.hpp	55;"	d
+TRM_TRACE_RECONFIG	sample/TRM_Define.hpp	55;"	d
+TRM_TRACE_RECONFIG	sample_20160523/TRM_Define.hpp	63;"	d
+TRM_TRACE_REGIST_ROUTE	TRM_Define.hpp	56;"	d
+TRM_TRACE_REGIST_ROUTE	sample/TRM_Define.hpp	56;"	d
+TRM_TRACE_REGIST_ROUTE	sample_20160523/TRM_Define.hpp	64;"	d
+TRM_TRACE_REQ_CMD_SIZE	TRM_Define.hpp	106;"	d
+TRM_TRACE_REQ_CMD_SIZE	sample/TRM_Define.hpp	106;"	d
+TRM_TRACE_REQ_CMD_SIZE	sample_20160523/TRM_Define.hpp	114;"	d
+TRM_TRACE_REQ_END_DATE_SIZE	TRM_Define.hpp	105;"	d
+TRM_TRACE_REQ_END_DATE_SIZE	sample/TRM_Define.hpp	105;"	d
+TRM_TRACE_REQ_END_DATE_SIZE	sample_20160523/TRM_Define.hpp	113;"	d
+TRM_TRACE_REQ_KEYWORD_SIZE	TRM_Define.hpp	102;"	d
+TRM_TRACE_REQ_KEYWORD_SIZE	sample/TRM_Define.hpp	102;"	d
+TRM_TRACE_REQ_KEYWORD_SIZE	sample_20160523/TRM_Define.hpp	110;"	d
+TRM_TRACE_REQ_NODE_NAME_SIZE	TRM_Define.hpp	100;"	d
+TRM_TRACE_REQ_NODE_NAME_SIZE	sample/TRM_Define.hpp	100;"	d
+TRM_TRACE_REQ_NODE_NAME_SIZE	sample_20160523/TRM_Define.hpp	108;"	d
+TRM_TRACE_REQ_NODE_TYPE_SIZE	TRM_Define.hpp	99;"	d
+TRM_TRACE_REQ_NODE_TYPE_SIZE	sample/TRM_Define.hpp	99;"	d
+TRM_TRACE_REQ_NODE_TYPE_SIZE	sample_20160523/TRM_Define.hpp	107;"	d
+TRM_TRACE_REQ_PKG_NAME_SIZE	TRM_Define.hpp	98;"	d
+TRM_TRACE_REQ_PKG_NAME_SIZE	sample/TRM_Define.hpp	98;"	d
+TRM_TRACE_REQ_PKG_NAME_SIZE	sample_20160523/TRM_Define.hpp	106;"	d
+TRM_TRACE_REQ_SIZE	TRM_Define.hpp	101;"	d
+TRM_TRACE_REQ_SIZE	sample/TRM_Define.hpp	101;"	d
+TRM_TRACE_REQ_SIZE	sample_20160523/TRM_Define.hpp	109;"	d
+TRM_TRACE_REQ_START_DATE_SIZE	TRM_Define.hpp	104;"	d
+TRM_TRACE_REQ_START_DATE_SIZE	sample/TRM_Define.hpp	104;"	d
+TRM_TRACE_REQ_START_DATE_SIZE	sample_20160523/TRM_Define.hpp	112;"	d
+TRM_TRACE_REQ_USER_ID_SIZE	TRM_Define.hpp	103;"	d
+TRM_TRACE_REQ_USER_ID_SIZE	sample/TRM_Define.hpp	103;"	d
+TRM_TRACE_REQ_USER_ID_SIZE	sample_20160523/TRM_Define.hpp	111;"	d
+TRM_TRACE_RES_CMD_SIZE	TRM_Define.hpp	114;"	d
+TRM_TRACE_RES_CMD_SIZE	sample/TRM_Define.hpp	114;"	d
+TRM_TRACE_RES_CMD_SIZE	sample_20160523/TRM_Define.hpp	122;"	d
+TRM_TRACE_RES_END_DATE_SIZE	TRM_Define.hpp	113;"	d
+TRM_TRACE_RES_END_DATE_SIZE	sample/TRM_Define.hpp	113;"	d
+TRM_TRACE_RES_END_DATE_SIZE	sample_20160523/TRM_Define.hpp	121;"	d
+TRM_TRACE_RES_MSG_SIZE	TRM_Define.hpp	116;"	d
+TRM_TRACE_RES_MSG_SIZE	sample/TRM_Define.hpp	116;"	d
+TRM_TRACE_RES_MSG_SIZE	sample_20160523/TRM_Define.hpp	124;"	d
+TRM_TRACE_RES_PKG_NAME_SIZE	TRM_Define.hpp	110;"	d
+TRM_TRACE_RES_PKG_NAME_SIZE	sample/TRM_Define.hpp	110;"	d
+TRM_TRACE_RES_PKG_NAME_SIZE	sample_20160523/TRM_Define.hpp	118;"	d
+TRM_TRACE_RES_SIZE	TRM_Define.hpp	109;"	d
+TRM_TRACE_RES_SIZE	sample/TRM_Define.hpp	109;"	d
+TRM_TRACE_RES_SIZE	sample_20160523/TRM_Define.hpp	117;"	d
+TRM_TRACE_RES_START_DATE_SIZE	TRM_Define.hpp	112;"	d
+TRM_TRACE_RES_START_DATE_SIZE	sample/TRM_Define.hpp	112;"	d
+TRM_TRACE_RES_START_DATE_SIZE	sample_20160523/TRM_Define.hpp	120;"	d
+TRM_TRACE_RES_STATUS_SIZE	TRM_Define.hpp	111;"	d
+TRM_TRACE_RES_STATUS_SIZE	sample/TRM_Define.hpp	111;"	d
+TRM_TRACE_RES_STATUS_SIZE	sample_20160523/TRM_Define.hpp	119;"	d
+TRM_TRACE_RES_SUCCESS_SIZE	TRM_Define.hpp	115;"	d
+TRM_TRACE_RES_SUCCESS_SIZE	sample/TRM_Define.hpp	115;"	d
+TRM_TRACE_RES_SUCCESS_SIZE	sample_20160523/TRM_Define.hpp	123;"	d
+__BJ_DefinesHpp__	TRM_Define.hpp	2;"	d
+__BJ_DefinesHpp__	sample/TRM_Define.hpp	2;"	d
+__BJ_DefinesHpp__	sample_20160523/TRM_Define.hpp	2;"	d
+app_node_no	TRM_Define.hpp	/^	int	 app_node_no;$/;"	m	struct:__anon6
+app_node_no	sample/TRM_Define.hpp	/^	int	 app_node_no;$/;"	m	struct:__anon18
+app_node_no	sample_20160523/TRM_Define.hpp	/^	int	 app_node_no;$/;"	m	struct:__anon12
+app_proc_no	TRM_Define.hpp	/^	int	 app_proc_no;$/;"	m	struct:__anon6
+app_proc_no	sample/TRM_Define.hpp	/^	int	 app_proc_no;$/;"	m	struct:__anon18
+app_proc_no	sample_20160523/TRM_Define.hpp	/^	int	 app_proc_no;$/;"	m	struct:__anon12
+bTraceOff	TRM_Define.hpp	/^	bool bTraceOff;$/;"	m	struct:__anon4
+bTraceOn	sample/TRM_Define.hpp	/^	bool bTraceOn;$/;"	m	struct:__anon16
+cmd	TRM_Define.hpp	/^	char cmd					[TRM_HIST_CMD_SIZE +1];$/;"	m	struct:__anon1
+cmd	TRM_Define.hpp	/^	char cmd					[TRM_ROUTE_CMD_SIZE +1];$/;"	m	struct:__anon2
+cmd	TRM_Define.hpp	/^	char cmd					[TRM_TRACE_REQ_CMD_SIZE +1];$/;"	m	struct:__anon4
+cmd	sample/TRM_Define.hpp	/^	char cmd					[TRM_HIST_CMD_SIZE +1];$/;"	m	struct:__anon13
+cmd	sample/TRM_Define.hpp	/^	char cmd					[TRM_ROUTE_CMD_SIZE +1];$/;"	m	struct:__anon14
+cmd	sample/TRM_Define.hpp	/^	char cmd					[TRM_TRACE_REQ_CMD_SIZE +1];$/;"	m	struct:__anon16
+cmd	sample_20160523/TRM_Define.hpp	/^	char cmd					[TRM_HIST_CMD_SIZE +1];$/;"	m	struct:__anon7
+cmd	sample_20160523/TRM_Define.hpp	/^	char cmd					[TRM_ROUTE_CMD_SIZE +1];$/;"	m	struct:__anon8
+cmd	sample_20160523/TRM_Define.hpp	/^	char cmd					[TRM_TRACE_REQ_CMD_SIZE +1];$/;"	m	struct:__anon10
+end_date	TRM_Define.hpp	/^    char end_date             	[TRM_TRACE_REQ_END_DATE_SIZE  +1];		$/;"	m	struct:__anon4
+end_date	TRM_Define.hpp	/^    char end_date             	[TRM_TRACE_RES_END_DATE_SIZE  +1];		$/;"	m	struct:__anon5
+end_date	TRM_Define.hpp	/^    char end_date               [TRM_HIST_END_DATE_SIZE +1];$/;"	m	struct:__anon1
+end_date	sample/TRM_Define.hpp	/^    char end_date             	[TRM_TRACE_REQ_END_DATE_SIZE  +1];		$/;"	m	struct:__anon16
+end_date	sample/TRM_Define.hpp	/^    char end_date             	[TRM_TRACE_RES_END_DATE_SIZE  +1];		$/;"	m	struct:__anon17
+end_date	sample/TRM_Define.hpp	/^    char end_date               [TRM_HIST_END_DATE_SIZE +1];$/;"	m	struct:__anon13
+end_date	sample_20160523/TRM_Define.hpp	/^    char end_date             	[TRM_TRACE_REQ_END_DATE_SIZE  +1];		$/;"	m	struct:__anon10
+end_date	sample_20160523/TRM_Define.hpp	/^    char end_date             	[TRM_TRACE_RES_END_DATE_SIZE  +1];		$/;"	m	struct:__anon11
+end_date	sample_20160523/TRM_Define.hpp	/^    char end_date               [TRM_HIST_END_DATE_SIZE +1];$/;"	m	struct:__anon7
+exec_arg	TRM_Define.hpp	/^    char exec_arg               [TRM_PROC_EXEC_ARG +1];$/;"	m	struct:__anon3
+exec_arg	sample/TRM_Define.hpp	/^    char exec_arg               [TRM_PROC_EXEC_ARG +1];$/;"	m	struct:__anon15
+exec_arg	sample_20160523/TRM_Define.hpp	/^    char exec_arg               [TRM_PROC_EXEC_ARG +1];$/;"	m	struct:__anon9
+exec_bin	TRM_Define.hpp	/^    char exec_bin               [TRM_PROC_EXEC_BIN_SIZE +1];$/;"	m	struct:__anon3
+exec_bin	sample/TRM_Define.hpp	/^    char exec_bin               [TRM_PROC_EXEC_BIN_SIZE +1];$/;"	m	struct:__anon15
+exec_bin	sample_20160523/TRM_Define.hpp	/^    char exec_bin               [TRM_PROC_EXEC_BIN_SIZE +1];$/;"	m	struct:__anon9
+exec_env	TRM_Define.hpp	/^    char exec_env               [TRM_PROC_EXEC_ENV +1];$/;"	m	struct:__anon3
+exec_env	sample/TRM_Define.hpp	/^    char exec_env               [TRM_PROC_EXEC_ENV +1];$/;"	m	struct:__anon15
+exec_env	sample_20160523/TRM_Define.hpp	/^    char exec_env               [TRM_PROC_EXEC_ENV +1];$/;"	m	struct:__anon9
+exec_yn	TRM_Define.hpp	/^    char exec_yn                [2];$/;"	m	struct:__anon3
+exec_yn	sample/TRM_Define.hpp	/^    char exec_yn                [2];$/;"	m	struct:__anon15
+exec_yn	sample_20160523/TRM_Define.hpp	/^    char exec_yn                [2];$/;"	m	struct:__anon9
+filename	TRM_Define.hpp	/^	char filename				[TRM_HIST_FILENAME_SiZE +1];$/;"	m	struct:__anon1
+filename	TRM_Define.hpp	/^	char filename				[TRM_HIST_FILENAME_SiZE +1];$/;"	m	struct:__anon5
+filename	sample/TRM_Define.hpp	/^	char filename				[TRM_HIST_FILENAME_SiZE +1];$/;"	m	struct:__anon13
+filename	sample/TRM_Define.hpp	/^	char filename				[TRM_HIST_FILENAME_SiZE +1];$/;"	m	struct:__anon17
+filename	sample_20160523/TRM_Define.hpp	/^	char filename				[TRM_HIST_FILENAME_SiZE +1];$/;"	m	struct:__anon11
+filename	sample_20160523/TRM_Define.hpp	/^	char filename				[TRM_HIST_FILENAME_SiZE +1];$/;"	m	struct:__anon7
+keyword	TRM_Define.hpp	/^	char keyword				[TRM_TRACE_REQ_KEYWORD_SIZE +1];$/;"	m	struct:__anon4
+keyword	sample/TRM_Define.hpp	/^	char keyword				[TRM_TRACE_REQ_KEYWORD_SIZE +1];$/;"	m	struct:__anon16
+keyword	sample_20160523/TRM_Define.hpp	/^	char keyword				[TRM_TRACE_REQ_KEYWORD_SIZE +1];$/;"	m	struct:__anon10
+m_clsProtocol	CTraceAPI.hpp	/^	CProtocol			 m_clsProtocol;$/;"	m	class:CTraceAPI
+m_clsProtocol	sample/CTraceAPI.hpp	/^	CProtocol			 m_clsProtocol;$/;"	m	class:CTraceAPI
+m_nNodeNo	sample_20160523/CTraceAPI.hpp	/^    unsigned int m_nNodeNo;					\/\/ Node Number$/;"	m	class:CTraceAPI
+m_nProcNo	sample_20160523/CTraceAPI.hpp	/^    unsigned int m_nProcNo;					\/\/ Process Number$/;"	m	class:CTraceAPI
+m_nRunMode	CTraceAPI.hpp	/^	unsigned int		 m_nRunMode;			\/\/ Debug (1) - Normal (2)$/;"	m	class:CTraceAPI
+m_nRunMode	sample/CTraceAPI.hpp	/^	unsigned int		 m_nRunMode;			\/\/ Debug (1) - Normal (2)$/;"	m	class:CTraceAPI
+m_nRunMode	sample_20160523/CTraceAPI.hpp	/^	unsigned int		 m_nRunMode;			\/\/ Debug (1) - Normal (2)$/;"	m	class:CTraceAPI
+m_nTraceCount	CTraceAPI.hpp	/^	unsigned int 		 m_nTraceCount;$/;"	m	class:CTraceAPI
+m_nTraceCount	sample/CTraceAPI.hpp	/^	unsigned int 		 m_nTraceCount;$/;"	m	class:CTraceAPI
+m_nTraceCount	sample_20160523/CTraceAPI.hpp	/^	int			 	 	 m_nTraceCount;			$/;"	m	class:CTraceAPI
+m_pDB	sample_20160523/CTraceAPI.hpp	/^	DB *		 m_pDB;$/;"	m	class:CTraceAPI
+m_sock	sample_20160523/CTraceAPI.hpp	/^	CMesgExchSocket 	 m_sock;$/;"	m	class:CTraceAPI
+m_stCoworkInfo	CTraceAPI.hpp	/^	ST_COWORK_INFO		 m_stCoworkInfo;		\/\/ Structure of Connection info$/;"	m	class:CTraceAPI
+m_stCoworkInfo	sample/CTraceAPI.hpp	/^	ST_COWORK_INFO		 m_stCoworkInfo;		\/\/ Structure of Connection info$/;"	m	class:CTraceAPI
+m_stCoworkInfo	sample_20160523/CTraceAPI.hpp	/^	ST_COWORK_INFO		 m_stCoworkInfo;		\/\/ Structure of Connection info$/;"	m	class:CTraceAPI
+m_stTraceRequest	CTraceAPI.hpp	/^	ST_TRACE_REQUEST 	 *m_stTraceRequest;$/;"	m	class:CTraceAPI
+m_stTraceRequest	sample/CTraceAPI.hpp	/^	ST_TRACE_REQUEST 	 *m_stTraceRequest;$/;"	m	class:CTraceAPI
+m_stTraceRequest	sample_20160523/CTraceAPI.hpp	/^	ST_TRACE_REQUEST 	 m_stTraceRequest [256];$/;"	m	class:CTraceAPI
+m_stTraceResponse	CTraceAPI.hpp	/^	ST_TRACE_RESPONSE 	 m_stTraceResponse;$/;"	m	class:CTraceAPI
+m_stTraceResponse	sample/CTraceAPI.hpp	/^	ST_TRACE_RESPONSE 	 m_stTraceResponse;$/;"	m	class:CTraceAPI
+m_stTraceResponse	sample_20160523/CTraceAPI.hpp	/^	ST_TRACE_RESPONSE 	 m_stTraceResponse;$/;"	m	class:CTraceAPI
+m_strNodeName	sample_20160523/CTraceAPI.hpp	/^    string 		 m_strNodeName;				\/\/ Node Name$/;"	m	class:CTraceAPI
+m_strNodeType	sample_20160523/CTraceAPI.hpp	/^    string 		 m_strNodeType;				\/\/ Node Type$/;"	m	class:CTraceAPI
+m_strPkgName	sample_20160523/CTraceAPI.hpp	/^    string 		 m_strPkgName;				\/\/ Package Name$/;"	m	class:CTraceAPI
+m_strProcName	sample_20160523/CTraceAPI.hpp	/^    string 		 m_strProcName;				\/\/ Process Name$/;"	m	class:CTraceAPI
+m_szHostName	sample_20160523/CTraceAPI.hpp	/^    char 		 m_szHostName    [DEF_BUFFER_128];	\/\/ Host Name of This System$/;"	m	class:CTraceAPI
+m_vTraceRequest	CTraceAPI.hpp	/^	vector<ST_TRACE_REQUEST *> m_vTraceRequest;$/;"	m	class:CTraceAPI
+m_vTraceRequest	sample/CTraceAPI.hpp	/^	vector<ST_TRACE_REQUEST *> m_vTraceRequest;$/;"	m	class:CTraceAPI
+m_vTraceRequest	sample_20160523/CTraceAPI.hpp	/^	vector<ST_TRACE_REQUEST *> m_vTraceRequest;$/;"	m	class:CTraceAPI
+main	sample/trc_test.cpp	/^int main()$/;"	f
+main	sample_20160523/trc_test.cpp	/^int main()$/;"	f
+msg	TRM_Define.hpp	/^	char msg					[TRM_TRACE_RES_MSG_SIZE +1];$/;"	m	struct:__anon5
+msg	sample/TRM_Define.hpp	/^	char msg					[TRM_TRACE_RES_MSG_SIZE +1];$/;"	m	struct:__anon17
+msg	sample_20160523/TRM_Define.hpp	/^	char msg					[TRM_TRACE_RES_MSG_SIZE +1];$/;"	m	struct:__anon11
+na_node_no	TRM_Define.hpp	/^    int  na_node_no;$/;"	m	struct:__anon6
+na_node_no	sample/TRM_Define.hpp	/^    int  na_node_no;$/;"	m	struct:__anon18
+na_node_no	sample_20160523/TRM_Define.hpp	/^    int  na_node_no;$/;"	m	struct:__anon12
+na_proc_no	TRM_Define.hpp	/^    int  na_proc_no;$/;"	m	struct:__anon6
+na_proc_no	sample/TRM_Define.hpp	/^    int  na_proc_no;$/;"	m	struct:__anon18
+na_proc_no	sample_20160523/TRM_Define.hpp	/^    int  na_proc_no;$/;"	m	struct:__anon12
+node_name	TRM_Define.hpp	/^	char node_name				[TRM_HIST_NODE_NAME_SIZE +1];		\/\/ TAT_NODE 참조$/;"	m	struct:__anon1
+node_name	TRM_Define.hpp	/^	char node_name				[TRM_ROUTE_NODE_NAME_SIZE +1];		\/\/ TAT_NODE 참조$/;"	m	struct:__anon2
+node_name	TRM_Define.hpp	/^    char node_name              [TRM_PROC_NODE_NAME_SIZE +1];       \/\/ TAT_NODE 참조$/;"	m	struct:__anon3
+node_name	sample/TRM_Define.hpp	/^	char node_name				[TRM_HIST_NODE_NAME_SIZE +1];		\/\/ TAT_NODE 참조$/;"	m	struct:__anon13
+node_name	sample/TRM_Define.hpp	/^	char node_name				[TRM_ROUTE_NODE_NAME_SIZE +1];		\/\/ TAT_NODE 참조$/;"	m	struct:__anon14
+node_name	sample/TRM_Define.hpp	/^    char node_name              [TRM_PROC_NODE_NAME_SIZE +1];       \/\/ TAT_NODE 참조$/;"	m	struct:__anon15
+node_name	sample_20160523/TRM_Define.hpp	/^	char node_name				[TRM_HIST_NODE_NAME_SIZE +1];		\/\/ TAT_NODE 참조$/;"	m	struct:__anon7
+node_name	sample_20160523/TRM_Define.hpp	/^	char node_name				[TRM_ROUTE_NODE_NAME_SIZE +1];		\/\/ TAT_NODE 참조$/;"	m	struct:__anon8
+node_name	sample_20160523/TRM_Define.hpp	/^    char node_name              [TRM_PROC_NODE_NAME_SIZE +1];       \/\/ TAT_NODE 참조$/;"	m	struct:__anon9
+node_no	TRM_Define.hpp	/^    int  node_no; $/;"	m	struct:__anon4
+node_no	TRM_Define.hpp	/^    int  node_no;$/;"	m	struct:__anon2
+node_no	sample/TRM_Define.hpp	/^    int  node_no; $/;"	m	struct:__anon16
+node_no	sample/TRM_Define.hpp	/^    int  node_no;$/;"	m	struct:__anon14
+node_no	sample_20160523/TRM_Define.hpp	/^    int  node_no; $/;"	m	struct:__anon10
+node_no	sample_20160523/TRM_Define.hpp	/^    int  node_no;$/;"	m	struct:__anon8
+node_type	TRM_Define.hpp	/^	char node_type				[TRM_ROUTE_NODE_TYPE_SIZE +1];$/;"	m	struct:__anon2
+node_type	TRM_Define.hpp	/^    char node_type              [TRM_PROC_NODE_TYPE_SIZE +1];$/;"	m	struct:__anon3
+node_type	TRM_Define.hpp	/^    char node_type              [TRM_PROC_NODE_TYPE_SIZE +1];$/;"	m	struct:__anon6
+node_type	TRM_Define.hpp	/^    char node_type              [TRM_TRACE_REQ_NODE_TYPE_SIZE +1];$/;"	m	struct:__anon4
+node_type	sample/TRM_Define.hpp	/^	char node_type				[TRM_ROUTE_NODE_TYPE_SIZE +1];$/;"	m	struct:__anon14
+node_type	sample/TRM_Define.hpp	/^    char node_type              [TRM_PROC_NODE_TYPE_SIZE +1];$/;"	m	struct:__anon15
+node_type	sample/TRM_Define.hpp	/^    char node_type              [TRM_PROC_NODE_TYPE_SIZE +1];$/;"	m	struct:__anon18
+node_type	sample/TRM_Define.hpp	/^    char node_type              [TRM_TRACE_REQ_NODE_TYPE_SIZE +1];$/;"	m	struct:__anon16
+node_type	sample_20160523/TRM_Define.hpp	/^	char node_type				[TRM_ROUTE_NODE_TYPE_SIZE +1];$/;"	m	struct:__anon8
+node_type	sample_20160523/TRM_Define.hpp	/^    char node_type              [TRM_PROC_NODE_TYPE_SIZE +1];$/;"	m	struct:__anon12
+node_type	sample_20160523/TRM_Define.hpp	/^    char node_type              [TRM_PROC_NODE_TYPE_SIZE +1];$/;"	m	struct:__anon9
+node_type	sample_20160523/TRM_Define.hpp	/^    char node_type              [TRM_TRACE_REQ_NODE_TYPE_SIZE +1];$/;"	m	struct:__anon10
+norm_stop_cd	TRM_Define.hpp	/^    int  norm_stop_cd;$/;"	m	struct:__anon3
+norm_stop_cd	sample/TRM_Define.hpp	/^    int  norm_stop_cd;$/;"	m	struct:__anon15
+norm_stop_cd	sample_20160523/TRM_Define.hpp	/^    int  norm_stop_cd;$/;"	m	struct:__anon9
+oper_no	TRM_Define.hpp	/^	long int oper_no;$/;"	m	struct:__anon1
+oper_no	TRM_Define.hpp	/^	long int oper_no;$/;"	m	struct:__anon4
+oper_no	TRM_Define.hpp	/^	long int oper_no;$/;"	m	struct:__anon5
+oper_no	sample/TRM_Define.hpp	/^	long int oper_no;$/;"	m	struct:__anon13
+oper_no	sample/TRM_Define.hpp	/^	long int oper_no;$/;"	m	struct:__anon16
+oper_no	sample/TRM_Define.hpp	/^	long int oper_no;$/;"	m	struct:__anon17
+oper_no	sample_20160523/TRM_Define.hpp	/^	long int oper_no;$/;"	m	struct:__anon10
+oper_no	sample_20160523/TRM_Define.hpp	/^	long int oper_no;$/;"	m	struct:__anon11
+oper_no	sample_20160523/TRM_Define.hpp	/^	long int oper_no;$/;"	m	struct:__anon7
+pkg_name	TRM_Define.hpp	/^	char pkg_name				[TRM_HIST_PKG_NAME_SIZE +1];$/;"	m	struct:__anon1
+pkg_name	TRM_Define.hpp	/^	char pkg_name				[TRM_ROUTE_PKG_NAME_SIZE    +1];$/;"	m	struct:__anon2
+pkg_name	TRM_Define.hpp	/^    char pkg_name               [TRM_PROC_PKG_NAME_SIZE +1];$/;"	m	struct:__anon3
+pkg_name	TRM_Define.hpp	/^    char pkg_name               [TRM_PROC_PKG_NAME_SIZE +1];$/;"	m	struct:__anon6
+pkg_name	TRM_Define.hpp	/^    char pkg_name               [TRM_TRACE_REQ_PKG_NAME_SIZE    +1];$/;"	m	struct:__anon4
+pkg_name	TRM_Define.hpp	/^    char pkg_name               [TRM_TRACE_RES_PKG_NAME_SIZE    +1];$/;"	m	struct:__anon5
+pkg_name	sample/TRM_Define.hpp	/^	char pkg_name				[TRM_HIST_PKG_NAME_SIZE +1];$/;"	m	struct:__anon13
+pkg_name	sample/TRM_Define.hpp	/^	char pkg_name				[TRM_ROUTE_PKG_NAME_SIZE    +1];$/;"	m	struct:__anon14
+pkg_name	sample/TRM_Define.hpp	/^    char pkg_name               [TRM_PROC_PKG_NAME_SIZE +1];$/;"	m	struct:__anon15
+pkg_name	sample/TRM_Define.hpp	/^    char pkg_name               [TRM_PROC_PKG_NAME_SIZE +1];$/;"	m	struct:__anon18
+pkg_name	sample/TRM_Define.hpp	/^    char pkg_name               [TRM_TRACE_REQ_PKG_NAME_SIZE    +1];$/;"	m	struct:__anon16
+pkg_name	sample/TRM_Define.hpp	/^    char pkg_name               [TRM_TRACE_RES_PKG_NAME_SIZE    +1];$/;"	m	struct:__anon17
+pkg_name	sample_20160523/TRM_Define.hpp	/^	char pkg_name				[TRM_HIST_PKG_NAME_SIZE +1];$/;"	m	struct:__anon7
+pkg_name	sample_20160523/TRM_Define.hpp	/^	char pkg_name				[TRM_ROUTE_PKG_NAME_SIZE    +1];$/;"	m	struct:__anon8
+pkg_name	sample_20160523/TRM_Define.hpp	/^    char pkg_name               [TRM_PROC_PKG_NAME_SIZE +1];$/;"	m	struct:__anon12
+pkg_name	sample_20160523/TRM_Define.hpp	/^    char pkg_name               [TRM_PROC_PKG_NAME_SIZE +1];$/;"	m	struct:__anon9
+pkg_name	sample_20160523/TRM_Define.hpp	/^    char pkg_name               [TRM_TRACE_REQ_PKG_NAME_SIZE    +1];$/;"	m	struct:__anon10
+pkg_name	sample_20160523/TRM_Define.hpp	/^    char pkg_name               [TRM_TRACE_RES_PKG_NAME_SIZE    +1];$/;"	m	struct:__anon11
+proc_name	TRM_Define.hpp	/^    char proc_name              [TRM_PROC_PROC_NAME_SIZE +1];$/;"	m	struct:__anon3
+proc_name	sample/TRM_Define.hpp	/^    char proc_name              [TRM_PROC_PROC_NAME_SIZE +1];$/;"	m	struct:__anon15
+proc_name	sample_20160523/TRM_Define.hpp	/^    char proc_name              [TRM_PROC_PROC_NAME_SIZE +1];$/;"	m	struct:__anon9
+proc_no	TRM_Define.hpp	/^	int  proc_no;$/;"	m	struct:__anon2
+proc_no	TRM_Define.hpp	/^    int  proc_no;$/;"	m	struct:__anon3
+proc_no	TRM_Define.hpp	/^    int  proc_no;$/;"	m	struct:__anon4
+proc_no	sample/TRM_Define.hpp	/^	int  proc_no;$/;"	m	struct:__anon14
+proc_no	sample/TRM_Define.hpp	/^    int  proc_no;$/;"	m	struct:__anon15
+proc_no	sample/TRM_Define.hpp	/^    int  proc_no;$/;"	m	struct:__anon16
+proc_no	sample_20160523/TRM_Define.hpp	/^	int  proc_no;$/;"	m	struct:__anon8
+proc_no	sample_20160523/TRM_Define.hpp	/^    int  proc_no;$/;"	m	struct:__anon10
+proc_no	sample_20160523/TRM_Define.hpp	/^    int  proc_no;$/;"	m	struct:__anon9
+proc_type	TRM_Define.hpp	/^    char proc_type              [2];$/;"	m	struct:__anon3
+proc_type	sample/TRM_Define.hpp	/^    char proc_type              [2];$/;"	m	struct:__anon15
+proc_type	sample_20160523/TRM_Define.hpp	/^    char proc_type              [2];$/;"	m	struct:__anon9
+protocol	TRM_Define.hpp	/^	int  protocol;$/;"	m	struct:__anon1
+protocol	TRM_Define.hpp	/^	int  protocol;$/;"	m	struct:__anon4
+protocol	sample/TRM_Define.hpp	/^	int  protocol;$/;"	m	struct:__anon13
+protocol	sample/TRM_Define.hpp	/^	int  protocol;$/;"	m	struct:__anon16
+protocol	sample_20160523/TRM_Define.hpp	/^	int  protocol;$/;"	m	struct:__anon10
+protocol	sample_20160523/TRM_Define.hpp	/^	int  protocol;$/;"	m	struct:__anon7
+resta_cnt	TRM_Define.hpp	/^    int  resta_cnt;$/;"	m	struct:__anon3
+resta_cnt	sample/TRM_Define.hpp	/^    int  resta_cnt;$/;"	m	struct:__anon15
+resta_cnt	sample_20160523/TRM_Define.hpp	/^    int  resta_cnt;$/;"	m	struct:__anon9
+resta_reset_sec	TRM_Define.hpp	/^    int  resta_reset_sec;$/;"	m	struct:__anon3
+resta_reset_sec	sample/TRM_Define.hpp	/^    int  resta_reset_sec;$/;"	m	struct:__anon15
+resta_reset_sec	sample_20160523/TRM_Define.hpp	/^    int  resta_reset_sec;$/;"	m	struct:__anon9
+run_mode	TRM_Define.hpp	/^	int  run_mode;$/;"	m	struct:__anon1
+run_mode	TRM_Define.hpp	/^	int  run_mode;$/;"	m	struct:__anon4
+run_mode	sample/TRM_Define.hpp	/^	int  run_mode;$/;"	m	struct:__anon13
+run_mode	sample/TRM_Define.hpp	/^	int  run_mode;$/;"	m	struct:__anon16
+run_mode	sample_20160523/TRM_Define.hpp	/^	int  run_mode;$/;"	m	struct:__anon10
+run_mode	sample_20160523/TRM_Define.hpp	/^	int  run_mode;$/;"	m	struct:__anon7
+search_mode	TRM_Define.hpp	/^	int  search_mode;$/;"	m	struct:__anon1
+search_mode	TRM_Define.hpp	/^	int  search_mode;$/;"	m	struct:__anon4
+search_mode	sample/TRM_Define.hpp	/^	int  search_mode;$/;"	m	struct:__anon13
+search_mode	sample/TRM_Define.hpp	/^	int  search_mode;$/;"	m	struct:__anon16
+search_mode	sample_20160523/TRM_Define.hpp	/^	int  search_mode;$/;"	m	struct:__anon10
+search_mode	sample_20160523/TRM_Define.hpp	/^	int  search_mode;$/;"	m	struct:__anon7
+sequence	TRM_Define.hpp	/^    int  sequence;$/;"	m	struct:__anon2
+sequence	TRM_Define.hpp	/^    int  sequence;$/;"	m	struct:__anon4
+sequence	TRM_Define.hpp	/^    int  sequence;$/;"	m	struct:__anon5
+sequence	sample/TRM_Define.hpp	/^    int  sequence;$/;"	m	struct:__anon14
+sequence	sample/TRM_Define.hpp	/^    int  sequence;$/;"	m	struct:__anon16
+sequence	sample/TRM_Define.hpp	/^    int  sequence;$/;"	m	struct:__anon17
+sequence	sample_20160523/TRM_Define.hpp	/^    int  sequence;$/;"	m	struct:__anon10
+sequence	sample_20160523/TRM_Define.hpp	/^    int  sequence;$/;"	m	struct:__anon11
+sequence	sample_20160523/TRM_Define.hpp	/^    int  sequence;$/;"	m	struct:__anon8
+space_remove	CTraceAPI.cpp	/^char* CTraceAPI::space_remove(char *a_str)$/;"	f	class:CTraceAPI
+space_remove	sample/CTraceAPI.cpp	/^char* CTraceAPI::space_remove(char *a_str)$/;"	f	class:CTraceAPI
+space_remove	sample_20160523/CTraceAPI.cpp	/^char* CTraceAPI::space_remove(char *a_str)$/;"	f	class:CTraceAPI
+start_date	TRM_Define.hpp	/^    char start_date             [TRM_HIST_START_DATE_SIZE  +1];$/;"	m	struct:__anon1
+start_date	TRM_Define.hpp	/^    char start_date             [TRM_TRACE_REQ_START_DATE_SIZE  +1];		$/;"	m	struct:__anon4
+start_date	TRM_Define.hpp	/^    char start_date             [TRM_TRACE_RES_START_DATE_SIZE  +1];		$/;"	m	struct:__anon5
+start_date	sample/TRM_Define.hpp	/^    char start_date             [TRM_HIST_START_DATE_SIZE  +1];$/;"	m	struct:__anon13
+start_date	sample/TRM_Define.hpp	/^    char start_date             [TRM_TRACE_REQ_START_DATE_SIZE  +1];		$/;"	m	struct:__anon16
+start_date	sample/TRM_Define.hpp	/^    char start_date             [TRM_TRACE_RES_START_DATE_SIZE  +1];		$/;"	m	struct:__anon17
+start_date	sample_20160523/TRM_Define.hpp	/^    char start_date             [TRM_HIST_START_DATE_SIZE  +1];$/;"	m	struct:__anon7
+start_date	sample_20160523/TRM_Define.hpp	/^    char start_date             [TRM_TRACE_REQ_START_DATE_SIZE  +1];		$/;"	m	struct:__anon10
+start_date	sample_20160523/TRM_Define.hpp	/^    char start_date             [TRM_TRACE_RES_START_DATE_SIZE  +1];		$/;"	m	struct:__anon11
+start_order	TRM_Define.hpp	/^    int  start_order;$/;"	m	struct:__anon3
+start_order	sample/TRM_Define.hpp	/^    int  start_order;$/;"	m	struct:__anon15
+start_order	sample_20160523/TRM_Define.hpp	/^    int  start_order;$/;"	m	struct:__anon9
+status	TRM_Define.hpp	/^	char status					[TRM_TRACE_RES_STATUS_SIZE +1];$/;"	m	struct:__anon5
+status	TRM_Define.hpp	/^	int status;$/;"	m	struct:__anon1
+status	sample/TRM_Define.hpp	/^	char status					[TRM_TRACE_RES_STATUS_SIZE +1];$/;"	m	struct:__anon17
+status	sample/TRM_Define.hpp	/^	int status;$/;"	m	struct:__anon13
+status	sample_20160523/TRM_Define.hpp	/^	char status					[TRM_TRACE_RES_STATUS_SIZE +1];$/;"	m	struct:__anon11
+status	sample_20160523/TRM_Define.hpp	/^	int status;$/;"	m	struct:__anon7
+stop_order	TRM_Define.hpp	/^    int  stop_order;$/;"	m	struct:__anon3
+stop_order	sample/TRM_Define.hpp	/^    int  stop_order;$/;"	m	struct:__anon15
+stop_order	sample_20160523/TRM_Define.hpp	/^    int  stop_order;$/;"	m	struct:__anon9
+success	TRM_Define.hpp	/^	bool success;$/;"	m	struct:__anon5
+success	sample/TRM_Define.hpp	/^	bool success;$/;"	m	struct:__anon17
+success	sample_20160523/TRM_Define.hpp	/^	bool success;$/;"	m	struct:__anon11
+svc_no	TRM_Define.hpp	/^    int  svc_no;$/;"	m	struct:__anon3
+svc_no	sample/TRM_Define.hpp	/^    int  svc_no;$/;"	m	struct:__anon15
+svc_no	sample_20160523/TRM_Define.hpp	/^    int  svc_no;$/;"	m	struct:__anon9
+trace	TRM_Define.hpp	/^    char trace		            [TRM_TRACE_REQ_SIZE + 1];$/;"	m	struct:__anon4
+trace	TRM_Define.hpp	/^    char trace		            [TRM_TRACE_RES_SIZE + 1];$/;"	m	struct:__anon5
+trace	sample/TRM_Define.hpp	/^    char trace		            [TRM_TRACE_REQ_SIZE + 1];$/;"	m	struct:__anon16
+trace	sample/TRM_Define.hpp	/^    char trace		            [TRM_TRACE_RES_SIZE + 1];$/;"	m	struct:__anon17
+trace	sample_20160523/TRM_Define.hpp	/^    char trace		            [TRM_TRACE_REQ_SIZE + 1];$/;"	m	struct:__anon10
+trace	sample_20160523/TRM_Define.hpp	/^    char trace		            [TRM_TRACE_RES_SIZE + 1];$/;"	m	struct:__anon11
+trm_node_no	TRM_Define.hpp	/^    int  trm_node_no;$/;"	m	struct:__anon6
+trm_node_no	sample/TRM_Define.hpp	/^    int  trm_node_no;$/;"	m	struct:__anon18
+trm_node_no	sample_20160523/TRM_Define.hpp	/^    int  trm_node_no;$/;"	m	struct:__anon12
+trm_proc_no	TRM_Define.hpp	/^    int  trm_proc_no;$/;"	m	struct:__anon6
+trm_proc_no	sample/TRM_Define.hpp	/^    int  trm_proc_no;$/;"	m	struct:__anon18
+trm_proc_no	sample_20160523/TRM_Define.hpp	/^    int  trm_proc_no;$/;"	m	struct:__anon12
+use_yn	TRM_Define.hpp	/^    char use_yn                 [2];$/;"	m	struct:__anon3
+use_yn	sample/TRM_Define.hpp	/^    char use_yn                 [2];$/;"	m	struct:__anon15
+use_yn	sample_20160523/TRM_Define.hpp	/^    char use_yn                 [2];$/;"	m	struct:__anon9
+user_id	TRM_Define.hpp	/^	char user_id				[TRM_HIST_USER_ID_SIZE +1];$/;"	m	struct:__anon1
+user_id	TRM_Define.hpp	/^	char user_id				[TRM_TRACE_REQ_USER_ID_SIZE +1];$/;"	m	struct:__anon4
+user_id	sample/TRM_Define.hpp	/^	char user_id				[TRM_HIST_USER_ID_SIZE +1];$/;"	m	struct:__anon13
+user_id	sample/TRM_Define.hpp	/^	char user_id				[TRM_TRACE_REQ_USER_ID_SIZE +1];$/;"	m	struct:__anon16
+user_id	sample_20160523/TRM_Define.hpp	/^	char user_id				[TRM_HIST_USER_ID_SIZE +1];$/;"	m	struct:__anon7
+user_id	sample_20160523/TRM_Define.hpp	/^	char user_id				[TRM_TRACE_REQ_USER_ID_SIZE +1];$/;"	m	struct:__anon10
+~CTraceAPI	CTraceAPI.cpp	/^CTraceAPI::~CTraceAPI()$/;"	f	class:CTraceAPI
+~CTraceAPI	sample/CTraceAPI.cpp	/^CTraceAPI::~CTraceAPI()$/;"	f	class:CTraceAPI
+~CTraceAPI	sample_20160523/CTraceAPI.cpp	/^CTraceAPI::~CTraceAPI()$/;"	f	class:CTraceAPI
