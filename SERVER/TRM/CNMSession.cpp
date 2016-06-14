@@ -47,8 +47,12 @@ CNMSession::~CNMSession()
 int CNMSession::Initial()
 {
 	// Connect to MN
+//#ifdef TRM_DEBUG
+#if 1
+    if(m_sock.Connect("127.0.0.1", 10000) == false)
+#else
     if(m_sock.Connect(g_pcCFG.NM.m_strNMAddr.c_str(), g_pcCFG.NM.m_nNMPort) == false)
-//    if(m_sock.Connect("127.0.0.1", 10000) == false)
+#endif
     {	
         printf("Connection Failed : IP : %s, Port : %d\n", g_pcCFG.NM.m_strNMAddr.c_str(), g_pcCFG.NM.m_nNMPort );
         return TRM_NOK;
@@ -254,35 +258,36 @@ int CNMSession::SetRequestMsg(ST_TRACE_REQUEST *a_tracerequest)
 
     rabbit::object  menu = m_root["BODY"];
 
-    g_pcLog->INFO("oper_no [%ld]", stTraceRequest.oper_no);
     menu["oper_no"]  = stTraceRequest.oper_no;
-    g_pcLog->INFO("pkg_name [%s]", stTraceRequest.pkg_name);
     menu["pkg_name"]    = stTraceRequest.pkg_name;
-    g_pcLog->INFO("node_no [%d]", stTraceRequest.node_no);
     menu["node_no"]    = stTraceRequest.node_no;
-    g_pcLog->INFO("trace [%s]", stTraceRequest.trace);
     menu["trace"]    = stTraceRequest.trace;
-    g_pcLog->INFO("protocol [%d]", stTraceRequest.protocol);
     menu["protocol"]    = stTraceRequest.protocol;
-    g_pcLog->INFO("search_mode [%d]", stTraceRequest.search_mode);
     menu["search_mode"]    = stTraceRequest.search_mode;
-    g_pcLog->INFO("keyword [%s]", stTraceRequest.keyword);
     menu["keyword"]    = stTraceRequest.keyword;
-    g_pcLog->INFO("run_mode [%d]", stTraceRequest.run_mode);
     menu["run_mode"]    = stTraceRequest.run_mode;
-    g_pcLog->INFO("user_id [%s]", stTraceRequest.user_id);
     menu["user_id"]    = stTraceRequest.user_id;
-    g_pcLog->INFO("start_date [%s]", stTraceRequest.start_date);
     menu["start_date"]    = stTraceRequest.start_date;
-    g_pcLog->INFO("end_date [%s]", stTraceRequest.end_date);
     menu["end_date"]    = stTraceRequest.end_date;
 
-    g_pcLog->INFO("proc_no [%d]", stTraceRequest.proc_no);
     menu["proc_no"]    = stTraceRequest.proc_no;
-    g_pcLog->INFO("cmd [%s]", stTraceRequest.cmd);
     menu["cmd"]    = stTraceRequest.cmd;
 
 #ifdef TRM_DEBUG
+    g_pcLog->INFO("oper_no [%ld]", stTraceRequest.oper_no);
+    g_pcLog->INFO("pkg_name [%s]", stTraceRequest.pkg_name);
+    g_pcLog->INFO("node_no [%d]", stTraceRequest.node_no);
+    g_pcLog->INFO("trace [%s]", stTraceRequest.trace);
+    g_pcLog->INFO("protocol [%d]", stTraceRequest.protocol);
+    g_pcLog->INFO("search_mode [%d]", stTraceRequest.search_mode);
+    g_pcLog->INFO("keyword [%s]", stTraceRequest.keyword);
+    g_pcLog->INFO("run_mode [%d]", stTraceRequest.run_mode);
+    g_pcLog->INFO("user_id [%s]", stTraceRequest.user_id);
+    g_pcLog->INFO("start_date [%s]", stTraceRequest.start_date);
+    g_pcLog->INFO("end_date [%s]", stTraceRequest.end_date);
+
+    g_pcLog->INFO("proc_no [%d]", stTraceRequest.proc_no);
+    g_pcLog->INFO("cmd [%s]", stTraceRequest.cmd);
     cout << m_root.str() << endl;
 #endif	
 	m_sock.SetPayload(m_root.str());
@@ -494,7 +499,7 @@ int CNMSession::TestWebGetTraceData(double a_oper_no, char* start_date, char* en
 
 	CheckRecvMsg();
 
-    g_pcLog->INFO("GetTraceData strTraceResponse : [%s]", strTraceResponse.c_str());
+    g_pcLog->INFO("TestWebGetTraceData strTraceResponse : [%s]", strTraceResponse.c_str());
 
     try {
         rabbit::document    doc;
@@ -716,44 +721,47 @@ int CNMSession::GetRequestMsg(int nOnOff, ST_TRACE_REQUEST *a_tracerequest)
 
         nOper_no = doc["BODY"]["oper_no"].as_int64();
 		a_tracerequest->oper_no = nOper_no;
-        cout << "[BODY][oper_no]    :" << "[" << a_tracerequest->oper_no << "]" << endl;
 
         strPkg_name = string(doc["BODY"]["pkg_name"].as_string());
 		strncpy(a_tracerequest->pkg_name, strPkg_name.c_str(), strPkg_name.length());
-        cout << "[BODY][pkg_name]    :" << "[" << a_tracerequest->pkg_name << "]" << endl;
 
         nNode_no = doc["BODY"]["node_no"].as_int();
 		a_tracerequest->node_no = nNode_no;
-        cout << "[BODY][node_no]    :" << "[" << a_tracerequest->node_no << "]" << endl;
 
         strTrace = string(doc["BODY"]["trace"].as_string());
 		strncpy(a_tracerequest->trace, strTrace.c_str(), strTrace.length());
-        cout << "[BODY][trace]    :" << "[" << a_tracerequest->trace << "]" << endl;
 
         nProtocol = doc["BODY"]["protocol"].as_int();
 		a_tracerequest->protocol = nProtocol;
-        cout << "[BODY][protocol]    :" << "[" << a_tracerequest->protocol << "]" << endl;
 
         nSearchMode = doc["BODY"]["search_mode"].as_int();
 		a_tracerequest->search_mode = nSearchMode;
-        cout << "[BODY][search_mode    :" << "[" << a_tracerequest->search_mode << "]" << endl;
 
         strKeyword = string(doc["BODY"]["keyword"].as_string());
 		strncpy(a_tracerequest->keyword, strKeyword.c_str(), sizeof(strKeyword) + 12);
-        cout << "[BODY][keyword]    :" << "[" << a_tracerequest->keyword << "]" << endl;
 
         nRunMode = doc["BODY"]["run_mode"].as_int();
 		a_tracerequest->run_mode = nRunMode;
-        cout << "[BODY][run_mode]    :" << "[" << a_tracerequest->run_mode << "]" << endl;
 
         strUserId = string(doc["BODY"]["user_id"].as_string());
 		strncpy(a_tracerequest->user_id, strUserId.c_str(), strUserId.length());
-        cout << "[BODY][user_id]    :" << "[" << a_tracerequest->user_id << "]" << endl;
 
         strStartDate = string(doc["BODY"]["start_date"].as_string());
 		strncpy(imsi, strStartDate.c_str(), sizeof(strStartDate) + 6);
 		strncpy(a_tracerequest->start_date, space_remove(imsi), sizeof(imsi));
+
+#ifdef TRM_DEBUG
+        cout << "[BODY][oper_no]    :" << "[" << a_tracerequest->oper_no << "]" << endl;
+        cout << "[BODY][pkg_name]    :" << "[" << a_tracerequest->pkg_name << "]" << endl;
+        cout << "[BODY][node_no]    :" << "[" << a_tracerequest->node_no << "]" << endl;
+        cout << "[BODY][trace]    :" << "[" << a_tracerequest->trace << "]" << endl;
+        cout << "[BODY][protocol]    :" << "[" << a_tracerequest->protocol << "]" << endl;
+        cout << "[BODY][search_mode    :" << "[" << a_tracerequest->search_mode << "]" << endl;
+        cout << "[BODY][keyword]    :" << "[" << a_tracerequest->keyword << "]" << endl;
+        cout << "[BODY][run_mode]    :" << "[" << a_tracerequest->run_mode << "]" << endl;
+        cout << "[BODY][user_id]    :" << "[" << a_tracerequest->user_id << "]" << endl;
         cout << "[BODY][start_date]    :" << "[" << a_tracerequest->start_date << "]" << endl;
+#endif
 
         if(nOnOff == 1)
         {
@@ -798,27 +806,30 @@ int CNMSession::GetRegistRouteInfo(ST_TRACE_ROUTE *a_traceroute)
 
         string pkg_name = string(doc["BODY"]["pkg_name"].as_string());
 		strncpy(a_traceroute->pkg_name, pkg_name.c_str(), pkg_name.length());
-        cout << "[BODY][pkg_name]    :" << "[" << a_traceroute->pkg_name << "]" << endl;
 
 		string cmd = string(doc["BODY"]["cmd"].as_string());
 		strncpy(a_traceroute->cmd, cmd.c_str(), cmd.length());
-        cout << "[BODY][cmd]    :" << "[" << a_traceroute->cmd << "]" << endl;
 
         int node_no = doc["BODY"]["node_no"].as_int();
 		a_traceroute->node_no = node_no;
-        cout << "[BODY][node_no]    :" << "[" << a_traceroute->node_no << "]" << endl;
 
         string node_name = string(doc["BODY"]["node_name"].as_string());
 		strncpy(a_traceroute->node_name, node_name.c_str(), node_name.length());
-        cout << "[BODY][node_name]    :" << "[" << a_traceroute->node_name << "]" << endl;
 
         int proc_no = doc["BODY"]["proc_no"].as_int();
 		a_traceroute->proc_no = proc_no;
-        cout << "[BODY][proc_no]    :" << "[" << a_traceroute->proc_no << "]" << endl;
 
         string node_type = string(doc["BODY"]["node_type"].as_string());
 		strncpy(a_traceroute->node_type, node_type.c_str(), node_type.length());
+
+#ifdef TRM_DEBUG	
+        cout << "[BODY][pkg_name]    :" << "[" << a_traceroute->pkg_name << "]" << endl;
+        cout << "[BODY][cmd]    :" << "[" << a_traceroute->cmd << "]" << endl;
+        cout << "[BODY][node_no]    :" << "[" << a_traceroute->node_no << "]" << endl;
+        cout << "[BODY][node_name]    :" << "[" << a_traceroute->node_name << "]" << endl;
+        cout << "[BODY][proc_no]    :" << "[" << a_traceroute->proc_no << "]" << endl;
         cout << "[BODY][node_type]    :" << "[" << a_traceroute->node_type << "]" << endl;
+#endif
 
     } catch(rabbit::type_mismatch   e) {
         cout << e.what() << endl;

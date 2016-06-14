@@ -29,7 +29,7 @@ CScheduler::CScheduler()
 
 	if(Initial() != TRM_OK)
 	{
-		g_pcLog->ERROR("CScheduler Initialize error");
+		g_pcLog->ERROR("%s - CScheduler Initialize error", "CScheduler");
 		m_nStartFlag = TRM_NOK;
 	}
 }
@@ -46,7 +46,7 @@ CScheduler::~CScheduler()
 int CScheduler::Initial()
 {
 	int nDbRet = 0;
-	g_pcLog->INFO("CScheduler Initialize");
+	g_pcLog->INFO("%-24s| Initial - CScheduler Initialize", "CScheduler");
 
     m_pDB = new (std::nothrow) MariaDB();
     if(m_pDB == NULL)
@@ -489,17 +489,16 @@ int CScheduler::WriteTraceFile(ST_TRACE_RESPONSE *a_traceresponse)
 int CScheduler::CheckCurrentTime()
 {
 	CATMTime nowT;
-#ifdef TRM_DEBUG
-    char strCurrent_date[TRM_GROUP_START_DATE_SIZE + 1] = "";
-    char strTemp_date[TRM_GROUP_START_DATE_SIZE + 1] = "";
-	int  nElaspsed = 0;
-#endif
     ST_COWORK_INFO         stcoworkinfo;
     stcoworkinfo =  *m_stcoworkinfo;
 
 	nowT = time(NULL);
 	
 #ifdef TRM_DEBUG
+    char strCurrent_date[TRM_GROUP_START_DATE_SIZE + 1] = "";
+    char strTemp_date[TRM_GROUP_START_DATE_SIZE + 1] = "";
+	int  nElaspsed = 0;
+
 	sprintf(strTemp_date, "%s", nowT.AscTime("CCYYMMDDhhmmss"));
 #endif
 
@@ -523,7 +522,7 @@ int CScheduler::CheckCurrentTime()
 		{
 			break;
 		}
-		sleep(100);
+		sleep(10);
 	}
 
 	return TRM_OK;

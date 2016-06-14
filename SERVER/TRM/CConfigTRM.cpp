@@ -46,7 +46,6 @@ CConfigTRM::CConfigTRM()
 //NM
 		NM.m_strNMAddr = "127.0.0.1";
 		NM.m_nNMPort = 8000;	// NM
-//	NM.m_nNMPort = 10000;	// simul
 
 //DB
 		DB.m_strDbAddr = "127.0.0.1";

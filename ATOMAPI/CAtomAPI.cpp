@@ -688,6 +688,89 @@ int ATOM_API::GetPeerIPAddress(const char *a_szPkgName, const char *a_szNodeType
 	
 }
 
+int ATOM_API::GetNodeIPAddress(const char *a_szPkgName, const char *a_szNodeType, std::map<std::string, std::string> &a_mapResult)
+{
+	int ret = 0;
+	std::string strResult;
+
+	CProtocol *pclsResProtocol;
+	CProtocol clsReqProtocol;
+	clsReqProtocol.Clear();
+	
+	try{
+        rabbit::object o_root;
+        rabbit::object o_body = o_root["BODY"];
+        o_body["pkgname"] = a_szPkgName;
+        o_body["nodetype"] = a_szNodeType;
+
+
+		clsReqProtocol.SetFlagRequest();
+		clsReqProtocol.SetCommand(CMD_NODELIST);
+		clsReqProtocol.SetPayload(o_root.str());
+		clsReqProtocol.SetSource(m_nNodeNo, m_nProcNo);
+		clsReqProtocol.SetDestination(m_nNodeNo, PROCID_ATOM_NA_PRA);
+
+		ret = SendCommand(&clsReqProtocol);
+		if( ret < 0 )
+		{
+			m_pclsLog->ERROR("GetIPAddress Req Send Failed");
+			return ret;
+		}
+		
+    } catch(rabbit::type_mismatch &e) {
+        m_pclsLog->ERROR("ATOM API GetNodeIPAddress, %s", e.what());
+		SetErrorMsg(-E_ATOM_CMD_PARSE_ERR, "GetIPAddress Response Parsing Error");
+        return -E_ATOM_CMD_PARSE_ERR;
+    } catch(rabbit::parse_error &e) {
+        m_pclsLog->ERROR("ATOM API GetNodeIPAddress , %s", e.what());
+		SetErrorMsg(-E_ATOM_CMD_PARSE_ERR, "GetIPAddress Response Parsing Error");
+        return -E_ATOM_CMD_PARSE_ERR;
+    } catch(...) {
+        m_pclsLog->ERROR("ATOM API GetNodeIPAddress Parsing Error");
+		SetErrorMsg(-E_ATOM_CMD_PARSE_ERR, "GetIPAddress Response Parsing Error");
+        return -E_ATOM_CMD_PARSE_ERR;
+    }	
+
+	pclsResProtocol = BlockCommand(CMD_NODELIST, ATOM_DEF_CMD_BLOCK_TIME);
+
+	if(pclsResProtocol == NULL)
+	{
+		SetErrorMsg(-E_ATOM_RES_RECV_FAIL, "GetIPAddress Response Timeout");
+		return -E_ATOM_RES_RECV_FAIL;
+	}
+
+	a_mapResult.clear();
+	try {
+		rabbit::document resDoc;
+		rabbit::array a_resList;
+
+		resDoc.parse(pclsResProtocol->GetPayload());
+		a_resList = resDoc["BODY"];
+
+		for(uint32_t i = 0; i <= a_resList.size(); i++)
+		{
+			a_mapResult.insert( std::pair<string, string>(a_resList[i]["nodename"].str(), a_resList[i]["ip"].str()) );
+		}
+				
+    } catch(rabbit::type_mismatch &e) {
+        m_pclsLog->ERROR("ATOM API GetIPAddress, %s", e.what());
+		SetErrorMsg(-E_ATOM_CMD_PARSE_ERR, "GetIPAddress Response Parsing Error");
+        return -E_ATOM_CMD_PARSE_ERR;
+    } catch(rabbit::parse_error &e) {
+        m_pclsLog->ERROR("ATOM API GetIPAddress, %s", e.what());
+		SetErrorMsg(-E_ATOM_CMD_PARSE_ERR, "GetIPAddress Response Parsing Error");
+        return -E_ATOM_CMD_PARSE_ERR;
+    } catch(...) {
+        m_pclsLog->ERROR("ATOM API GetIPAddress Parsing Error");
+		SetErrorMsg(-E_ATOM_CMD_PARSE_ERR, "GetIPAddress Response Parsing Error");
+        return -E_ATOM_CMD_PARSE_ERR;
+    }
+
+		
+	return 0;
+	
+}
+
 // RSA Func End
 
 //##################################################

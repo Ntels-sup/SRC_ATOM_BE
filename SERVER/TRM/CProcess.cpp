@@ -72,7 +72,7 @@ int CProcess::LoadProcInfo(ST_PROCESS *a_process, ST_TRACE_ROUTE * a_traceroute)
 		return TRM_NOK;
 	}
 	
-	g_pcLog->INFO("[%s]", query);
+	g_pcLog->DEBUG("[%s]", query);
 
 	FetchMaria	f;
 

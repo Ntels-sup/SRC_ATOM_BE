@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <cstdio>
+#include <signal.h>
 #include "CMain.hpp"
 #include "CConfigTRM.hpp"
 #include "CConfig.hpp"
@@ -13,7 +14,6 @@ using namespace std;
 CFileLog *g_pcLog = NULL;
 CConfigTRM g_pcCFG;
 CNMSession g_pcNM;
-
 
 CMain::CMain()
 {
@@ -59,7 +59,7 @@ int CMain::init()
 	CConfig *p_clsConfig = NULL;
 	p_clsConfig = new CConfig();
 
-    if (g_pcLog->Initialize((char*)cfg.LOG.m_strLogPath.c_str(),NULL, (char*)cfg.LOG.m_strProcName.c_str(), cfg.LOG.m_nDuplCnt, LV_INFO) != 0)
+    if (g_pcLog->Initialize((char*)cfg.LOG.m_strLogPath.c_str(),NULL, (char*)cfg.LOG.m_strProcName.c_str(), cfg.LOG.m_nDuplCnt, LV_DEBUG) != 0)
 	{
     	g_pcLog->INFO("Log initalize failed");
         return false;

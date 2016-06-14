@@ -126,6 +126,7 @@ class ATOM_API
 		//RSA
 		int GetIPAddress(const char *a_szIfName, int a_nVersion, std::string &a_strResult);
 		int GetPeerIPAddress(const char *a_szPkgName, const char *a_szNodeType, std::map<std::string, std::string> &a_mapResult);
+		int GetNodeIPAddress(const char *a_szPkgName, const char *a_szNodeType, std::map<std::string, std::string> &a_mapResult);
 
 		//Trace
 		bool TraceIsOn();
