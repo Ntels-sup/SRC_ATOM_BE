@@ -124,7 +124,10 @@ int CATMConv::Str2Int(char *_src,int _len)
 	    strncpy(str,_src,_len) ;
     	str[_len] = 0;
 	}
-
+	if(str == NULL)
+	{
+		return -1;
+	}
 	nRet = strtol(str, &pEnd, 10);
 	nRet = atoi(str);
     return nRet;
