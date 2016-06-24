@@ -148,6 +148,8 @@ int TOT_CPU::MakeJson(time_t a_tCur)
 			snprintf(szBuff, sizeof(szBuff), "%.2f", pstData->vecCurValue[IDX_CPU_USAGE]);
 			o_rootSummary[CPU_COLUMN[IDX_CPU_USAGE]] = szBuff;
 		}
+
+		pstData->vecCurValue.assign(MAX_CPU_IDX, 0);
 		m_pGroupRsc->strFullJson.assign(o_root.str());
 		m_pGroupRsc->strSummaryJson.assign(o_rootSummary.str());
 	} catch(rabbit::type_mismatch &e) {
@@ -459,14 +461,20 @@ int TOT_CPU::Run()
                                 NULL, NULL
                              );
 
-		m_pclsLog->DEBUG("NEW TOTAL_CPU NO %u, Usage %.2f, User %.2f, Nice %.2f, Sys %.2f, Idle %.2f, Wait %.2f",
+		m_pclsLog->DEBUG("NEW TOTAL_CPU NO %u, Usage %.2f/%u, User %.2f/%u, Nice %.2f/%u, Sys %.2f/%u, Idle %.2f/%u, Wait %.2f/%u",
 						unCPU,
-						pstData->vecAvgValue[IDX_CPU_USAGE]	,
-						pstData->vecAvgValue[IDX_CPU_USER]	,
-						pstData->vecAvgValue[IDX_CPU_NICE]	,
-						pstData->vecAvgValue[IDX_CPU_SYS]	,
-						pstData->vecAvgValue[IDX_CPU_IDLE]	,
-						pstData->vecAvgValue[IDX_CPU_WAIT]	
+						pstData->vecCurValue[IDX_CPU_USAGE]	,
+						pstData->vecOldValue[IDX_CPU_USAGE]	,
+						pstData->vecCurValue[IDX_CPU_USER]	,
+						pstData->vecOldValue[IDX_CPU_USER]	,
+						pstData->vecCurValue[IDX_CPU_NICE]	,
+						pstData->vecOldValue[IDX_CPU_NICE]	,
+						pstData->vecCurValue[IDX_CPU_SYS]	,
+						pstData->vecOldValue[IDX_CPU_SYS]	,
+						pstData->vecCurValue[IDX_CPU_IDLE]	,
+						pstData->vecOldValue[IDX_CPU_IDLE]	,
+						pstData->vecCurValue[IDX_CPU_WAIT]	,
+						pstData->vecOldValue[IDX_CPU_WAIT]	
 						);
 		
 		

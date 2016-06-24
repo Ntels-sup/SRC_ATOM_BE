@@ -12,7 +12,7 @@ LIB_PATH += -L$(MYSQL_LIB)
 LIBS	+= -lmysqlclient
 
 CFLAGS	+= -Wall -g
-#CFLAGS  += -DTRM_DEBUG
+CFLAGS  += -DTRM_DEBUG
 LIBS    += -lpthread -ldl -latomlog -latomconfig -latomsocket -latomdb
 
 TARGET		= ATOM_TRM

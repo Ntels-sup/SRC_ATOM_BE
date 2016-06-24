@@ -42,6 +42,7 @@ class RSARoot
 		char m_szNodeType[DEF_MEM_BUF_64];
 
         CSocket *m_pclsClient;
+		bool m_bInit;
 	public:
 		RSARoot(CFileLog *a_pclsLog, CConfig *a_pclsConfig);
 		~RSARoot();

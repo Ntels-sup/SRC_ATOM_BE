@@ -21,9 +21,6 @@
 #include 	<libgen.h>
 #include	<pthread.h>
 #include	<sys/stat.h>
-#include	<aio.h>
-#include	<errno.h>
-#include	<stdint.h>
 
 //!Define one day sec
 #define	ONEDAY		(24 * 60 * 60)
@@ -53,14 +50,6 @@ enum eLogLevel {
 #define DEF_BUFFER_2048 2048
 //! Define 4096 byte Buffer Size
 #define DEF_BUFFER_4096 4096
-//! Define 8192 byte Buffer Size
-#define DEF_BUFFER_8192 8192
-//! Define 16384 byte Buffer Size
-#define DEF_BUFFER_16384 16384
-//! Define 4096 byte Buffer Size
-#define DEF_BUFFER_32768 32768
-
-
 
 //! Define Macro of DEBUG Level LOG
 #define DEBUG(fmt, args...)		DebugLogMsg(__LINE__, __FILE__, fmt,  ## args) 
@@ -84,8 +73,6 @@ typedef struct _stLogLevel {
 } stLogLevel;
 
 
-typedef unsigned char byte ;
-
 /*!
  * \class CFileLog
  * \brief CFileLog Class for Write Log
@@ -100,11 +87,9 @@ class CFileLog{
  		 * \brief Infomation of Write Log File
  		 */
 		struct LOGINFO {
-//			FILE*		fpLog;
-			int			fpLog;
+			FILE*		fpLog;
 			char		szLogName[PATH_MAX];
 			time_t      tDate;
-			struct aiocb aio_wb;
 		};
 
 		//! Log Info Structure
@@ -126,7 +111,7 @@ class CFileLog{
 		//! Log Header (HostName + ServiceName + ProcessName)
 		char 	m_szPrevMsg		[DEF_BUFFER_512];
 		//! Last Log Msg
-		char 	m_szLastLogMsg	[DEF_BUFFER_1024 * DEF_BUFFER_1024];
+		char 	m_szLastLogMsg	[DEF_BUFFER_4096];
 		//! Last Log Write time
 		time_t	m_tLastLog;
 		//! Log Duplication Check Time
@@ -148,7 +133,7 @@ class CFileLog{
 		//! Make Directory if there is no directory
 		int		MakeDirs(const char* a_pszPath);
 		//! Print Hex Dump
-		void	HexDump(char* a_pszReadBuf, char *a_pszWriteBuf, int a_nSize, char *a_pEndofWriteBuf, time_t a_tNow);
+		void	HexDump(unsigned char* a_pszData, int a_nSize, FILE* a_fpWrite);
 		//! Get Host Name
 		int 	GetHostname ();
 		//! Check Log File Date
@@ -175,7 +160,8 @@ class CFileLog{
 		~CFileLog();
 
 		//! Init Log Class
-		int		Initialize( const char *a_pszLogBase, const char *a_pszService, const char *a_pszProc, int a_nLogCheckTime, int a_nLogLevel = LV_INFO);
+		int		Initialize(const char *a_pszLogBase, const char *a_pszService, const char *a_pszProc, 
+													int a_nLogCheckTime, int a_nLogLevel = LV_INFO);
 		//! Get to Log Level
 		int		GetLogLevel( void );
 		//! Set to Log Level
@@ -189,11 +175,6 @@ class CFileLog{
 		//! Write Debug Log Msg
 		void	DebugLogMsg(int a_nLine, const char *a_pszFile, const char *a_pszFmt, ...);
 
-		//OFCS 의 Log Class Wrapping , 추후 삭제 예정
-		int HexaLog(const char *a_szComment, const byte *a_szData, size_t a_nLen);
-		int MessageLog(int a_nLevel, const char *a_pszFmt, ...);	
-		int MessageLog(const char *a_pszFmt, ...);	
-		int ChangeLogLevel(int a_nLevel);
 };
 
 #endif //CFILELOG_HPP_

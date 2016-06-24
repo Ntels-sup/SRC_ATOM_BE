@@ -20,6 +20,7 @@
 
 #include "CProtocol.hpp"
 #include "CLQManager.hpp"
+#include "EventAPI.hpp"
 
 #include "CProcess.hpp"
 
@@ -62,6 +63,7 @@ public:
 	int			m_nHangupTime;				// Hangup 기준 시간
 	int			m_nAlivePeriod;				// Alive check 주기
 
+
 public:
 	CProcessManager();
 	~CProcessManager();
@@ -102,6 +104,7 @@ public:
 	int			GetExitCode(int a_nProcNo);
 	int			FindProcNo(const std::string& a_strProcName);
 
+
 private:
 	struct ST_PROCESS {
 		ST_APPINFO	m_stAppInfo;
@@ -111,6 +114,12 @@ private:
 	};
 	typedef std::map<int, ST_PROCESS> proc_t;
 	proc_t	m_mapProcess;					// key: procno
+	
+	CProcStatus::EN_STATUS	m_enAppLastStatus;		// 프로세스 마지막 상태
+	time_t					m_tAppLastStatusTime;	// 프로세스 미자막 상태 확인 시간
+
+	EventAPI	m_clsAlm;
+	
 	
 private:
 	void		SetAtomEnvArg(CProcessManager::ST_APPINFO& a_stSetup);

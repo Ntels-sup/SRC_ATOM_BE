@@ -46,7 +46,7 @@ CScheduler::~CScheduler()
 int CScheduler::Initial()
 {
 	int nDbRet = 0;
-	g_pcLog->INFO("%-24s| Initial - CScheduler Initialize", "CScheduler");
+	g_pcLog->INFO("CScheduler Initialize");
 
     m_pDB = new (std::nothrow) MariaDB();
     if(m_pDB == NULL)
@@ -159,16 +159,17 @@ void CScheduler::SetTraceResponse(char * a_strCurrent_date)
 {
 	char strCurrent_date[TRM_GROUP_START_DATE_SIZE + 1] = "";
 
-	strncpy(strCurrent_date, a_strCurrent_date, sizeof(TRM_GROUP_START_DATE_SIZE +1));
+	strncpy(strCurrent_date, a_strCurrent_date, strlen(a_strCurrent_date));
 
 	m_stTraceResponse->sequence = m_stTraceRequest->sequence;
 	m_stTraceResponse->oper_no = m_stTraceRequest->oper_no;
 	strncpy(m_stTraceResponse->pkg_name, m_stTraceRequest->pkg_name, sizeof(m_stTraceRequest->pkg_name));
 	strncpy(m_stTraceResponse->trace, m_stTraceRequest->trace, sizeof(m_stTraceRequest->trace));
-	strncpy(m_stTraceResponse->start_date, m_stTraceRequest->start_date, sizeof(m_stTraceRequest->end_date));
-	strncpy(m_stTraceResponse->trace, m_stTraceRequest->trace, sizeof(m_stTraceRequest->trace));
+	strncpy(m_stTraceResponse->start_date, m_stTraceRequest->start_date, sizeof(m_stTraceRequest->start_date));
+//	strncpy(m_stTraceResponse->trace, m_stTraceRequest->trace, sizeof(m_stTraceRequest->trace));
+	strncpy(m_stTraceResponse->trace, "off", sizeof("off"));
 	strncpy(m_stTraceResponse->status, "finish", sizeof("finish"));
-	strncpy(m_stTraceResponse->end_date, strCurrent_date, sizeof(strCurrent_date));
+	strncpy(m_stTraceResponse->end_date, strCurrent_date, sizeof(m_stTraceRequest->end_date));
 	sprintf(m_stTraceResponse->filename, "%s/TRACE_%ld", (char *)g_pcCFG.TRM.m_strTraceDataPath.c_str(), m_stTraceResponse->oper_no);
 	m_stTraceResponse->success = false;
 
@@ -176,20 +177,20 @@ void CScheduler::SetTraceResponse(char * a_strCurrent_date)
 
 int CScheduler::ReceiveData(ST_COWORK_INFO a_stcoworkinfo)
 {
-	CATMTime 		nowT;
-	char 			strCurrent_date[TRM_GROUP_START_DATE_SIZE + 1] = "";
-	char 			strTemp_date[TRM_GROUP_START_DATE_SIZE + 1] = "";
-	char 			strExpire_date[TRM_GROUP_START_DATE_SIZE + 1] = "";
-	unsigned int  	nElaspsed = 0;
-	unsigned int  	nTraceTimeOut = 0;
-	int  			nRecvFlag = 0;
-	int 			nCommand = 0;
-	int  			nTimeoutFlag = 0;
-
-    ST_COWORK_INFO  stcoworkinfo;
-    stcoworkinfo = 	a_stcoworkinfo;
+	CATMTime nowT;
+	char strCurrent_date[TRM_GROUP_START_DATE_SIZE + 1] = "";
+	char strTemp_date[TRM_GROUP_START_DATE_SIZE + 1] = "";
+	char strExpire_date[TRM_GROUP_START_DATE_SIZE + 1] = "";
+	unsigned int  nElaspsed = 0;
+	unsigned int  nTraceTimeOut = 0;
+	int  nRecvFlag = 0;
+	int  nCommand = 0;
+	int  nTimeoutFlag = 0;
 
 	nowT = time(NULL);
+
+    ST_COWORK_INFO          stcoworkinfo;
+    stcoworkinfo = a_stcoworkinfo;
 
 // Receive Message
 	nRecvFlag = g_pcNM.RecvMsg();
@@ -218,13 +219,13 @@ int CScheduler::ReceiveData(ST_COWORK_INFO a_stcoworkinfo)
 					g_pcLog->INFO("CreateTraceFile [%x]", m_stTraceRequest);
 					if(CreateTraceFile(m_stTraceRequest) == TRM_NOK)
 					{
-						g_pcLog->INFO("CreateTraceFile Error[%x]", m_stTraceRequest);
+						g_pcLog->WARNING("CreateTraceFile Error[%x]", m_stTraceRequest);
 					}
 
 					// Time Out Check
 					sprintf(strTemp_date, "%s", nowT.AscTime("CCYYMMDDhhmmss"));
-				    g_pcLog->DEBUG("strCurrent_date : %s, strTemp_date : %s", strCurrent_date, strTemp_date);
 					sprintf(strExpire_date, "%s", nowT.AscTime("CCYYMMDDhhmmss"));
+					g_pcLog->DEBUG("strExpire_date : %s, strTemp_date : %s", strExpire_date, strTemp_date);
 #ifdef TRM_DEBUG
 					if(g_pcNM.SendWSMResponseMg(&stcoworkinfo, m_stTraceRequest, 0, 1)  == TRM_NOK )
 					{
@@ -246,11 +247,18 @@ int CScheduler::ReceiveData(ST_COWORK_INFO a_stcoworkinfo)
 
 							nTimeoutFlag = 1;
 
-			            	g_pcLog->ERROR("strCurrent_date : %s, strTemp_date : %s", strCurrent_date, strTemp_date);
+						   	g_pcLog->DEBUG("strCurrent_date : %s, strTemp_date : %s", strCurrent_date, strTemp_date);
 							SetTraceResponse(strCurrent_date);
+						    //sprintf(strTemp_date, "%s", nowT.AscTime("CCYYMMDDhhmmss"));
 		        		  	break;
 						}
+
+//						if(nTimeoutFlag == 0)
+//							break;
+					
+						sleep(1);
 					}
+					
 					if(nTimeoutFlag == 1)
 					{				
 						nTimeoutFlag = 0;
@@ -295,7 +303,7 @@ int CScheduler::ReceiveData(ST_COWORK_INFO a_stcoworkinfo)
 			{
 				if(g_pcNM.GetRequestMsg(1, m_stTraceRequest) == TRM_NOK)
 				{       
-					g_pcLog->ERROR("RecvRequestMsg : false");
+					g_pcLog->WARNING("RecvRequestMsg : false");
 					return TRM_NOK;
 				}
 				else
@@ -322,29 +330,29 @@ int CScheduler::ReceiveData(ST_COWORK_INFO a_stcoworkinfo)
 			{
 				if(g_pcNM.GetResponseMsg(m_stTraceResponse) == TRM_NOK )				
 				{
-GoTo_TimeOut:				
 					g_pcLog->INFO("RecvResponseOffMsg : false");
 					if(g_pcNM.SendWSMResponseMsg(&stcoworkinfo, m_stTraceResponse, 1, false)  == TRM_NOK )
 					{
-					    g_pcLog->ERROR("SendWSMResponseMsg Error");
+					    g_pcLog->WARNING("SendWSMResponseMsg Error");
 					}				    
 					return TRM_NOK;
 
 				}
 				else
 				{
+GoTo_TimeOut:				
 					SetTraceOffHist(m_stTraceResponse);		
 					g_pcLog->INFO("SetTraceOffHist m_stTraceResponse [%x]", m_stTraceResponse);
 					if(g_pcNM.SendWSMResponseMsg(&stcoworkinfo, m_stTraceResponse, 1, true)  == TRM_NOK )
 					{
-					    g_pcLog->ERROR("SendWSMResponseMsg Error");
+					    g_pcLog->WARNING("SendWSMResponseMsg error");
 					}				    
 				}
 
 			}
 			else
 			{
-				g_pcLog->INFO("RecvRequestMsg : Check Command info %d", nCommand);
+				g_pcLog->DEBUG("RecvRequestMsg : Check Command info %d", nCommand);
 				return TRM_NOK;
 			}	
 			break;
@@ -391,7 +399,7 @@ trace_data_debug:
             }
             else
             {
-    			g_pcLog->INFO("TRM Recv Reconfig Failure");
+    			g_pcLog->WARNING("TRM Recv Reconfig Failure");
             }
             break;
 		case TRM_RECV_REGIST_ROUTE:
@@ -476,7 +484,7 @@ int CScheduler::WriteTraceFile(ST_TRACE_RESPONSE *a_traceresponse)
 	FILE* fp = fopen(strFileName, "a");
 	if(!fp)
 	{
-		g_pcLog->ERROR("Can not Open File [%s]", strFileName);
+		g_pcLog->WARNING("Can not Open File [%s]", strFileName);
 	}
 
     fseek(fp, 0, SEEK_END);
@@ -522,7 +530,7 @@ int CScheduler::CheckCurrentTime()
 		{
 			break;
 		}
-		sleep(10);
+		sleep(1);
 	}
 
 	return TRM_OK;
@@ -567,7 +575,7 @@ int CScheduler::LoadProcessInfo(int a_routeCnt)
 		for(j = 0; j < (int)m_nProcessCount[a_routeCnt]; j++)
 		{
 			m_vProcess.push_back(&m_stProcess[j]);
-			g_pcLog->INFO("m_stProcess[%d].node_name [%s]", j, m_stProcess[j].node_name);
+			g_pcLog->DEBUG("m_stProcess[%d].node_name [%s]", j, m_stProcess[j].node_name);
 		}
 	}
 	else
@@ -613,7 +621,8 @@ int CScheduler::SetTraceHist(char *a_FileName, ST_TRACE_REQUEST *a_tracerequest)
     stTraceHist.run_mode = stTraceRequest.run_mode;
     stTraceHist.search_mode = stTraceRequest.search_mode;
     strncpy(stTraceHist.start_date, stTraceRequest.start_date, sizeof(stTraceRequest.start_date));
-    strncpy(stTraceHist.filename, a_FileName, strlen(a_FileName));
+	sprintf(stTraceHist.filename, "%s", a_FileName);
+    stTraceHist.status = 1;
 
     m_TraceHist.UpdateHist(m_pDB, &stTraceHist);
 
@@ -645,7 +654,7 @@ int CScheduler::SetTraceOffHist(ST_TRACE_RESPONSE *a_traceresponse)
     	stTraceHist.status = 3;
 	}
 	
-    m_TraceHist.UpdateHist(m_pDB, &stTraceHist);
+    m_TraceHist.UpdateOffHist(m_pDB, &stTraceHist);
 
 	return TRM_OK;
 }

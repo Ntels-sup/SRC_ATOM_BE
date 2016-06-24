@@ -76,7 +76,7 @@ int CBatchGroup::LoadGroupInfo(ST_BatchGroup *a_batchGroups)
 
 	if(NULL == m_pDB)
 	{
-		g_pcLog->INFO("DB table is empty");
+		g_pcLog->WARNING("DB table is empty");
 		return BJM_NOK;
 	}
 
@@ -169,7 +169,7 @@ char* CBatchGroup::GetGroupName(char * a_strJobName)
 
 	if(m_pDB == NULL)
     {
-        g_pcLog->INFO("DB table is empty");
+        g_pcLog->WARNING("DB table is empty");
         return BJM_NOK;
     }
 
@@ -184,10 +184,8 @@ char* CBatchGroup::GetGroupName(char * a_strJobName)
 		return BJM_NOK;
     }
 
-    // variable inialize
     memset(hGroup_name, 0, BJM_GROUP_GROUP_NAME_SIZE +1);
 
-    //input local variable
     f_mysql.Set(hGroup_name, sizeof(hGroup_name));
 
     while(true)

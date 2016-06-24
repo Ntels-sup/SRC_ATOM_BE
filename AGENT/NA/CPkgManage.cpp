@@ -13,6 +13,8 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <cstring>
+#include <fcntl.h>
+#include <openssl/md5.h>
 
 #include "Utility.hpp"
 
@@ -35,10 +37,11 @@ CPkgManage::CPkgManage(const char* a_szPkgHomePath)
 	return;
 }
 
-bool CPkgManage::Fetch(const char* a_szUrl, const char* a_szUser, const char* a_szPasswd)
+bool CPkgManage::Fetch(string& a_strUrl, string& a_strSum, 
+								const char* a_szUser, const char* a_szPasswd)
 {
-	if (a_szUrl == NULL) {
-		m_strErrorMsg = "PKG, invalied argument";
+	if (a_strUrl.empty()) {
+		m_strErrorMsg = "PKG, invalied URL";
 		return false;
 	}
 	
@@ -49,7 +52,7 @@ bool CPkgManage::Fetch(const char* a_szUrl, const char* a_szUser, const char* a_
 	}
 	
 	// URL에서 파일명 추출
-	char* pszFile = rindex((char*)a_szUrl, '/');
+	char* pszFile = rindex((char*)a_strUrl.c_str(), '/');
 	if (pszFile == NULL) {
 		m_strErrorMsg = "PKG, invalied filename in URL";
 		return false;
@@ -70,7 +73,7 @@ bool CPkgManage::Fetch(const char* a_szUrl, const char* a_szUser, const char* a_
 		strCmd += a_szPasswd;
 	}
 	strCmd += " ";
-	strCmd += a_szUrl;
+	strCmd += a_strUrl;
 	strCmd += " > /dev/null 2>&1";
 
 	char szOutput[160];
@@ -89,16 +92,18 @@ bool CPkgManage::Fetch(const char* a_szUrl, const char* a_szUser, const char* a_
 		return false;
 	}
 
-	struct stat stStat;
-	if (stat(strPkgFile.c_str(), &stStat) < 0) {
-		m_strErrorMsg = "PKG, stat failed, ";
+	string strDigest;
+	if (MD5Digest(strPkgFile, strDigest) == false) {
+		m_strErrorMsg = "PKG, md5 digest failed, ";
 		m_strErrorMsg += strerror(errno) ;
 		return false;
 	}
-	if (stStat.st_size == 0) {
-		//TODO
-		//download 결과를 size비교가 아닌 md5, sha 해쉬 확인으로 변경 필요
-		m_strErrorMsg = "PKG, download failed, file size zero";
+	if (strDigest != a_strSum) {
+		m_strErrorMsg = "PKG, MD5 digest mismatch, url: ";
+		m_strErrorMsg += "vnfm: ";
+		m_strErrorMsg += a_strSum;
+		m_strErrorMsg += ", na: ";
+		m_strErrorMsg += strDigest;
 		return false;
 	}
 	
@@ -179,5 +184,42 @@ bool CPkgManage::Install(const char* a_szInstallScript)
 		return false;
 	}
 	
+	return true;
+}
+
+bool CPkgManage::MD5Digest(string& a_strFile, string& a_strDigest)
+{
+	MD5_CTX md5ctx;
+	MD5_Init(&md5ctx);
+
+	int fd = open(a_strFile.c_str(), O_RDONLY);
+	if (fd < 0) {
+		m_strErrorMsg = "PKG, file open failed";
+		return false;
+	}
+
+	char buffer[1024];
+	int readn = 0;
+
+	while (true) {
+		readn = read(fd, buffer, sizeof(buffer));
+		if (readn <= 0) {
+			break;
+		}
+		MD5_Update(&md5ctx, buffer, readn);
+	}
+
+	unsigned char digest[16];
+	memset(digest, 0x00, sizeof(digest));
+
+	MD5_Final(digest, &md5ctx);
+
+	memset(buffer, 0x00, sizeof(buffer));
+	for (size_t i=0, j=0; i < sizeof(digest); i++, j+=2) {
+		snprintf(buffer + j, 3, "%02x", digest[i]);
+	}
+
+	a_strDigest = buffer;
+
 	return true;
 }

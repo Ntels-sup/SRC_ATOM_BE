@@ -29,18 +29,22 @@ LIBS     += -lrt
 
 
 TARGET = ATOM_NM_RSA.so
+RSA_ROOT = RSA_ROOT
 
-OBJS =	../NM/CModule.o \
-		../NM/CAddress.o \
+OBJS =	../NM/CAddress.o \
 		../NM/CModuleIPC.o \
 		../NM/CMesgRoute.o \
 		RSAMain.o \
 		RSAMsg.o
 
-all :: $(TARGET) 
+all :: $(TARGET) $(RSA_ROOT)
 
 $(TARGET) : $(OBJS)
 	$(CXX) -o $@ $^ -shared $(CXXFLAGS) $(INC_PATH) $(LIB_PATH) $(LIBS)
 
+$(RSA_ROOT) : RSARoot.o
+	$(CXX) -o $@ $^ $(CXXFLAGS) $(INC_PATH) $(LIB_PATH) $(LIBS)
+
 install ::
 	cp $(TARGET) $(ATOM_INSTALL_PATH)/libexec
+	cp $(RSA_ROOT) $(ATOM_INSTALL_PATH)

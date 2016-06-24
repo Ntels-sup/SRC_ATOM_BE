@@ -47,7 +47,7 @@ bool CProcess::Execute(void)
 
 	// exec binary check
 	if (access(m_stSetup.m_strExeBin.c_str(), R_OK | X_OK) < 0) {
-		g_pclsLogPra->ERROR("not found binary or execute permissions failed");
+		g_pclsLogPra->ERROR("not found binary or execute permissions");
 		m_stRunInfo.m_enStatus = CProcStatus::NOEXEC;
 		return false;
 	}

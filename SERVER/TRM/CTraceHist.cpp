@@ -29,7 +29,7 @@ bool CTraceHist::Init(DB * a_pDB)
 int	CTraceHist::UpdateHist(DB * a_pDB, ST_TRACE_HIST *a_tracehist)
 {
 	m_pDB = a_pDB;
-    g_pcLog->INFO("CTraceHist Update");
+    g_pcLog->DEBUG("CTraceHist Update");
 
     char            updatesql[1024];
     int             iHistCnt = 0;
@@ -45,11 +45,11 @@ int	CTraceHist::UpdateHist(DB * a_pDB, ST_TRACE_HIST *a_tracehist)
 						, stTracehist.cmd, stTracehist.filename, stTracehist.status
 						, stTracehist.oper_no);
 						
-    g_pcLog->INFO("UPDATE [%p][%s]", m_pDB, updatesql);
+    g_pcLog->DEBUG("UPDATE [%p][%s]", m_pDB, updatesql);
 
     if((iHistCnt = m_pDB->Execute(updatesql, strlen(updatesql))) <= 0)
     {
-        g_pcLog->INFO("Execute Fail [%s] [%d:%s]", updatesql, iHistCnt, m_pDB->GetErrorMsg(iHistCnt));
+        g_pcLog->ERROR("Execute Fail [%s] [%d:%s]", updatesql, iHistCnt, m_pDB->GetErrorMsg(iHistCnt));
         return TRM_NOK;
     }
     else
@@ -59,9 +59,41 @@ int	CTraceHist::UpdateHist(DB * a_pDB, ST_TRACE_HIST *a_tracehist)
 
 }
 
-int	CTraceHist::InsertHist(ST_TRACE_HIST *a_tracehist)
+int	CTraceHist::UpdateOffHist(DB * a_pDB, ST_TRACE_HIST *a_tracehist)
 {
-    g_pcLog->INFO("CTraceHist Insert");
+	m_pDB = a_pDB;
+    g_pcLog->DEBUG("CTraceHist Off Update");
+
+    char            updatesql[1024];
+    int             iHistCnt = 0;
+	ST_TRACE_HIST stTracehist;
+	stTracehist = *a_tracehist;
+
+    sprintf(updatesql, "UPDATE TAT_TRC_HIST SET "                 
+						"END_DATE = NOW(), "                          
+						"FILE_NAME = '%s', "                          
+						"STATUS = %d "                               
+						"WHERE OPER_NO = %ld "
+						, stTracehist.filename, stTracehist.status
+						, stTracehist.oper_no);
+						
+    g_pcLog->DEBUG("UPDATE [%p][%s]", m_pDB, updatesql);
+
+    if((iHistCnt = m_pDB->Execute(updatesql, strlen(updatesql))) <= 0)
+    {
+        g_pcLog->ERROR("Execute Fail [%s] [%d:%s]", updatesql, iHistCnt, m_pDB->GetErrorMsg(iHistCnt));
+        return TRM_NOK;
+    }
+    else
+        g_pcLog->INFO("UPDATE OK [%p][%d] [%s]", m_pDB, iHistCnt, updatesql);
+
+    return TRM_OK;
+}
+
+int	CTraceHist::InsertHist(DB * a_pDB, ST_TRACE_HIST *a_tracehist)
+{
+	m_pDB = a_pDB;
+    g_pcLog->DEBUG("CTraceHist Insert");
 
     char            insertsql[2048];
     int             iHistCnt = 0;
@@ -83,9 +115,11 @@ int	CTraceHist::InsertHist(ST_TRACE_HIST *a_tracehist)
 						stTracehist.filename,
 						stTracehist.status);
 
+    g_pcLog->DEBUG("INSERT [%p][%s]", m_pDB, insertsql);
+
     if((iHistCnt = m_pDB->Execute(insertsql, strlen(insertsql))) <= 0)
     {
-        g_pcLog->INFO("Execute Fail [%s] [%d:%s]\n", insertsql, iHistCnt, m_pDB->GetErrorMsg(iHistCnt));
+        g_pcLog->ERROR("Execute Fail [%s] [%d:%s]\n", insertsql, iHistCnt, m_pDB->GetErrorMsg(iHistCnt));
         return TRM_NOK;
     }
     else
@@ -97,7 +131,7 @@ int	CTraceHist::InsertHist(ST_TRACE_HIST *a_tracehist)
 
 int CTraceHist::LoadHistInfo(ST_TRACE_HIST *a_tracehist)
 {
-	g_pcLog->INFO("CTraceHist Init");
+	g_pcLog->DEBUG("CTraceHist Init");
     char query[1024];
 	int	 ntraceHistCount = 0;
 	int  nRet = 0;
@@ -135,7 +169,7 @@ int CTraceHist::LoadHistInfo(ST_TRACE_HIST *a_tracehist)
 
     if(m_pDB == NULL)
     {
-        g_pcLog->INFO("DB table is empty");
+        g_pcLog->WARNING("DB table is empty");
         return TRM_NOK;
     }
 
@@ -143,7 +177,7 @@ int CTraceHist::LoadHistInfo(ST_TRACE_HIST *a_tracehist)
 	nRet = m_pDB->Query(&f_mysql, query, strlen(query));
 	if(nRet < 0)
     {   
-        g_pcLog->INFO("Query Fail [%d:%s]", nRet, m_pDB->GetErrorMsg(nRet));
+        g_pcLog->ERROR("Query Fail [%d:%s]", nRet, m_pDB->GetErrorMsg(nRet));
         return TRM_NOK;
     }
 
@@ -198,7 +232,7 @@ int CTraceHist::LoadHistInfo(ST_TRACE_HIST *a_tracehist)
 		strncpy(tracehistPtr->filename,   hfilename   , sizeof(hfilename   ));
 		tracehistPtr->status = (int)atoi(hstatus);
 
-        g_pcLog->INFO("%d, %s, %s, %s, %d, %d, %d, %s, %s, %s, %s, %d", 
+        g_pcLog->DEBUG("%d, %s, %s, %s, %d, %d, %d, %s, %s, %s, %s, %d", 
 										tracehistPtr->oper_no,
 										tracehistPtr->pkg_name,  
 										tracehistPtr->node_name, 

@@ -14,7 +14,7 @@ CBatchHist::~CBatchHist()
 {
     if(m_pDB != NULL)
     {
-		delete m_pDB;
+//		delete m_pDB;
 	    m_pDB = NULL;
 	}
 }
@@ -131,7 +131,7 @@ int	CBatchHist::HistInsert(ST_BATCHHIST *a_batchHist)
         return BJM_NOK;
     }
     else
-        g_pcLog->INFO("INSERT OK [%p][%s]\n\n", m_pDB, insertsql);
+        g_pcLog->DEBUG("INSERT OK [%p][%s]\n\n", m_pDB, insertsql);
 
     return BJM_OK;
 
@@ -178,7 +178,7 @@ int CBatchHist::LoadHistInfo(ST_BATCHHIST *a_batchHist)
 
     if(m_pDB == NULL)
     {
-        g_pcLog->INFO("DB table is empty");
+        g_pcLog->WARNING("DB table is empty");
         return BJM_NOK;
     }
 

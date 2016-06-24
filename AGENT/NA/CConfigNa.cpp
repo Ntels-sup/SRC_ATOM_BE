@@ -74,7 +74,7 @@ bool CConfigNa::LoadCfgFile(const char* a_szCfgFile)
 	return true;
 }
 
-bool CConfigNa::ProbeEmsIP(void)
+bool CConfigNa::ProbeVnfProperties(void)
 {
 	FILE* pstFile = fopen("/etc/vnf_env.properties", "r");
 	if (pstFile == NULL) {
@@ -82,39 +82,52 @@ bool CConfigNa::ProbeEmsIP(void)
 	}
 	
 	char szBuff[160] = {0x00,};
-	bool bFound = false;
+	int nFound = 0;
 	int nRead = 0;
+	
 	
 	while (fgets(szBuff, sizeof(szBuff), pstFile) != NULL) {
 
-		// newline ����
+		// newline 제거
 		nRead = strlen(szBuff);
 		if (szBuff[nRead - 1] == '\n') {
 			szBuff[nRead - 1] = 0x00;
 		}
 
-		if (strncmp(szBuff, "ems_ip=", 7) != 0) {
-			continue;
-		}
-
-		m_strServIp = szBuff + 7;
-		m_strDbIp = szBuff + 7;
+		if (strncasecmp(szBuff, "ems_ip=", 7) == 0) {
+			m_strServIp = szBuff + 7;
+			m_strDbIp = szBuff + 7;
+			nFound++;
 		
-		bFound = true;
-		break;
+		} else if (strncasecmp(szBuff, "vnf_name=", 9) == 0) {
+			m_strPkgName = szBuff + 9;
+			nFound++;
+			
+		} else if (strncasecmp(szBuff, "vnfc_type=", 10) == 0) {
+			m_strNodeType = szBuff + 10;
+			nFound++;
+		}
+		
+		if (nFound == 3) {
+			break;
+		}
 	}
 	fclose(pstFile);
 
-	if (bFound) {
-		CConfig clsCF;
-		if (clsCF.Initialize((char*)m_strCfgFile.c_str()) == 0) {
-			clsCF.UpdateConfigValue("GLOBAL", "ATOM_SERVER_IP", m_strDbIp.c_str());
-			clsCF.UpdateConfigValue("GLOBAL", "DB_HOST", m_strDbIp.c_str());
-			clsCF.ReWriteConfig();
-		}
+	if (nFound != 3) {
+		return false;
 	}
 	
-	return bFound;
+	CConfig clsCF;
+	if (clsCF.Initialize((char*)m_strCfgFile.c_str()) == 0) {
+		clsCF.UpdateConfigValue("GLOBAL", "ATOM_SERVER_IP", m_strDbIp.c_str());
+		clsCF.UpdateConfigValue("GLOBAL", "DB_HOST", m_strDbIp.c_str());
+		clsCF.UpdateConfigValue("NA", "PKG_NAME", m_strPkgName.c_str());
+		clsCF.UpdateConfigValue("NA", "NODE_TYPE", m_strNodeType.c_str());
+		clsCF.ReWriteConfig();
+	}
+	
+	return true;
 }
 
 bool CConfigNa::DBSetup(void)
@@ -165,8 +178,7 @@ bool CConfigNa::ProbeModule(vector<string>& a_vecLoadModule)
 			continue;
 		}
 
-
-		// Ư�� ���⸸ �����ؼ� loading �� ����
+		// NA 시작 시 옵션으로 특정 모듈을 지정할 경우 해당 모듈만 load
 		if (!a_vecLoadModule.empty()) {
 			vector<string>::iterator iter = a_vecLoadModule.begin();
 			for (; iter != a_vecLoadModule.end(); ++iter) {
@@ -289,12 +301,12 @@ void CConfigNa::ConfigPrint(CFileLog* a_pclsLog)
 CConfigNa* CConfigNa::m_pclsInstance = NULL;
 CConfigNa::CConfigNa()
 {
-	// NA default config ����
+	// NA default config ????
 	m_strCfgFile = getenv("HOME");
 	m_strCfgFile += "/ATOM/CFG/ATOM.cfg";
 			
 	m_bIsVnfMode = true;
-	m_nVnfWaitTime = 0;					// 0�� block mode
+	m_nVnfWaitTime = 0;					// 0?? block mode
 	
     m_strLogPath = getenv("HOME");
 	m_strLogPath += "/ATOM/LOG";

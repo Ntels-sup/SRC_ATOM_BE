@@ -24,7 +24,8 @@ public:
 	CPkgManage(const char* a_szPkgHomePath = NULL);
 	~CPkgManage() {}
 
-	bool	Fetch(const char* a_szUrl, const char* a_szUser, const char* a_szPasswd);
+	bool	Fetch(std::string& a_strUrl, std::string& a_strSum, 
+								const char* a_szUser, const char* a_szPasswd);
 	bool	UnPack(const char* a_szUnPackPath = NULL);
 	bool	Install(const char* a_szInstallScript = NULL);
 
@@ -35,6 +36,7 @@ private:
 	
 	std::string m_strPkgFile;
 	
+	bool	MD5Digest(std::string& a_strFile, std::string& a_strDigest);
 	CPkgManage(const CPkgManage&) {};
 };
 

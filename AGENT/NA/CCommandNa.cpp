@@ -25,6 +25,7 @@
 #include "CCmdVnfStart.hpp"
 #include "CCmdVnfStop.hpp"
 #include "CCmdAppStart.hpp"
+#include "CCmdNodeStatus.hpp"
 
 using std::string;
 
@@ -276,20 +277,25 @@ bool CCommandNa::CmdVnfInstall(CProtocol& a_clsReq)
 
 	clsCfg.m_strUuid	 = clsVnf.m_strUuid;
 
+	g_pclsLog->INFO("CMD, PKG Download, URL: %s", clsVnf.m_strDownPath.c_str());
+
 	// 패키지 Download & Install
-	if (clsPkg.Fetch(clsVnf.m_strDownPath.c_str(), "atom", "atom") == false) {
+	if (clsPkg.Fetch(clsVnf.m_strDownPath, clsVnf.m_strChecksum, "atom", "atom") == false) {
+		g_pclsLog->CRITICAL("CMD, %s", clsPkg.m_strErrorMsg.c_str());
 		clsVnf.m_bResult = false;
 		clsVnf.m_strReason = clsPkg.m_strErrorMsg;
 		bIsError = true;
 		goto Response_;
 	}
 	if (clsPkg.UnPack() == false) {
+		g_pclsLog->CRITICAL("CMD, %s", clsPkg.m_strErrorMsg.c_str());
 		clsVnf.m_bResult = false;
 		clsVnf.m_strReason = clsPkg.m_strErrorMsg;
 		bIsError = true;
 		goto Response_;
 	}
 	if (clsPkg.Install() == false) {
+		g_pclsLog->CRITICAL("CMD, %s", clsPkg.m_strErrorMsg.c_str());
 		clsVnf.m_bResult = false;
 		clsVnf.m_strReason = clsPkg.m_strErrorMsg;
 		bIsError = true;
@@ -446,9 +452,12 @@ bool CCommandNa::CmdVnfStop(CProtocol& a_clsReq)
 {
 	CConfigNa& clsCfg = CConfigNa::Instance();
 	CAddress& clsAddr = CAddress::Instance();
-	CCmdVnfStop clsVnf;
-	CCmdAppStart clsApp;
-	CProtocol clsResp;
+
+	CCmdVnfStop clsVnf;					// VNF STOP 메세지 body parsing
+	CCmdAppStart clsApp;				// PRA START 메세지 body 생성
+	CCmdNodeStatus clsNodeStat;			// Node 상태 body 생
+
+	CProtocol clsResp;					// EXA 음답
 	CProtocol clsProto;
 	string strBody;
 	bool bIsError = false;
@@ -517,7 +526,38 @@ bool CCommandNa::CmdVnfStop(CProtocol& a_clsReq)
 	} else {
 		clsVnf.m_bResult = true;
 		clsVnf.m_strReason = " ";
-	}
+		
+		// Node 상태(ScaleIn) 전송
+		if (clsVnf.m_bIsScaleIn) {
+			clsNodeStat.m_strUuid		= clsVnf.m_strUuid;
+			clsNodeStat.m_strStatus		= "SCALEIN";
+			clsNodeStat.m_strPkgName	= clsCfg.m_strPkgName;
+			clsNodeStat.m_strNodeType	= clsCfg.m_strNodeType;
+			clsNodeStat.m_nNodeNo		= clsCfg.m_nNodeNo;
+			clsNodeStat.m_strNodeName	= clsCfg.m_strNodeName;
+			clsNodeStat.m_strIp			= clsCfg.m_strNodeIp;
+			clsNodeStat.m_strVersion	= clsCfg.m_strVersion;
+
+			if (clsAddr.LookupAtom("ATOM_NM", nNodeNo, nProcNo) == 1) {
+				clsProto.Clear();
+				clsProto.SetCommand(CMD_NODE_STATUS);
+				clsProto.SetFlagNotify();
+				clsProto.SetSource(clsCfg.m_nNodeNo, clsCfg.m_nProcNo);
+				clsProto.SetDestination(nNodeNo, nProcNo);
+				clsProto.SetSequence();
+				clsProto.SetPayload(clsNodeStat.NotifyGen());
+				if (CModuleIPC::Instance().SendMesg(clsProto) == false) {
+					g_pclsLog->ERROR("CMD, NODE_STATUS send failed to NM, %s", 
+								CModuleIPC::Instance().m_strErrorMsg.c_str());
+				}
+		
+			} else {
+				g_pclsLog->ERROR("CMD, NM address lookup failed");
+			}
+			
+		} //end if
+
+	} //end if
 
 Response_:
 	clsResp.SetResponse(a_clsReq);

@@ -23,9 +23,14 @@
 
 #include "CCliRsp.hpp"
 
+#include "CTimeUtil.hpp"
+
 class RSAMsg
 {
 	private:
+		uint32_t m_unAlmSeq ;
+		int m_nAlmProcNo ;
+
 		std::string m_strFull;
 		std::string m_strSummary;
 		std::string m_strStat;
@@ -49,7 +54,7 @@ class RSAMsg
 					CModule::ST_MODULE_OPTIONS* a_pstModuleOption
 				);
 		~RSAMsg();
-		int Initialize();
+		int Initialize(int a_nAlmProcNo);
 		int ProcessCmd(CProtocol* a_pclsProto, time_t a_tCur, RESOURCE *a_pstRsc, int a_nGroupCnt);
 
 		int ParsingStopCommand(CProtocol* a_pclsProto, int a_nCmd);
@@ -63,6 +68,7 @@ class RSAMsg
 		int SendInitMsgToRoot();
 		int SendRequestToRoot(RESOURCE *a_pstRsc, int a_nCmd, time_t a_tCur);
 		int RecvMesgFromRoot(RESOURCE *a_pstRsc);
+		void MakeTrapBody(const char *a_szCode, const char *a_szTarget, const char *a_szValue, std::string &a_strBody);
         int SendTrapMsg(RESOURCE *a_pstRsc, const char* a_strMsg);
 
 		int SendMonitoringMsg(DST_INFO *a_pstDstInfo, const char* a_szPayload);

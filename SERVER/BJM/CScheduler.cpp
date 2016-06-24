@@ -1,4 +1,3 @@
-//#include "CMain.hpp"
 #include "BJM_Define.hpp"
 #include "CScheduler.hpp"
 #include "CNMSession.hpp"
@@ -71,7 +70,7 @@ int CScheduler::Initial()
 						  g_pcCFG.DB.m_strDbName.c_str());
 	if(nRet < 0)
     {
-        g_pcLog->ERROR("Connect Fail [%d:%s]", nRet, m_pDB->GetErrorMsg(nRet));
+        g_pcLog->ERROR("Fail to Connect [%d:%s]", nRet, m_pDB->GetErrorMsg(nRet));
         return BJM_NOK;
     }
 
@@ -166,7 +165,7 @@ int CScheduler::ReceiveData(ST_COWORK_INFO a_stcoworkinfo)
     stcoworkinfo = a_stcoworkinfo;
 
 	nRecvFlag = g_pcNM.RecvMsg(m_pDB, m_stBatchRequest, m_stBatchResponse);
-	g_pcLog->DEBUG("nRecvFlag[%d]", nRecvFlag);
+//	g_pcLog->DEBUG("nRecvFlag[%d]", nRecvFlag);
 
 	switch(nRecvFlag)
 	{
@@ -200,7 +199,7 @@ int CScheduler::ReceiveData(ST_COWORK_INFO a_stcoworkinfo)
 			}
 		 	break;
 		case BJM_RECV_START:
-			if(g_pcNM.IsRequest() == 1 || g_pcNM.IsRequest() == 2) // response, notify
+			if(g_pcNM.IsRequest() == FLG_RESPONSE || g_pcNM.IsRequest() == FLG_NOTIFY) // response, notify
 			{
 				if(g_pcNM.GetResponseMsg(m_stBatchResponse, m_vBatchReq) == false)
 				{       
@@ -210,7 +209,7 @@ int CScheduler::ReceiveData(ST_COWORK_INFO a_stcoworkinfo)
 				else
 				{
 #ifdef BJM_DEBUG					
-					m_stBatchResponse->exit_cd = 66;
+					m_stBatchResponse->exit_cd = 22;
 					strcpy(m_stBatchResponse->status, "normal");
 #endif					
 					
@@ -238,7 +237,7 @@ int CScheduler::ReceiveData(ST_COWORK_INFO a_stcoworkinfo)
 			}
 		 	break;
 		case BJM_RECV_REGIST:
-			g_pcLog->INFO("Receive Regist [%d]", nRecvFlag);
+			g_pcLog->INFO("Receive Regist Message");
 			break;
 		case BJM_RECV_ERROR:
 			g_pcLog->DEBUG("Data Receive Error [%d]", nRecvFlag);
@@ -256,28 +255,28 @@ int CScheduler::ReceiveData(ST_COWORK_INFO a_stcoworkinfo)
 			exit(EXIT_SUCCESS);
 			break;
 		case BJM_RECV_BACKUP:
-			if(g_pcNM.IsRequest() == 0)		// request
+			if(g_pcNM.IsRequest() == FLG_REQUEST)		// request
 			{
 				if( g_pcNM.GetBackupRequest(m_stBackupRequest) == BJM_OK)
 				{
 					g_pcNM.SendBackupRequestMsg(&stcoworkinfo, m_stbatchjobs, m_stBackupRequest);
 				}
 			}
-			else if(g_pcNM.IsRequest() == 1) // response
+			else if(g_pcNM.IsRequest() == FLG_RESPONSE) // response
 			{
 				g_pcNM.GetBackupResponse(&stcoworkinfo,m_stBackupRequest);
 			}
 
 			break;
 		case BJM_RECV_RESTORE:
-			if(g_pcNM.IsRequest() == 0)
+			if(g_pcNM.IsRequest() == FLG_REQUEST)
 			{
 				if(g_pcNM.GetRestoreRequest(m_stRestoreRequest) == BJM_OK)
 				{
 					g_pcNM.SendRestoreRequestMsg(&stcoworkinfo, m_stbatchjobs, m_stRestoreRequest);
 				}
 			}
-			else if(g_pcNM.IsRequest() == 1)
+			else if(g_pcNM.IsRequest() == FLG_RESPONSE)
 			{
 				g_pcNM.GetRestoreResponse(&stcoworkinfo, m_stRestoreRequest);
 			}
@@ -285,7 +284,7 @@ int CScheduler::ReceiveData(ST_COWORK_INFO a_stcoworkinfo)
 		case BJM_RECV_SCALE_IN:
 			g_pcLog->INFO("Recvive SCALE IN");
 
-			if(g_pcNM.IsRequest() == 2)
+			if(g_pcNM.IsRequest() == FLG_NOTIFY)		//Notify
 			{
             	if(GetGroupInfo() == BJM_NOK)
             	{
@@ -297,7 +296,7 @@ int CScheduler::ReceiveData(ST_COWORK_INFO a_stcoworkinfo)
 		case BJM_RECV_SCALE_OUT:
 			g_pcLog->INFO("Recvive SCALE OUT");
 
-			if(g_pcNM.IsRequest() == 2)
+			if(g_pcNM.IsRequest() == FLG_NOTIFY)		//Notify
 			{
             	if(GetGroupInfo() == BJM_NOK)
             	{
@@ -315,7 +314,7 @@ int CScheduler::ReceiveData(ST_COWORK_INFO a_stcoworkinfo)
 
 int CScheduler::SearchNextJob(ST_BatchResponse *a_stBatchresponse)
 {
-	ST_BatchFlow stbatchflow[BJM_MAX_BATCH_FLOW];
+	ST_BATCHFLOW stbatchflow[BJM_MAX_BATCH_FLOW];
 	ST_BatchJob  stbatchjob[BJM_MAX_BATCH_JOB];
 	ST_PROCESS   stprocess[BJM_MAX_PROCESS];
 	ST_BatchResponse stbatchresponse;
@@ -341,7 +340,7 @@ int CScheduler::SearchNextJob(ST_BatchResponse *a_stBatchresponse)
 		}
 		else
 		{
-            g_pcLog->INFO("m_vNextFlow[%d]->next_job_name %s, m_vBatchJob[%d].group_name %s, m_vBatchJob[%d].job_name %s",
+            g_pcLog->INFO("m_vNextFlow[%d]->next_job_name:%s, m_vBatchJob[%d].group_name:%s, m_vBatchJob[%d].job_name:%s",
                 nMultiCount,
                 m_vNextFlow[nMultiCount]->next_job_name,
                 nGrpIndex,
@@ -381,6 +380,11 @@ int CScheduler::ExcuteJobInfo(int a_nGrpCnt, int a_wsm)
         	    g_pcLog->ERROR("ExcuteJobInfo(All) false [%x]", m_vBatchJob[nPrcCnt]);
 	            return BJM_NOK;
 			}
+			else
+			{
+           		g_pcLog->DEBUG("m_vProcess[%d]->pkg_name[%s], m_vBatchJob[%d]->proc_no[%d]", 
+						nPrcCnt, m_vProcess[nPrcCnt]->pkg_name, nPrcCnt, m_vBatchJob[nPrcCnt]->proc_no);
+			}
 		}
 	}
 	else
@@ -394,6 +398,11 @@ int CScheduler::ExcuteJobInfo(int a_nGrpCnt, int a_wsm)
            		g_pcLog->ERROR("ExcuteJobInfo false [%x]", m_vBatchJob[a_nGrpCnt]);
    				return BJM_NOK;
 			}
+		}
+		else
+		{
+           	g_pcLog->WARNING("m_vProcess[a_nGrpCnt]->node_type[%s], m_vBatchJob[a_nGrpCnt]->node_type[%s]", 
+						m_vProcess[a_nGrpCnt]->node_type, m_vBatchJob[a_nGrpCnt]->node_type);
 		}
 	}
 
@@ -435,7 +444,6 @@ int CScheduler::CheckMultiJob(char * a_strGroupName, char * a_strJobName, int a_
 
 	if(CheckCondition(a_strJobName, a_nExitCd) == BJM_NOK)
 	{
-        g_pcLog->DEBUG("Received Info isn't Same", a_strJobName, a_nExitCd);
 		return BJM_NOK;
 	}
 
@@ -452,19 +460,19 @@ int CScheduler::CheckMultiJob(char * a_strGroupName, char * a_strJobName, int a_
     	    if(m_vMultiFlow[i]->exit_cd == a_nExitCd)
         	{
 				strcpy(m_vMultiFlow[i]->prev_job_name, a_strJobName);
-           		g_pcLog->INFO("1 m_vMultiFlow[%d]->CurCount %d", i, m_vMultiFlow[i]->CurCount );
+           		g_pcLog->DEBUG("1 m_vMultiFlow[%d]->CurCount %d", i, m_vMultiFlow[i]->CurCount );
 
 				m_vMultiFlow[i]->CurCount++;
 
 				if(m_vMultiFlow[i]->CurCount == m_vMultiFlow[i]->Count)
 				{
-           			g_pcLog->INFO("2 m_vMultiFlow[%d]->CurCount %d", i, m_vMultiFlow[i]->CurCount );
+           			g_pcLog->DEBUG("2 m_vMultiFlow[%d]->CurCount %d", i, m_vMultiFlow[i]->CurCount );
 					strcpy(m_vMultiFlow[i]->prev_job_name, "");
 					m_vMultiFlow[i]->CurCount = 0;
 					return BJM_OK;
 				}
 
-           		g_pcLog->INFO("3 m_vMultiFlow[%d]->CurCount %d", i, m_vMultiFlow[i]->CurCount );
+           		g_pcLog->DEBUG("3 m_vMultiFlow[%d]->CurCount %d", i, m_vMultiFlow[i]->CurCount );
 			}
         }
     }
@@ -479,6 +487,8 @@ int CScheduler::CheckCondition(char * a_strJobName, int a_nExitCd)
     {
         if(strcmp(m_vBatchFlow[j]->job_name, a_strJobName) == 0 && m_vBatchFlow[j]->exit_cd != a_nExitCd)
         {
+        	g_pcLog->DEBUG("Different info job_name[%s][%s], exitcd[%d][%d]", 
+						m_vBatchFlow[j]->job_name, a_strJobName, m_vBatchFlow[j]->exit_cd, a_nExitCd);
 			return BJM_NOK;
         }
     }
@@ -496,7 +506,7 @@ int CScheduler::SearchBatchJob(ST_BatchRequest *a_stBatchrequest)
 		if(strncmp(m_vBatchJob[j]->group_name, stbatchrequest.group_name, sizeof(stbatchrequest.group_name)) == 0 &&
 			strncmp(m_vBatchJob[j]->job_name, stbatchrequest.job_name, sizeof(stbatchrequest.job_name)) == 0)
 		{
-			g_pcLog->INFO("m_vBatchJob[%d].group_name %s, m_vBatchJob[%d].job_name %s", 
+			g_pcLog->DEBUG("m_vBatchJob[%d].group_name %s, m_vBatchJob[%d].job_name %s", 
 					j, m_vBatchJob[j]->group_name, 
 					j, m_vBatchJob[j]->job_name );
 			if(strncmp(stbatchrequest.wsm_yn, "Y", sizeof("Y")) == 0)
@@ -536,12 +546,13 @@ int CScheduler::CheckCurrentTime()
 		
 		sprintf(strCurrent_date, "%s", nowT.AscTime("CCYYMMDDhhmmss"));
 
-		RunSchedule(strCurrent_date);
-
 		if(ReceiveData(stcoworkinfo) == BJM_RECV_ERROR)
 		{
 			break;
 		}
+
+		RunSchedule(strCurrent_date);
+
 		sleep(1);
 	}
 
@@ -566,11 +577,11 @@ void CScheduler::RunSchedule(char *a_strCurrent_date)
 			{
 				if(SetBatchHist(m_vBatchJob[nJobCount], m_vProcess[nJobCount], nJobCount) == BJM_NOK )
 	        	{
-       		    	g_pcLog->ERROR("SetBatchHist - SetBatchHist Error - false");
+       		    	g_pcLog->WARNING("SetBatchHist - SetBatchHist Error - false");
 	    	    }
 				else
 				{
-					g_pcLog->INFO("%s,\t%s, Current : %s, nextExecDate[%d] : %s, %d", 
+					g_pcLog->INFO("%s,\t%s, Current : %s, nextExecDate[%d] : %s", 
 			      				m_vBatchJob[nJobCount]->group_name,  
 								m_vBatchJob[nJobCount]->job_name,
 								a_strCurrent_date, 
@@ -657,7 +668,7 @@ int CScheduler::GetGroupInfo()
 	m_nBatchGroupCount = m_BatchGroup.LoadGroupInfo(m_stbatchgroups);
 	if(m_nBatchGroupCount  < 0)
 	{
-		g_pcLog->INFO("LoadGroupInfo Error");
+		g_pcLog->ERROR("LoadGroupInfo Error");
 		return BJM_NOK;
 	}
 	else
@@ -691,7 +702,7 @@ int CScheduler::GetJobInfo()
 	m_nBatchJobCount = m_BatchJob.LoadJobInfo(m_stbatchjobs);
 	if(m_nBatchJobCount < 0)
 	{
-		g_pcLog->INFO("LoadJobInfo Error");
+		g_pcLog->ERROR("LoadJobInfo Error");
 		return BJM_NOK;
 	}
 	else
@@ -769,7 +780,7 @@ int CScheduler::GetFlowInfo()
 			{
 				strcpy(m_stMultiJobFlow[j].group_name, m_BatchGroup.GetGroupName(m_stMultiJobFlow[j].next_job_name));
 				m_stMultiJobFlow[j].Count = m_BatchFlow.GetMultiFlowCount(m_stMultiJobFlow[j].exit_cd);
-				g_pcLog->INFO("Count [%d], Group Name[%d][%s], Exit CD[%d][%d], Next Job Name[%d][%s]", 
+				g_pcLog->DEBUG("Count [%d], Group Name[%d][%s], Exit CD[%d][%d], Next Job Name[%d][%s]", 
 								m_stMultiJobFlow[j].Count,
 								j, m_stMultiJobFlow[j].group_name, 
 								j, m_stMultiJobFlow[j].exit_cd, 
@@ -953,7 +964,7 @@ int CScheduler::SetNextSchedule(ST_BatchGroup *a_stBatchGroupInfo, char *a_nextE
 
     if ( atoi(m_batchGroupInfo_->schedule_cycle_type) == 1 || atoi(m_batchGroupInfo_->schedule_cycle_type) == 0 )
     {
-         g_pcLog->INFO("Next schedule date of Pkg Name(%s)-Group Name[%s] was not reserved!", GetPkgName(), GetGroupName()) ;
+         g_pcLog->DEBUG("Next schedule date of Pkg Name(%s)-Group Name[%s] was not reserved!", GetPkgName(), GetGroupName()) ;
 
         return BJM_OK ;
     }
@@ -963,7 +974,7 @@ int CScheduler::SetNextSchedule(ST_BatchGroup *a_stBatchGroupInfo, char *a_nextE
     switch(atoi(m_batchGroupInfo_->schedule_cycle_type))
     {
 			case 1:	 // NONE
-               g_pcLog->INFO("Package(%s)-BatchGroup(%s) can't find next schedule!", GetPkgName(), GetGroupName()) ;
+               g_pcLog->WARNING("Package(%s)-BatchGroup(%s) can't find next schedule!", GetPkgName(), GetGroupName()) ;
 				break;
             case 2 : // '02' Minute
                 SetNextScheduleMinute(a_nCount) ;
@@ -984,7 +995,7 @@ int CScheduler::SetNextSchedule(ST_BatchGroup *a_stBatchGroupInfo, char *a_nextE
                 SetNextScheduleHour(a_nCount) ;
                 break ;
             default  :
-               g_pcLog->INFO("Package(%s)-BatchGroup(%s) can't find next schedule!", GetPkgName(), GetGroupName()) ;
+               g_pcLog->WARNING("Package(%s)-BatchGroup(%s) can't find next schedule!", GetPkgName(), GetGroupName()) ;
                return BJM_NOK ;
     }
 

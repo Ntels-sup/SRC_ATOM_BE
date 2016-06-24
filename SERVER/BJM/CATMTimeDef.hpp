@@ -30,14 +30,11 @@
     printf("LIBWAR:[%s][%d] : %s\n", __FILE__,__LINE__,text) ; \
     } while (0) 
 
-#define NL_ENV_USER_NM "USER"
 #define NL_INVALID_DATE 0x7fffffffl
 
 #define NL_PROCESS_CHECK_NONE 0x00
 #define NL_PROCESS_CHECK_USER 0x01
 #define NL_PROCESS_CHECK_ARGS 0x10
-
-#define WHOAMI getenv(NL_ENV_USER_NM)
 
 typedef unsigned char byte ;
 typedef int           boolean ;

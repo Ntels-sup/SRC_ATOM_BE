@@ -456,7 +456,7 @@ int CNodeInfo::SendProcess(CSessionInfo *cSession)
     time_t curTm = 0;
 
     if(m_nStatus == INACTIVE_STATUS){
-        STM_LOG(STM_ERR,"INACT NODE\n");
+        STM_LOG(STM_ERR,"INACT NODE(node=%s)\n", m_strNodeName.c_str());
         return STM_OK;
     }
 

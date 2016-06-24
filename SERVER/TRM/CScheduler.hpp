@@ -40,18 +40,12 @@ private:
 	unsigned int			m_nDBInitFlag;
 
 	vector<ST_TRACE_ROUTE *> m_vTraceRoute;
-	vector<ST_TRACE_HIST *> m_vTraceHist;
 	vector<ST_PROCESS *>	m_vProcess;
 
 	void 					GetRouteDetailInfo			();
-    void 					SetNextScheduleMinute       (void) ;
-    void 					SetNextScheduleHour         (void) ;
-    void 					SetNextScheduleDay          (void) ;
-    void 					SetNextScheduleWeek         (void) ;
-    void 					SetNextScheduleMonth        (void) ;
-    void 					SetNextScheduleMonthLast    (void) ;
 	void 					SetTraceResponse			(char * a_strCurrent_date);
 
+	int						CheckTimeOut();
 	int						ReceiveData(ST_COWORK_INFO a_stcoworkinfo);
 	int						CreateTraceFile(ST_TRACE_REQUEST *a_tracerequest);
 	int						WriteTraceFile(ST_TRACE_RESPONSE *a_traceresponse);

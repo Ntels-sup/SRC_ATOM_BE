@@ -33,7 +33,7 @@ private:
 
 	ST_BatchGroup   m_stbatchgroups			[BJM_MAX_BATCH_GROUP];
    	ST_BatchJob     m_stbatchjobs			[BJM_MAX_BATCH_JOB];
-    ST_BatchFlow    m_stbatchflows			[BJM_MAX_BATCH_FLOW];
+    ST_BATCHFLOW    m_stbatchflows			[BJM_MAX_BATCH_FLOW];
    	ST_BATCHHIST    m_stbatchhists			[BJM_MAX_BATCH_HIST];
    	ST_PROCESS	    m_stprocess				[BJM_MAX_PROCESS];
 	ST_COWORK_INFO 	m_stcoworkinfo			[0];
@@ -61,10 +61,10 @@ private:
 	vector<ST_BatchGroup *> 	m_vBatchGroup;
 	vector<ST_BatchJob *>  		m_vBatchJob;
 	vector<ST_PROCESS *>		m_vProcess;
-	vector<ST_BatchFlow *>		m_vBatchFlow;
+	vector<ST_BATCHFLOW *>		m_vBatchFlow;
 	vector<ST_BatchRequest *>	m_vBatchReq;
-	vector<ST_BatchFlow *>		m_vNextFlow;		// for Next job
-	vector<ST_MULTI_JOB_FLOW *>	m_vMultiFlow;		// multi job
+	vector<ST_BATCHFLOW *>		m_vNextFlow;
+	vector<ST_MULTI_JOB_FLOW *>	m_vMultiFlow;
 
     void 			SetNextScheduleMinute       (int a_nCount) ;
     void 			SetNextScheduleHour         (int a_nCount) ;

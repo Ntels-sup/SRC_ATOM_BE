@@ -16,7 +16,6 @@ VnfmIF()
 
     // m_timerTryInit.Update();
     m_timerForReportPerf.Update();
-    m_timerKeepAliveForEvent.Update();
 
     m_pHttpClient   = NULL;
     m_pHttpServer   = NULL;
@@ -204,7 +203,6 @@ Do()
             m_vnfmToNodeEvent.ReceiveResponse(rHttpData, m_board);
 
             m_pHttpClient->Close();
-            m_timerKeepAliveForEvent.Update();
         }
 
         // Install 을 받으면, start 명령을 자동으로 연계 시켜줘야 해요.
@@ -255,18 +253,6 @@ Do()
 
             m_pHttpClient->Close();
         }
-    }
-
-    // TO DO : 60 초는 VNFM 과의 규약임으로 그냥 둡니다.
-    if(m_timerKeepAliveForEvent.TimeOut(60))
-    {
-        m_timerKeepAliveForEvent.Update();
-
-        HttpData & sHttpData = m_nodeToVnfmEvent.MakeKeepAliveForEvent(m_board);
-        if(m_pHttpClient->Send(sHttpData) == true)
-            m_pHttpClient->GetData();
-
-        m_pHttpClient->Close();
     }
 
     return true;

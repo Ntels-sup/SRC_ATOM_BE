@@ -15,7 +15,8 @@ public:
     bool    			Init(DB * a_pDB);
 	int 				LoadHistInfo(ST_TRACE_HIST *a_tracehist);
 	int					UpdateHist(DB * a_pDB, ST_TRACE_HIST *a_tracehist);
-	int					InsertHist(ST_TRACE_HIST *a_tracehist);
+	int					UpdateOffHist(DB * a_pDB, ST_TRACE_HIST *a_tracehist);
+	int					InsertHist(DB * a_pDB, ST_TRACE_HIST *a_tracehist);
 
 private:
     DB					* m_pDB;

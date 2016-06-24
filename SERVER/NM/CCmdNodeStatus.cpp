@@ -13,7 +13,8 @@ extern CFileLog* g_pclsLog;
  * - Notify
 	{
 		"BODY": {
-			"status": "RUNNING"
+			"uuid": "xxx-xxxxx--xxx",
+			"status": "RUNNING",
 			"pkgname": "vOFCS",
 			"nodetype": "LB",
 			"nodeno": 1,

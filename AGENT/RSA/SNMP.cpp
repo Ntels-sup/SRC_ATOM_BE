@@ -83,7 +83,6 @@ int SNMP::Initialize(CFileLog *a_pclsLog, RESOURCE *a_pRsc, void *a_pclsMain)
 
 int SNMP::MakeTrapJson()
 {
-    char szBuff[DEF_MEM_BUF_128];
     map<string, RESOURCE_ATTR *>::iterator it;
     RESOURCE_ATTR *pstRsc = NULL;
     SNMP_VALUE *pstData = NULL;
@@ -99,6 +98,10 @@ int SNMP::MakeTrapJson()
     	{
 	        pstRsc = it->second;
         	pstData = (SNMP_VALUE*)it->second->pData;
+
+			if(pstData->bFind == false)
+				continue;
+
 			a_rscList.push_back(StringRef(pstRsc->szName));
 
     	    o_rscAttr = o_root[pstRsc->szName];
@@ -106,10 +109,10 @@ int SNMP::MakeTrapJson()
 	        o_rscAttr["CODE"] = DEF_ALM_CODE_EXTERNAL_TRAP;
     	    o_rscAttr["TARGET"] = pstRsc->szName;
 
-    	    snprintf(szBuff, sizeof(szBuff), "%c", pstData->bFind ? 'Y' : 'N' );
 	        pstData->bFind = false;
-	        o_rscAttr["VALUE"] = szBuff;
-
+	        o_rscAttr["VALUE"] = pstData->strValue;
+			
+			pstData->strValue.assign("");
     	}
 
 	    m_pGroupRsc->strRootTrapJson.assign(o_root.str());
@@ -129,6 +132,7 @@ int SNMP::MakeTrapJson()
 
 int SNMP::MakeJson(time_t a_tCur)
 {
+	MakeTrapJson();
 	return 0;
 #if 0
 	char szBuff[DEF_MEM_BUF_128];	
@@ -176,7 +180,6 @@ int SNMP::Run()
 	RESOURCE_ATTR *pstRsc = NULL;
 	SNMP_VALUE *pstData = NULL;
 
-	bool bFind = false;
 	int ret = 0;
 	int nSeverity = 0;
 	int nMessageCode = 0;
@@ -185,7 +188,7 @@ int SNMP::Run()
 
 
 	sprintf(szBuffer, "%s", m_strTrapLogPath.c_str());
-		
+	
 	if (access(szBuffer, F_OK) == -1)
 	{
 		m_pclsLog->WARNING("There is no Trap Log File (%s) ", szBuffer);
@@ -201,7 +204,6 @@ int SNMP::Run()
 
 	while(fgets(szBuffer, sizeof(szBuffer), fp) != NULL)
 	{
-		bFind = false;
 
 		m_pclsLog->DEBUG("szBuffer %s\n", szBuffer);
 
@@ -214,45 +216,41 @@ int SNMP::Run()
 				continue;
 
 			pstData->bFind = true;
-			bFind = true;
-			break;
-		}
 
-		if( false == bFind )
-			continue;
-
-		ret = sscanf(szBuffer,
-			"%*s %d %d %d %[^\n]s", &nSeverity, &nMessageCode, &nNodeId, szDetails);
+			ret = sscanf(szBuffer,
+				"%*s %d %d %d %[^\n]s", &nSeverity, &nMessageCode, &nNodeId, szDetails);
 	
-#if 0
-		if (ret == 4)		
-		{
-			switch (nSeverity)
+#if 1
+			if (ret == 4)		
 			{
-				case 1: // critical
-                    m_pclsEvent->SendTrap(DEF_ALM_CODE_EXTERNAL_TRAP, "ThreePar", "CRITICAL", NULL, NULL);
-                    break;
-				case 2: // major
-                    m_pclsEvent->SendTrap(DEF_ALM_CODE_EXTERNAL_TRAP, "ThreePar", "MAJOR", "NULL", "NULL");
-                    break;
-				case 3: // minor
-                    m_pclsEvent->SendTrap(DEF_ALM_CODE_EXTERNAL_TRAP, "ThreePar", "MINOR", "NULL", "NULL");
-                    break;
-				case 4: // clear
-					break;
-				default: // unknown
-					m_pclsLog->WARNING("Unknown severity(%d): %s", nSeverity, szBuffer);
-					break;
+				switch (nSeverity)
+				{
+					case 1: // critical
+                	    pstData->strValue.assign("CRITICAL");
+            	        break;
+					case 2: // major
+                	    pstData->strValue.assign("MAJOR");
+	                    break;
+					case 3: // minor
+                	    pstData->strValue.assign("MINOR");
+        	            break;
+					case 4: // clear
+                	    pstData->strValue.assign("CLEAR");
+						break;
+					default: // unknown
+						m_pclsLog->WARNING("Unknown severity(%d): %s", nSeverity, szBuffer);
+						break;
+				}
 			}
-		}
-		else
-		{
-			m_pclsLog->WARNING("Input format wrong: Count(%d) Buffer(%s)", ret, szBuffer);
-			continue;
-		}
+			else
+			{
+				m_pclsLog->WARNING("Input format wrong: Count(%d) Buffer(%s)", ret, szBuffer);
+				continue;
+			}
 #endif
-		m_pclsLog->DEBUG("nSeverity %d, nMessageCode %d, nNodeId %d, szDetails %s", 
-							nSeverity, nMessageCode, nNodeId, szDetails);
+			m_pclsLog->DEBUG("nSeverity %d(%s), nMessageCode %d, nNodeId %d, szDetails %s", 
+								nSeverity, pstData->strValue.c_str(), nMessageCode, nNodeId, szDetails);
+		}
 	}
 
 	fclose(fp);

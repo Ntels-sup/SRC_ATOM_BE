@@ -125,8 +125,8 @@ void CFileLog::CalcDiffEpochFromLocal()
  * \param a_nLogLevel is Log Level that you want to print out
  * \return 0 on Success
  */
-int CFileLog::Initialize(const char *a_pszLogBase, const char *a_pszService, 
-						const char *a_pszProc, int a_nLogCheckTime, int a_nLogLevel)
+int CFileLog::Initialize(const char *a_pszLogBase, const char *a_pszService, const char *a_pszProc, 
+															int a_nLogCheckTime, int a_nLogLevel)
 {
 	char szBuff[DEF_BUFFER_128];
 	char szPrevFileInfo[DEF_BUFFER_512];
@@ -188,26 +188,26 @@ int CFileLog::Initialize(const char *a_pszLogBase, const char *a_pszService,
 	SetLogLevel ( a_nLogLevel );
 
 
-	INFO( "CFileLog: Log Dup Check Period   [%d]", m_nLogCheckTime );
+	INFO( "CFileLog: Log Dup Check Period 	[%d]", m_nLogCheckTime );
 	if(strlen(m_szLogBase) != 0)
 	{
-		INFO( "CFileLog: Log Main path          [%s]", m_szLogBase);
-		INFO( "CFileLog: Log Full Name          [%s]", szPrevFileInfo);
+		INFO( "CFileLog: Log Main path   		[%s]", m_szLogBase);
+		INFO( "CFileLog: Log Full Name   		[%s]", szPrevFileInfo);
 	}
 	else
 	{
-		INFO( "CFileLog: Log Main path          [stdout]");
-		INFO( "CFileLog: Log Full Name          [stdout]");
+		INFO( "CFileLog: Log Main path   		[stdout]");
+		INFO( "CFileLog: Log Full Name   		[stdout]");
 	}
 
 
-	INFO( "CFileLog: Log Level              [%d]", m_nLogLevel );
-	INFO( "CFileLog: Hostname               [%s]", m_szHostName );
+	INFO( "CFileLog: Log Level       		[%d]", m_nLogLevel );
+	INFO( "CFileLog: Hostname        		[%s]", m_szHostName );
 
 	if(strlen(m_szServiceName) != 0)
-		INFO( "CFileLog: Service Name           [%s]", m_szServiceName );
+		INFO( "CFileLog: Servicename     		[%s]", m_szServiceName );
 
-	INFO( "CFileLog: Process Name           [%s]", m_szProcessName );
+	INFO( "CFileLog: Processame      		[%s]", m_szProcessName );
 
 	return 0;
 }
@@ -228,10 +228,8 @@ void CFileLog::CloseLog(LOGINFO* pLog)
 {
 	if (pLog->fpLog)
 	{
-		while(aio_error(&m_LOG.aio_wb) == EINPROGRESS);
-		fsync(pLog->fpLog);
-		close(pLog->fpLog);
-		pLog->fpLog = 0;
+		fclose(pLog->fpLog);
+		pLog->fpLog = NULL;
 	}
 }
 
@@ -249,13 +247,10 @@ void CFileLog::StartLogFile( const char* a_pszLogFile)
 	time_t		tNow;
 	struct tm	rt ;
 
-	struct stat stStat;
-	memset(&stStat, 0x00, sizeof(struct stat));
-
 	if (m_LOG.fpLog)
 	{
-		close(m_LOG.fpLog);
-		m_LOG.fpLog = 0;
+		fclose(m_LOG.fpLog);
+		m_LOG.fpLog = NULL;
 	}
 
 	time(&tNow);
@@ -274,40 +269,28 @@ void CFileLog::StartLogFile( const char* a_pszLogFile)
 
 		strftime(szFileName + strlen(szFileName), sizeof(szFileName) - strlen(szFileName), ".%Y%m%d", localtime_r(&tNow, &rt));
 
-		m_LOG.fpLog = open(szFileName, O_CREAT|O_RDWR, 0666);
 
-		if (m_LOG.fpLog == -1)
-		{
-			printf("Fail: open(%s)", szFileName);
-			return;
-		}
+		m_LOG.fpLog = fopen(szFileName, "at+");
 
-		if (fstat(m_LOG.fpLog, &stStat) < 0)
-		{
-			printf("Fail : [%s] Fstat(errno:%d)", szFileName, errno);
+		if (!m_LOG.fpLog)
 			return;
-		}
+
 #ifdef	linux
-//		setlinebuf(m_LOG.fpLog);
+		setlinebuf(m_LOG.fpLog);
 #endif
 
 		strcpy(m_LOG.szLogName, a_pszLogFile);
 	}
 	else
 	{
-		m_LOG.fpLog = dup(1);
+		m_LOG.fpLog = stdout;
 	}
 
-	m_LOG.aio_wb.aio_fildes  = m_LOG.fpLog;
-	m_LOG.aio_wb.aio_offset  = stStat.st_size;
 
-	char szLogBuff[DEF_BUFFER_1024];
-	snprintf(szLogBuff, sizeof(szLogBuff), "\n\n\n-------------------------log open at %s-------------------------\n\n\n", time2str(&tNow));
-	
-	m_LOG.aio_wb.aio_buf = szLogBuff;
-	m_LOG.aio_wb.aio_nbytes = strlen(szLogBuff);
-	aio_write(&m_LOG.aio_wb);
-			
+	fprintf(m_LOG.fpLog, "\n\n");
+	fprintf(m_LOG.fpLog, "\n-------------------------log open at %s-------------------------\n"
+						, time2str(&tNow) );
+	fprintf(m_LOG.fpLog, "\n\n");
 }
 
 /*!
@@ -338,10 +321,8 @@ void CFileLog::LogMsg( int a_nLevel, const char* a_pszFmt, ...)
 {
 	va_list ap;
 	time_t			tNow;
-	static char	szLogBuff[DEF_BUFFER_1024 * DEF_BUFFER_1024];
-	static char	szDupMsgBuff[DEF_BUFFER_256];
-	char	*pszLogHead = szLogBuff;
-	char	*pszLogMsg;
+	static	char	szLogHead[DEF_BUFFER_256];
+	static	char	szLogMsg[DEF_BUFFER_4096];
 
 	if ( a_nLevel > m_nLogLevel)
 		return;
@@ -354,24 +335,19 @@ void CFileLog::LogMsg( int a_nLevel, const char* a_pszFmt, ...)
 	time(&tNow);
 	AdjustFileName( tNow);
 
-	while(aio_error(&m_LOG.aio_wb) == EINPROGRESS);
-	m_LOG.aio_wb.aio_offset += m_LOG.aio_wb.aio_nbytes;
-
-	snprintf(pszLogHead, sizeof(szLogBuff), "%s, %s, %8s, "
+	sprintf(szLogHead, "%s, %s, %s, "
 					, time2str(&tNow)
 					, m_szPrevMsg
 					, g_stLogLevel[a_nLevel].pLevelString
 	);
 
-	pszLogMsg = pszLogHead + strlen(pszLogHead);
-
 	va_start(ap, a_pszFmt);
 
-	vsprintf(pszLogMsg, a_pszFmt, ap);
-	sprintf(pszLogMsg + strlen(pszLogMsg), "\n");
+	vsprintf(szLogMsg, a_pszFmt, ap);
+	sprintf(szLogMsg + strlen(szLogMsg), "\n");
 
 	//현재의 Log Msg 와 이전에 씌여진 Log Msg 를 비교
-	if(DiffLastLog(pszLogMsg, m_szLastLogMsg) == 0)
+	if(DiffLastLog(szLogMsg, m_szLastLogMsg) == 0)
 	{
 		//지정 된 시간 이내에 중복이 발생할 경우 시간 초기화
 		if(((tNow - m_tLastLog) <= m_nLogCheckTime))
@@ -382,27 +358,12 @@ void CFileLog::LogMsg( int a_nLevel, const char* a_pszFmt, ...)
 			{
 				pthread_mutex_unlock(&m_tMutex);
 			}
-			va_end(ap);
-			m_LOG.aio_wb.aio_offset -= m_LOG.aio_wb.aio_nbytes;
 			return ;
 		}
 		//지정 된 시간 이후에 중복이 발생할 경우 중복이 발생하였어도 출력
 		else if(m_nLogCheckTime > 0)
 		{
-			snprintf(szDupMsgBuff, sizeof(szDupMsgBuff), "%s, %s, %8s, Last Message was repeated %d times\n"
-													, time2str(&tNow)
-													, m_szPrevMsg
-													, g_stLogLevel[a_nLevel].pLevelString
-													, m_nDupCount
-					);
-
-			m_LOG.aio_wb.aio_buf = szDupMsgBuff;
-			m_LOG.aio_wb.aio_nbytes = strlen(szDupMsgBuff);
-			aio_write(&m_LOG.aio_wb);
-
-			while(aio_error(&m_LOG.aio_wb) == EINPROGRESS);
-			m_LOG.aio_wb.aio_offset += m_LOG.aio_wb.aio_nbytes;
-
+			fprintf(m_LOG.fpLog, "%s Last Message was repeated %d times\n", szLogHead, m_nDupCount);
 			m_nDupCount = 0;
 		}
 	}
@@ -410,34 +371,22 @@ void CFileLog::LogMsg( int a_nLevel, const char* a_pszFmt, ...)
 	//현재 Msg 출력
 	else if(m_nDupCount)
 	{
-		snprintf(szDupMsgBuff, sizeof(szDupMsgBuff), "%s, %s, %8s, Last Message was repeated %d times\n"
-												, time2str(&tNow)
-												, m_szPrevMsg
-												, g_stLogLevel[a_nLevel].pLevelString
-												, m_nDupCount
-				);
-
-		m_LOG.aio_wb.aio_buf = szDupMsgBuff;
-		m_LOG.aio_wb.aio_nbytes = strlen(szDupMsgBuff);
-		aio_write(&m_LOG.aio_wb);
-
+		fprintf(m_LOG.fpLog, "%s Last Message was repeated %d times\n", szLogHead, m_nDupCount);
 		m_nDupCount = 0;
-
-		while(aio_error(&m_LOG.aio_wb) == EINPROGRESS);
-		m_LOG.aio_wb.aio_offset += m_LOG.aio_wb.aio_nbytes;
 	}
-	
-	m_LOG.aio_wb.aio_buf = szLogBuff;
-	m_LOG.aio_wb.aio_nbytes = strlen(szLogBuff);
-	aio_write(&m_LOG.aio_wb);
 
+	
+	fprintf(m_LOG.fpLog, "%s%s", szLogHead, szLogMsg);
+#ifndef	linux
+	fflush(m_LOG.fpLog);
+#endif
 
 	if (m_bLockEnable)
 	{
 		pthread_mutex_unlock(&m_tMutex);
 	}
 
-	sprintf(m_szLastLogMsg, "%s", pszLogMsg);
+	sprintf(m_szLastLogMsg, "%s", szLogMsg);
 	m_tLastLog = tNow;
 	va_end(ap);
 
@@ -452,14 +401,14 @@ void CFileLog::LogMsg( int a_nLevel, const char* a_pszFmt, ...)
  */
 void CFileLog::DebugLogMsg(int a_nLine, const char *a_pszFile, const char* a_pszFmt, ...)
 {
-	static	char	szDebugLogMsg[DEF_BUFFER_1024 * DEF_BUFFER_1024];
+	static	char	szLogMsg[DEF_BUFFER_4096];
 	va_list ap;
 
 	va_start(ap, a_pszFmt);
-	vsprintf(szDebugLogMsg, a_pszFmt, ap);
-	va_end(ap);
+	vsprintf(szLogMsg, a_pszFmt, ap);
 
-	LogMsg(LV_DEBUG, "[%s:%d], %s", a_pszFile, a_nLine, szDebugLogMsg); 
+	LogMsg(LV_DEBUG, "[%s:%d], %s", a_pszFile, a_nLine, szLogMsg); 
+	va_end(ap);
 }
 
 /*!
@@ -479,18 +428,13 @@ int CFileLog::DiffLastLog(char *a_pszOld, char *a_pszNew)
 /*!
  * \brief Print Hex Dump
  * \details 지정된 범위의 메모리 Dump 출력
- * \param a_pszReadBuf is Start Address to Read
+ * \param a_pszBuf is Start Address to Dump
  * \param a_nLen is Length of Memory
  * \return void
  */
-void CFileLog::LogHexMsg( const char* a_pszReadBuf, int a_nLen)
+void CFileLog::LogHexMsg( const char* a_pszBuf, int a_nLen)
 {
 	time_t			tNow;
-	static char	szLogHexBuff[DEF_BUFFER_1024 * DEF_BUFFER_1024];
-
-	if( LV_DEBUG > m_nLogLevel)
-		return ;
-	
 
 	if (m_bLockEnable)
 	{
@@ -500,13 +444,14 @@ void CFileLog::LogHexMsg( const char* a_pszReadBuf, int a_nLen)
 	time(&tNow);
 	AdjustFileName( tNow);
 
-	while(aio_error(&m_LOG.aio_wb) == EINPROGRESS);
-	m_LOG.aio_wb.aio_offset += m_LOG.aio_wb.aio_nbytes;
+	if (a_nLen > 20240 ) a_nLen = 20240;
 
-	HexDump((char*)a_pszReadBuf, (char *)szLogHexBuff, a_nLen, (char *)(szLogHexBuff+sizeof(szLogHexBuff)), tNow);
-	m_LOG.aio_wb.aio_buf = szLogHexBuff;
-	m_LOG.aio_wb.aio_nbytes = strlen(szLogHexBuff);
-	aio_write(&m_LOG.aio_wb);
+	fprintf(m_LOG.fpLog, "[%s]\n------------------------------------------------------------------\n", time2str(&tNow));
+	HexDump((unsigned char*)a_pszBuf, a_nLen, m_LOG.fpLog);
+	fprintf(m_LOG.fpLog, "------------------------------------------------------------------\n");
+#ifndef	linux
+	fflush(m_LOG.fpLog);
+#endif
 
 	if (m_bLockEnable)
 	{
@@ -557,57 +502,37 @@ bye:
 /*!
  * \brief Print Hex Dump
  * \details 지정된 범위의 메모리 Dump 출력
- * \param a_pszReadBuf is Start Address to Read
- * \param a_pszWriteBuf is Start Address to Write
+ * \param a_pszBuf is Start Address to Dump
  * \param a_nLen is Length of Memory
  * \param a_fpWrite is File Pointer for Write Log
  * \return void
  */
-void CFileLog::HexDump(char* a_pszReadBuf, char *a_pszWriteBuf, int a_nSize, char *a_pEndOfWriteBuf, time_t a_tNow)
+void CFileLog::HexDump(unsigned char* a_pszData, int a_nSize, FILE* a_fpWrite)
 {   
     int             i, j, k;
-	char *p = a_pszWriteBuf;
 
-	
-	snprintf((char*)p, a_pEndOfWriteBuf - p, "\n[%s] [Len : %d] \n-------------------------------------------------------------------\n", time2str(&a_tNow), a_nSize);
-	p += strlen(p);
-	for (i = 0; i < a_nSize; i++)
-	{
-		snprintf((char*)p, a_pEndOfWriteBuf - p, "%02x ", a_pszReadBuf[i]);
-		p += strlen(p);
-		if (i % 16 == 15 || i == a_nSize - 1)
-		{
-			for (k = i % 16; k < 15; k++)
-			{
-				snprintf(p, a_pEndOfWriteBuf - p, "   ");
-				p += strlen(p);
-			}
-					
-			snprintf(p, a_pEndOfWriteBuf - p, "   ");
-			p += strlen(p);
+    for (i = 0; i < a_nSize; i++)
+    {
+        fprintf(a_fpWrite, "%02x ", a_pszData[i]);
+        if (i % 16 == 15 || i == a_nSize - 1)
+        {
+            for (k = i % 16; k < 15; k++)
+                fprintf(a_fpWrite, "   ");                                                                                                 
 
-			for (j = i - (i % 16); j <= i; j++)
+            fprintf(a_fpWrite, "| ");                                                                                                      
+            for (j = i - (i % 16); j <= i; j++)                                                                                          
             {       
-				if (a_pszReadBuf[j] >= 32 && a_pszReadBuf[j] <= 126)
-				{
-					snprintf(p, a_pEndOfWriteBuf - p, "%c", a_pszReadBuf[j]);
-					p += strlen(p);
-				}
-				else 
-				{
-					snprintf(p, a_pEndOfWriteBuf - p, ".");
-					p += strlen(p);
-				}
-			}
+                if (a_pszData[j] >= 32 && a_pszData[j] <= 126)                                                                                   
+                    fprintf(a_fpWrite, "%c", a_pszData[j]);                                                                                    
+                else                                                                                                                     
+                    fprintf(a_fpWrite, ".");                                                                                               
+            }
                                                                                                                                          
-			snprintf(p, a_pEndOfWriteBuf - p, "\n");
-			p ++;
-		}
-	}   
+            fprintf(a_fpWrite, "\n");
+        }                                                                                                                                
+    }   
         
-	snprintf(p, a_pEndOfWriteBuf - p, "\n");
-	p++;
-	snprintf(p, a_pEndOfWriteBuf - p, "-------------------------------------------------------------------\n\n");
+    fprintf(a_fpWrite, "\n");                                                                                                              
 }
 
 /*!
@@ -620,10 +545,9 @@ int CFileLog::GetHostname ()
 
 	if ( gethostname ( m_szHostName, 32 ) < 0 ) 
 	{
-		snprintf(m_szHostName, sizeof(m_szHostName), "ATOM");
+		return -1;
 	}
 	
-
 	return 0;
 }
 
@@ -639,62 +563,3 @@ void CFileLog::AdjustFileName( time_t tNow )
 
 }
 
-
-/*!
- * \brief OFCS Pkg 의 Log Class Wrapping 추후 삭제 예정
- * \return Succ 0, Fail -1
- */
-int CFileLog::HexaLog(const char *a_szComment, const byte *a_szData, size_t a_nLen)
-{
-	LogHexMsg((const char*)a_szData, (int)a_nLen);
-	return 0;
-}
-
-/*!
- * \brief OFCS Pkg 의 Log Class Wrapping 추후 삭제 예정
- * \return Succ 0, Fail -1
- */
-int CFileLog::MessageLog(const char *a_pszFmt, ...)
-{
-	static	char	szLogMsg1[DEF_BUFFER_1024 * DEF_BUFFER_1024];
-	va_list ap;
-
-	va_start(ap, a_pszFmt);
-	vsprintf(szLogMsg1, a_pszFmt, ap);
-	va_end(ap);
-
-	LogMsg(LV_INFO, "%s", szLogMsg1); 
-	
-	return 0;
-}
-
-
-
-/*!
- * \brief OFCS Pkg 의 Log Class Wrapping 추후 삭제 예정
- * \return Succ 0, Fail -1
- */
-int CFileLog::MessageLog(int a_nLevel, const char *a_pszFmt, ...)
-{
-	static	char	szLogMsg2[DEF_BUFFER_1024 * DEF_BUFFER_1024];
-	va_list ap;
-
-	va_start(ap, a_pszFmt);
-	vsprintf(szLogMsg2, a_pszFmt, ap);
-	va_end(ap);
-
-	LogMsg(a_nLevel, "%s", szLogMsg2); 
-
-	return 0;
-}
-
-
-/*!
- * \brief OFCS Pkg 의 Log Class Wrapping 추후 삭제 예정
- * \return Succ 0, Fail -1
- */
-int CFileLog::ChangeLogLevel(int a_nLogLevel)
-{
-	SetLogLevel(a_nLogLevel);
-	return 0;
-}

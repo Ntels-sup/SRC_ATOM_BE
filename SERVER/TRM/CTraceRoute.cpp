@@ -67,7 +67,7 @@ int CTraceRoute::LoadRouteInfo(ST_TRACE_ROUTE *a_traceroute)
 	nRet = m_pDB->Query(&f_mysql, query, strlen(query));
 	if(nRet < 0)
     {   
-        g_pcLog->INFO("Query Fail [%d:%s]", nRet, m_pDB->GetErrorMsg(nRet));
+        g_pcLog->ERROR("Query Fail [%d:%s]", nRet, m_pDB->GetErrorMsg(nRet));
         return TRM_NOK;
     }
 
@@ -149,7 +149,7 @@ int CTraceRoute::InsertRouteInfo(ST_TRACE_ROUTE *a_traceroute)
 
     if((cnt = m_pDB->Execute(insertsql, strlen(insertsql))) <= 0)
     {
-        g_pcLog->INFO("Execute Fail [%s] [%d:%s]\n", insertsql, cnt, m_pDB->GetErrorMsg(cnt));
+        g_pcLog->ERROR("Execute Fail [%s] [%d:%s]\n", insertsql, cnt, m_pDB->GetErrorMsg(cnt));
         return TRM_NOK;
     }
     else

@@ -22,7 +22,6 @@ public:
 private:
     DB					* m_pDB;
 	char				m_strPrc_date[20 + 1];
-	ST_BATCHHIST		batchHistInfo_;
 };
 
 #endif // __CBATCHHIST_HPP__

@@ -1,6 +1,6 @@
 include ../../Makefile.inc
 
-CXXFLAGS += -g
+CXXFLAGS += -pg -fPIC
 
 TARGET = libatomrabbitalloc.a
 

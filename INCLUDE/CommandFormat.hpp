@@ -23,8 +23,9 @@
 #define CMD_REGIST					1
 #define CMD_REGIST_NODE				2
 #define CMD_PING					3
+#define CMD_NODE_STATUS				4
+#define CMD_NODE_LIST				5
 #define CMD_ATOM_PROC_CTL 			8
-#define CMD_NODELIST                5
 
 #define CMD_ATOM_PROC_STATUS        9
 #define CMD_PRA_RECONFIG			10001

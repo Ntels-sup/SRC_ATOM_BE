@@ -151,7 +151,7 @@ bool Initalize(void)
 		cerr << "NM, log initalize failed" << endl;
 		return false;
 	}
-	g_pclsLog->SetThreadLock();
+	//g_pclsLog->SetThreadLock();
 
 	// process background running
 	if (clsCfg.m_bVerbose == false) {

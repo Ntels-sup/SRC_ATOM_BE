@@ -37,6 +37,16 @@ CProcessManager::CProcessManager()
 	m_nHangupTime = 60;					// Hangup 기준 시간
 	m_nAlivePeriod = 30;				// Alive check 주기	
 
+	// alarm init
+	CConfigPra& clsCfg = CConfigPra::Instance();
+    m_clsAlm.SetNodeInfo(clsCfg.m_nNodeNo, "");
+    m_clsAlm.SetProcInfo(clsCfg.m_nProcNo, "");
+    m_clsAlm.SetIPCandAddr(&CModuleIPC::Instance(), &CAddress::Instance());
+	if (m_clsAlm.Init() == false) {
+		g_pclsLogPra->ERROR("PM, alarm event init failed");
+		return;
+	}
+
 	return;
 }
 
@@ -89,14 +99,21 @@ void CProcessManager::Run(int a_nProcNo)
 	vector<proc_t::iterator> P;
 	OrderStart(P);
 
+	// alarm event
+	vector<proc_t::iterator> A;
+	A.reserve(P.size());
+
 	// REPACK
 	// 특정 프로세스 만을 대상으로 하는 경우에도 for loop를 타야 한다.
 
 	for (size_t i=0; i < P.size(); ++i) {
+		if (a_nProcNo < 0 && P[i]->second.m_stAppInfo.m_bIsBatch) {
+			continue;
+		}
 		if (a_nProcNo > 0 && a_nProcNo != P[i]->second.m_stAppInfo.m_nProcNo) {
 			continue;
 		}
-		
+	
 		if (P[i]->second.m_pclsApp->IsRunning()) {
 			// 중복 실행 방지
 			continue;
@@ -132,8 +149,10 @@ void CProcessManager::Run(int a_nProcNo)
 				P[i]->second.m_pclsApp->CoreDumpFilter(CProcess::LV0_ANONY_PRIVATE);
 				g_pclsLogPra->INFO("PM, process execute ok, pname: %s",
 										P[i]->second.m_stAppInfo.m_strProcName.c_str());
+				// Process execute alarm
+				A.push_back(P[i]);
 			} else {
-				g_pclsLogPra->INFO("PM, process execute failed, pname: %s",
+				g_pclsLogPra->ERROR("PM, process execute failed, pname: %s",
 										P[i]->second.m_stAppInfo.m_strProcName.c_str());
 			}
 
@@ -143,6 +162,24 @@ void CProcessManager::Run(int a_nProcNo)
 		// 특정 프로세스를 실행 했다면 loop를 빠져 나간다.
 		if (a_nProcNo > 0) {
 			break;
+		}
+	}
+
+	// Send alarm, run status	
+	const char* szWorstStatus = CProcStatus::StatusToString(GetStatusWorst());
+	CProcStatus::EN_STATUS enAppStat;
+
+	for (size_t i=0; i < A.size(); ++i) {
+		enAppStat = A[i]->second.m_pclsApp->m_stRunInfo.m_enStatus;
+		if (m_clsAlm.ProcessReport(szWorstStatus, 
+								A[i]->second.m_stAppInfo.m_nProcNo,
+								A[i]->second.m_stAppInfo.m_strProcName.c_str(),
+								CProcStatus::StatusToString(enAppStat)) == false) {
+			g_pclsLogPra->INFO("PM, alarm send failed, %s, pno: %d, pname: %s status: %s",
+								m_clsAlm.GetErrorMsg(),
+								A[i]->second.m_stAppInfo.m_nProcNo,
+								A[i]->second.m_stAppInfo.m_strProcName.c_str(),
+								CProcStatus::StatusToString(enAppStat));
 		}
 	}
 	
@@ -314,8 +351,9 @@ void CProcessManager::CheckExit(int a_nProcNo)
 	}
 
 	proc_t::iterator miter; 
-	CProcStatus::EN_STATUS enStat;
 	siginfo_t tExitInfo;
+
+	vector<proc_t::iterator> E;
 
 	while (true) {
 		tExitInfo.si_pid = 0;
@@ -346,8 +384,31 @@ void CProcessManager::CheckExit(int a_nProcNo)
 			break;
 		}
 		
-		enStat = miter->second.m_pclsApp->ExitCheck();
-		switch (enStat) {
+		miter->second.m_pclsApp->ExitCheck();
+		E.push_back(miter);
+	}
+	
+	// Send alarm status
+	const char* szWorstStatus = CProcStatus::StatusToString(GetStatusWorst());
+	CProcStatus::EN_STATUS enAppStat;
+
+	for (size_t i=0; i < E.size(); ++i) {
+		enAppStat = E[i]->second.m_pclsApp->m_stRunInfo.m_enStatus;
+		if (m_clsAlm.ProcessReport(szWorstStatus,
+								E[i]->second.m_stAppInfo.m_nProcNo,
+								E[i]->second.m_stAppInfo.m_strProcName.c_str(),
+								CProcStatus::StatusToString(enAppStat)) == false) {
+			g_pclsLogPra->ERROR("PM, alarm send failed, %s, pno: %d, pname: %s status: %s",
+								m_clsAlm.GetErrorMsg(),
+								E[i]->second.m_stAppInfo.m_nProcNo,
+								E[i]->second.m_stAppInfo.m_strProcName.c_str(),
+								CProcStatus::StatusToString(enAppStat));
+		}
+	}
+
+	// Abnormal process restart
+	for (size_t i=0; i < E.size(); ++i) {
+		switch (E[i]->second.m_pclsApp->m_stRunInfo.m_enStatus) {
 			case CProcStatus::STOPPED :
 				miter->second.m_nRunCount = 0;
 				break;
@@ -358,7 +419,7 @@ void CProcessManager::CheckExit(int a_nProcNo)
 				break;
 		}
 	}
-	
+
 	return;
 }
 

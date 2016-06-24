@@ -24,7 +24,7 @@ bool CBatchFlow::Init(DB * a_pDB)
     return (m_pDB != NULL)?BJM_OK:BJM_NOK;
 }
 
-int CBatchFlow::LoadFlowInfo(ST_BatchFlow *_batchFlow)
+int CBatchFlow::LoadFlowInfo(ST_BATCHFLOW *_batchFlow)
 {
     g_pcLog->DEBUG("CBatchFlow Select");
 
@@ -36,7 +36,7 @@ int CBatchFlow::LoadFlowInfo(ST_BatchFlow *_batchFlow)
 	char hexit_cd			[12];
 	int nbatchFlowCount 	= 0;
 
-	ST_BatchFlow			*batchFlowPtr;
+	ST_BATCHFLOW			*batchFlowPtr;
 
 	sprintf(query, "SELECT FLOW_NO, "
 				   "JOB_NAME, "
@@ -46,7 +46,7 @@ int CBatchFlow::LoadFlowInfo(ST_BatchFlow *_batchFlow)
 
 	if(m_pDB == NULL)
     {
-        g_pcLog->INFO("DB table is empty");
+        g_pcLog->WARNING("DB table is empty");
         return BJM_NOK;
     }
 
@@ -123,7 +123,7 @@ int	CBatchFlow::FlowSelect(ST_MULTI_JOB_FLOW *a_MultiFlow)
 
 	if(m_pDB == NULL)
     {
-        g_pcLog->INFO("DB table is empty");
+        g_pcLog->WARNING("DB table is empty");
         return BJM_NOK;
     }
 
@@ -186,7 +186,7 @@ int CBatchFlow::GetMultiFlowCount(int a_nExit_cd)
 	
 	if(m_pDB == NULL)
     {
-        g_pcLog->INFO("DB table is empty");
+        g_pcLog->WARNING("DB table is empty");
         return BJM_NOK;
     }
 

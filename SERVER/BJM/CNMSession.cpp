@@ -54,7 +54,11 @@ CNMSession::~CNMSession()
 	delete g_pcLog;
 	g_pcLog = NULL;
 
-	delete m_stbatchrequest;
+	if(m_stbatchrequest != NULL)
+	{
+		delete m_stbatchrequest;
+		m_stbatchrequest = NULL;
+	}
 }
 
 int CNMSession::Initial()
@@ -94,10 +98,8 @@ int CNMSession::Regist(ST_COWORK_INFO *a_coworkinfo)
 {
 
     m_sock.SetSource(a_coworkinfo->node_no, a_coworkinfo->bjm_proc_no);             // Src BJM
-//    m_sock.SetSource(1, 10);				// Src BJM
     m_sock.SetDestination(a_coworkinfo->node_no, a_coworkinfo->nm_proc_no);				// Src NM
-//    m_sock.SetDestination(1, 8);				// Src NM
-    m_sock.SetFlagRequest();			// response
+    m_sock.SetFlagRequest();
 	m_sock.SetCommand(BJM_REGIST);
 
     rabbit::object  menu = m_root["BODY"];
@@ -175,13 +177,13 @@ int CNMSession::RecvMsg(DB * a_pDB, ST_BatchRequest *a_batchrequest, ST_BatchRes
 	}
 	else if(strncmp(BJM_REGIST, strBuf.c_str(), strBuf.length()) == 0)	// REGIST
 	{
-       	g_pcLog->INFO("BJM_RECV_REGIST");
+       	g_pcLog->DEBUG("BJM_RECV_REGIST");
 		m_sock.Clear();
 		return BJM_RECV_REGIST;
 	}
 	else if(strncmp(ATOM_PROC_CTL, strBuf.c_str(), strBuf.length()) == 0)	// PROC_CTRL
 	{
-       	g_pcLog->INFO("BJM_RECV_PROC_CTRL");
+       	g_pcLog->DEBUG("BJM_RECV_PROC_CTRL");
 		nRetRecv = ProcessCtrl();
 		return nRetRecv;
 	}
@@ -203,7 +205,6 @@ int CNMSession::RecvMsg(DB * a_pDB, ST_BatchRequest *a_batchrequest, ST_BatchRes
 	}
 	else
 	{
-        g_pcLog->DEBUG("Check Action Message [%s]", strBuf.c_str());
 		m_sock.Clear();
 		return BJM_NOK;
 	}
@@ -216,17 +217,17 @@ int CNMSession::IsRequest()
     char flag = m_sock.GetFlag();
 
     if (flag & CProtocol::FLAG_REQUEST)
-        return 0;
+        return FLG_REQUEST;
     if (flag & CProtocol::FLAG_RESPONSE)
-        return 1;
+        return FLG_RESPONSE;
     if (flag & CProtocol::FLAG_NOTIFY)
-        return 2;
+        return FLG_NOTIFY;
     if (flag & CProtocol::FLAG_RETRNS)
-        return 3;
+        return FLG_RETRANS;
     if (flag & CProtocol::FLAG_BROAD)
-        return 4;
+        return FLG_BROAD;
     if (flag & CProtocol::FLAG_ERROR)
-        return 5;
+        return FLG_ERROR;
 
     return -1;
 }
@@ -234,7 +235,9 @@ int CNMSession::IsRequest()
 // Process Control의 구분
 int CNMSession::ProcessCtrl()
 {
+#ifdef BJM_DEBUG
 	cout << "----- READ 2 " << endl;
+#endif
     string              strLogPayload;
 	string				strAction;
 	int					nLogLevel = 0;				
@@ -248,11 +251,11 @@ int CNMSession::ProcessCtrl()
         doc.parse(strLogPayload.c_str());
 
         strAction = string(doc["BODY"]["action"].as_string());
-        cout << "[BODY][action]    :" << "[" << strAction << "]" << endl;
-
         nLogLevel = doc["BODY"]["loglevel"].as_int();
+#ifdef BJM_DEBUG
+        cout << "[BODY][action]    :" << "[" << strAction << "]" << endl;
         cout << "[BODY][LogLevel]    :" << "[" << nLogLevel << "]" << endl;
-
+#endif
 		if(strAction.compare(BJM_ACTION_LOGLEVEL) == 0)	
 		{
 			g_pcLog->SetLogLevel(nLogLevel);
@@ -305,22 +308,25 @@ int CNMSession::SetRequestMsg(ST_BatchRequest *a_batchrequest)
 
     rabbit::object  menu = m_root["BODY"];
 
-    g_pcLog->DEBUG("group_name [%s]", stbatchrequest.group_name);
     menu["group_name"]  = stbatchrequest.group_name;
-    g_pcLog->DEBUG("job_name [%s]", stbatchrequest.job_name);
     menu["job_name"]    = stbatchrequest.job_name;
-    g_pcLog->DEBUG("pkg_name [%s]", stbatchrequest.pkg_name);
     menu["pkg_name"]    = stbatchrequest.pkg_name;
-    g_pcLog->DEBUG("proc_no [%d]", stbatchrequest.proc_no);
     menu["proc_no"]    = stbatchrequest.proc_no;
-    g_pcLog->DEBUG("prc_date [%s]", stbatchrequest.prc_date);
     menu["prc_date"]    = stbatchrequest.prc_date;
-    g_pcLog->DEBUG("exec_bin [%s]", stbatchrequest.exec_bin);
     menu["exec_bin"]    = stbatchrequest.exec_bin;
-    g_pcLog->DEBUG("exec_arg [%s]", stbatchrequest.exec_arg);
     menu["exec_arg"]    = stbatchrequest.exec_arg;
-    g_pcLog->DEBUG("exec_env [%s]", stbatchrequest.exec_env);
     menu["exec_env"]    = stbatchrequest.exec_env;
+
+#ifdef BJM_DEBUG
+    g_pcLog->DEBUG("group_name [%s]", stbatchrequest.group_name);
+    g_pcLog->DEBUG("job_name [%s]", stbatchrequest.job_name);
+    g_pcLog->DEBUG("pkg_name [%s]", stbatchrequest.pkg_name);
+    g_pcLog->DEBUG("proc_no [%d]", stbatchrequest.proc_no);
+    g_pcLog->DEBUG("prc_date [%s]", stbatchrequest.prc_date);
+    g_pcLog->DEBUG("exec_bin [%s]", stbatchrequest.exec_bin);
+    g_pcLog->DEBUG("exec_arg [%s]", stbatchrequest.exec_arg);
+    g_pcLog->DEBUG("exec_env [%s]", stbatchrequest.exec_env);
+#endif
 
 	if(MsgSend(m_root.str()) == BJM_NOK)
 	{
@@ -553,18 +559,15 @@ int CNMSession::GetResponseMsg(ST_BatchResponse *a_batchresponse, vector<ST_Batc
 			    end_date = string(doc["BODY"]["end_date"].as_string());
 				strncpy(stbatchhist.end_date, end_date.c_str(), end_date.length());
 				strncpy(a_batchresponse->end_date, end_date.c_str(), end_date.length());
-			    cout << "[BODY][end_date]    :" << "[" << stbatchhist.end_date << "]" << endl;
 
 			    nNumber = doc["BODY"]["exit_cd"].as_int();
 				stbatchhist.exit_cd = nNumber;
 				a_batchresponse->exit_cd = nNumber;
-			    cout << "[BODY][exit_cd]    :" << "[" << nNumber << "]" << endl;
 			    
 				status.clear();
 				strcpy(a_batchresponse->status, "");
 				status = string(doc["BODY"]["status"].as_string());
 				strncpy(a_batchresponse->status, status.c_str(), status.length());
-			    cout << "[BODY][status]    :" << "[" << a_batchresponse->status << "]" << endl;
 
 				if(strncmp(a_batchresponse->status, "failed", 6) == 0 || strncmp(a_batchresponse->status, "pending", 7) == 0)
 				{
@@ -574,7 +577,12 @@ int CNMSession::GetResponseMsg(ST_BatchResponse *a_batchresponse, vector<ST_Batc
 				{
 					strncpy(stbatchhist.success_yn, "Y", sizeof(char));
 				}
-
+#ifdef BJM_DEBUG
+			    cout << "[BODY][end_date]    :" << "[" << stbatchhist.end_date << "]" << endl;
+			    cout << "[BODY][exit_cd]    :" << "[" << nNumber << "]" << endl;
+			    cout << "[BODY][status]    :" << "[" << a_batchresponse->status << "]" << endl;
+			    cout << "[BODY][success_yn]    :" << "[" << stbatchhist.success_yn << "]" << endl;
+#endif
 				m_sock.Clear();
 
 		    } catch(rabbit::type_mismatch e) {
@@ -605,7 +613,6 @@ int CNMSession::GetResponseMsg(ST_BatchResponse *a_batchresponse, vector<ST_Batc
 
 int CNMSession::GetBackupRequest(ST_BACKUP_REQUEST *a_backuprequest)
 {
-    cout << "----- READ Backup Request" << endl;
 	string					strbackuprequest;
 	string					exec_bin;
 	string					category;
@@ -614,7 +621,10 @@ int CNMSession::GetBackupRequest(ST_BACKUP_REQUEST *a_backuprequest)
 
 	strbackuprequest = m_sock.GetPayload();
 
-    g_pcLog->INFO("strbackuprequest: [%s]", strbackuprequest.c_str());
+#ifdef BJM_DEBUG
+    cout << "----- READ Backup Request" << endl;
+    g_pcLog->DEBUG("strbackuprequest: [%s]", strbackuprequest.c_str());
+#endif
 
     try {
         rabbit::document    doc;
@@ -622,7 +632,10 @@ int CNMSession::GetBackupRequest(ST_BACKUP_REQUEST *a_backuprequest)
 
         exec_bin = string(doc["BODY"]["exec_bin"].as_string());
 		a_backuprequest->exec_bin = exec_bin;
+
+#ifdef BJM_DEBUG		
         cout << "[BODY][exec_bin]    :" << "[" << a_backuprequest->exec_bin << "]" << endl;
+#endif
 
 		rabbit::array a = doc["BODY"]["category"];
 		rabbit::value v;
@@ -659,8 +672,10 @@ int CNMSession::SendBackupRequestMsg(ST_COWORK_INFO *a_coworkinfo, ST_BatchJob *
 
     stbatchjob          = *batchJobInfo_;
     stbackuprequest     = *a_backuprequest;
+
     imsi = m_sock.GetPayload();
-    g_pcLog->INFO("CNMSession SendMsg [%s]", imsi.c_str());
+    g_pcLog->DEBUG("CNMSession SendMsg [%s]", imsi.c_str());
+
     stbackuprequest.sequence = m_sock.GetSequence();
 
     m_sock.SetCommand(BJM_BACKUP);
@@ -702,7 +717,10 @@ int CNMSession::SetBackupResponse(ST_COWORK_INFO *a_coworkinfo, ST_BACKUP_REQUES
 	        menu["success"] = true;
     	}
 	}
-//    cout << objSendRoot.str() << endl;
+
+#ifdef BJM_DEBUG	
+    cout << objSendRoot.str() << endl;
+#endif
 
 	if(MsgSend(objSendRoot.str()) == BJM_NOK)
 	{
@@ -715,7 +733,6 @@ int CNMSession::SetBackupResponse(ST_COWORK_INFO *a_coworkinfo, ST_BACKUP_REQUES
 
 int CNMSession::GetRestoreRequest(ST_RESTORE_REQUEST *a_restorerequest)
 {
-    cout << "----- READ Restore Request" << endl;
 	std::string					strRestoreRequest;
 
 	string restore_file;
@@ -725,7 +742,10 @@ int CNMSession::GetRestoreRequest(ST_RESTORE_REQUEST *a_restorerequest)
 
 	strRestoreRequest = m_sock.GetPayload();
 
+#ifdef BJM_DEBUG
+    cout << "----- READ Restore Request" << endl;
     g_pcLog->INFO("strRestoreRequest: [%s]", strRestoreRequest.c_str());
+#endif
 
     try {
         rabbit::document    doc;
@@ -733,11 +753,14 @@ int CNMSession::GetRestoreRequest(ST_RESTORE_REQUEST *a_restorerequest)
 
         restore_file = string(doc["BODY"]["restore_file"].as_string());
 		a_restorerequest->restore_file = restore_file;
-        cout << "[BODY][restore_file]    :" << "[" << a_restorerequest->restore_file << "]" << endl;
 
         restore_path = string(doc["BODY"]["restore_path"].as_string());
 		a_restorerequest->restore_path = restore_path;
+
+#ifdef BJM_DEBUG		
+        cout << "[BODY][restore_file]    :" << "[" << a_restorerequest->restore_file << "]" << endl;
         cout << "[BODY][restore_path]    :" << "[" << a_restorerequest->restore_path << "]" << endl;
+#endif
 
     } catch(rabbit::type_mismatch   e) {
         cout << e.what() << endl;
@@ -765,8 +788,10 @@ int CNMSession::SendRestoreRequestMsg(ST_COWORK_INFO *a_coworkinfo, ST_BatchJob 
 
     stbatchjob          = *batchJobInfo_;
     strestorerequest     = *a_restorerequest;
+
     imsi = m_sock.GetPayload();
-    g_pcLog->INFO("CNMSession SendMsg [%s]", imsi.c_str());
+    g_pcLog->DEBUG("CNMSession SendMsg [%s]", imsi.c_str());
+
     strestorerequest.sequence = m_sock.GetSequence();
 
     m_sock.SetCommand(BJM_RESTORE);
@@ -794,7 +819,7 @@ int CNMSession::GetBackupResponse(ST_COWORK_INFO *a_coworkinfo, ST_BACKUP_REQUES
     nSequence = m_sock.GetSequence();
     strBackupResponse = m_sock.GetPayload();
 
-    g_pcLog->INFO("strBackupResponse : [%s]", strBackupResponse.c_str());
+    g_pcLog->DEBUG("strBackupResponse : [%s]", strBackupResponse.c_str());
 
     try {
         rabbit::document    doc;
@@ -835,7 +860,7 @@ int CNMSession::GetRestoreResponse(ST_COWORK_INFO *a_coworkinfo, ST_RESTORE_REQU
     nSequence = m_sock.GetSequence();
     strRestoreResponse = m_sock.GetPayload();
 
-    g_pcLog->INFO("strRestoreResponse : [%s]", strRestoreResponse.c_str());
+    g_pcLog->DEBUG("strRestoreResponse : [%s]", strRestoreResponse.c_str());
 
     try {
         rabbit::document    doc;

@@ -41,6 +41,8 @@ bool CNodeProcTB::AddNode(int a_nId, ST_INFO& a_stNode)
 		pthread_mutex_unlock(&m_tMutex);
 		return false;
 	}
+
+	a_stNode.m_bIsNode = true;
 	m_mapNode.insert(make_pair(a_nId, a_stNode));	
 
 	pthread_mutex_unlock(&m_tMutex);
@@ -48,20 +50,42 @@ bool CNodeProcTB::AddNode(int a_nId, ST_INFO& a_stNode)
 	return true;
 }
 
-int CNodeProcTB::GetNode(int a_nId, ST_INFO& a_stNode)
+bool CNodeProcTB::GetNode(int a_nId, ST_INFO& a_stNode)
 {
 	pthread_mutex_lock(&m_tMutex);
 
 	auto iter = m_mapNode.find(a_nId);
 	if (iter == m_mapNode.end()) {
 		pthread_mutex_unlock(&m_tMutex);
-		return 0;
+		return false;
 	}
+	if (iter->second.m_bIsNode == false) {
+		pthread_mutex_unlock(&m_tMutex);
+		return false;
+	}
+
 	a_stNode = iter->second;
+
+	pthread_mutex_unlock(&m_tMutex);
+	
+	return true;
+}
+
+bool CNodeProcTB::GetNodeByNodeNo(int a_nNodeNo, ST_INFO& a_stNode)
+{
+	pthread_mutex_lock(&m_tMutex);
+
+	for (auto iter = m_mapNode.begin(); iter != m_mapNode.end(); ++iter) {
+		if (iter->second.m_bIsNode && iter->second.m_nNodeProcNo == a_nNodeNo) {
+			a_stNode = iter->second;
+			pthread_mutex_unlock(&m_tMutex);
+			return true;
+		}
+	}
 	
 	pthread_mutex_unlock(&m_tMutex);
 	
-	return 1;
+	return false;
 }
 
 int CNodeProcTB::FindNode(string& a_strPkgName, string& a_strNodeType, 
@@ -74,6 +98,9 @@ int CNodeProcTB::FindNode(string& a_strPkgName, string& a_strNodeType,
 			continue;
 		}
 		if (iter->second.m_strNodeType != a_strNodeType) {
+			continue;
+		}
+		if (iter->second.m_bIsNode == false) {
 			continue;
 		}
 		a_vecNode.push_back(iter->second);
@@ -94,6 +121,8 @@ bool CNodeProcTB::AddAtomProc(int a_nId, ST_INFO& a_stProc)
 		pthread_mutex_unlock(&m_tMutex);
 		return false;
 	}
+
+	a_stProc.m_bIsNode = false;
 	m_mapAtom.insert(make_pair(a_nId, a_stProc));	
 	
 	pthread_mutex_unlock(&m_tMutex);
@@ -110,6 +139,11 @@ int CNodeProcTB::GetAtomProc(int a_nId, ST_INFO& a_stProc)
 		pthread_mutex_unlock(&m_tMutex);
 		return 0;
 	}
+	if (iter->second.m_bIsNode) {
+		pthread_mutex_unlock(&m_tMutex);
+		return 0;
+	}
+
 	a_stProc = iter->second;	
 	
 	pthread_mutex_unlock(&m_tMutex);
@@ -128,6 +162,10 @@ int CNodeProcTB::GetAtomProcNo(const char* a_szProcName)
 		if (iter->second.m_strNodeProcName.compare(a_szProcName) != 0) {
 			continue;
 		}
+		if (iter->second.m_bIsNode) {
+			continue;
+		}
+
 		nProcNo = iter->second.m_nNodeProcNo;
 		break;
 	}

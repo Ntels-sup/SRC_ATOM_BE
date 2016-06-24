@@ -86,7 +86,14 @@ void* ThreadRouting(void* a_pArg)
 		} else if (ret < 0) {
 			g_pclsLog->ERROR("ROUTE, client close socket: %d", pclsClient->GetSocket());
 			clsRoute.DelRouteSock(pclsClient->GetSocket());
-			CCommandNm::AlarmNodeStatus(pclsClient->GetSocket(), "DISCONT");
+
+			CNodeProcTB::ST_INFO stInfo;
+			if (CNodeProcTB::Instance().GetNode(pclsClient->GetSocket(), stInfo)) {
+				CCommandNm::AlarmNodeStatus(stInfo, "DISCONT");
+			} else {
+				g_pclsLog->ERROR("ROUTE, not found node info");
+			}
+
 			CNodeProcTB::Instance().Delete(pclsClient->GetSocket());
 			clsSockMulti.CloseSocket(pclsClient->GetSocket());
 

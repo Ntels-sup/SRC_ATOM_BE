@@ -22,6 +22,7 @@ LIBS	 += -latomconfig
 LIBS	 += -latomqueue
 LIBS	 += -latomqueue_common
 LIBS     += -latomdb
+LIBS	 += -lcrypto
 
 TARGET = ATOM_NA
 
@@ -33,6 +34,7 @@ OBJS =	CConfigNa.o \
 		CCmdVnfStart.o \
 		CCmdVnfStop.o \
 		CCmdAppStart.o \
+		CCmdNodeStatus.o \
 		CCommandNa.o \
 		CAddress.o \
 		CMesgRoute.o \

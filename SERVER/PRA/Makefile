@@ -28,7 +28,6 @@ OBJS =	CConfigPra.o \
 		CProcStatus.o \
 		CProcess.o \
 		CProcessManager.o \
-		../NM/CModule.o \
 		../NM/CAddress.o \
 		../NM/CModuleIPC.o \
 		../NM/CMesgRoute.o \

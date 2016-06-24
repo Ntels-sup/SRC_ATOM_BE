@@ -48,7 +48,7 @@ int CNMSession::Initial()
 {
 	// Connect to MN
 //#ifdef TRM_DEBUG
-#if 1
+#if 0
     if(m_sock.Connect("127.0.0.1", 10000) == false)
 #else
     if(m_sock.Connect(g_pcCFG.NM.m_strNMAddr.c_str(), g_pcCFG.NM.m_nNMPort) == false)
@@ -95,7 +95,10 @@ int CNMSession::Run()
 	g_pcLog->INFO("CNMSession Run");
 
 	if(m_nStartFlag == TRM_NOK)
+	{
+		g_pcLog->ERROR("CNMSession Run Error");
 		return TRM_NOK;
+	}
 
 	return TRM_OK;
 }
@@ -104,7 +107,7 @@ int CNMSession::RecvMsg()
 {
     int  			nRecvFlag = 0;
 	int  			nRetRecv = 0;
-#ifdef TRM_DEBUG
+#if 0 //def TRM_DEBUG
 	char 			imsi[256];
 	int  			nLength = 0;
 	string 			strimsi;
@@ -130,7 +133,7 @@ int CNMSession::RecvMsg()
 	}
 
     m_sock.GetCommand(strBuf);
-#ifdef TRM_DEBUG
+#if 0 //def TRM_DEBUG
 	// header
     g_pcLog->INFO("Version: %d", m_sock.GetVersion());
     g_pcLog->INFO("Command: %s", strBuf.c_str());
@@ -230,7 +233,7 @@ int CNMSession::ProcessCtrl()
         }
         else
         {
-            g_pcLog->INFO("Check Action Message ");
+            g_pcLog->WARNING("Check Action Message ");
             m_sock.Clear();
         }
 
@@ -330,7 +333,7 @@ int CNMSession::SendInitResponseMsg(int ret, ST_COWORK_INFO *a_coworkinfo, ST_TR
 	g_pcLog->INFO("CNMSession Send Init Response Msg");
 	nret = m_sock.SendMesg();
     if (nret < 0) {
-        g_pcLog->DEBUG("CNMSession SendInitResponseMsg, Fail to Send Message : %s", m_sock.CSocket::m_strErrorMsg.c_str());
+        g_pcLog->ERROR("CNMSession SendInitResponseMsg, Fail to Send Message : %s", m_sock.CSocket::m_strErrorMsg.c_str());
 		m_sock.Clear();
         return TRM_NOK;
     }
@@ -338,6 +341,7 @@ int CNMSession::SendInitResponseMsg(int ret, ST_COWORK_INFO *a_coworkinfo, ST_TR
 	return TRM_OK;
 }
 
+#ifdef TRM_DEBUG	
 int CNMSession::SendWSMResponseMg(ST_COWORK_INFO *a_coworkinfo, ST_TRACE_REQUEST *a_tracerequest, int a_nOffData, int a_nRet)
 {
 	ST_TRACE_REQUEST st_TraceRequest;
@@ -375,9 +379,8 @@ int CNMSession::SendWSMResponseMg(ST_COWORK_INFO *a_coworkinfo, ST_TRACE_REQUEST
         menu["success"]    = true;
     }
 
-#ifdef TRM_DEBUG
     cout << objRecvRoot.str() << endl;
-#endif    
+
 	m_sock.SetPayload(objRecvRoot.str());
 
 	g_pcLog->INFO("CNMSession Send Response Msg to WSM");
@@ -391,6 +394,7 @@ int CNMSession::SendWSMResponseMg(ST_COWORK_INFO *a_coworkinfo, ST_TRACE_REQUEST
 
 	return TRM_OK;
 }
+#endif
 
 int CNMSession::SendWSMResponseMsg(ST_COWORK_INFO *a_coworkinfo, ST_TRACE_RESPONSE *a_traceresponse, int a_nOffData, int a_nRet)
 {
@@ -405,15 +409,12 @@ int CNMSession::SendWSMResponseMsg(ST_COWORK_INFO *a_coworkinfo, ST_TRACE_RESPON
 		m_sock.SetCommand(TRM_TRACE_OFF);
 	else
 		m_sock.SetCommand(TRM_TRACE_DATA);
-#if 1
+
     m_sock.SetSource(a_coworkinfo->node_no, a_coworkinfo->trm_proc_no);             // Src TRM
     m_sock.SetDestination(a_coworkinfo->node_no, a_coworkinfo->wsm_proc_no);                // WSM
-#else
-    m_sock.SetSource(1, 10);				// Src Node_No, Src Process_No
-    m_sock.SetDestination(1, 46);				// WSM Node_No, WSM Process_No
-#endif
+
     m_sock.SetFlagResponse();			// response
-    m_sock.SetSequence(m_stTraceRequest.sequence);
+    m_sock.SetSequence(st_TraceResponse.sequence);
 
 	rabbit::object  	objRecvRoot;
 
@@ -443,7 +444,7 @@ int CNMSession::SendWSMResponseMsg(ST_COWORK_INFO *a_coworkinfo, ST_TRACE_RESPON
 
 	g_pcLog->INFO("CNMSession Send Response Msg to WSM");
     if (m_sock.SendMesg() < 0) {
-        g_pcLog->INFO("CNMSession Send message failed : %s", m_sock.CSocket::m_strErrorMsg.c_str());
+        g_pcLog->ERROR("CNMSession Send message failed : %s", m_sock.CSocket::m_strErrorMsg.c_str());
 		m_sock.Clear();
         return TRM_NOK;
     }
@@ -476,7 +477,7 @@ int CNMSession::SendRequestMsg(ST_COWORK_INFO *a_coworkinfo, ST_TRACE_REQUEST *a
 			g_pcLog->INFO("CNMSession SendMsg strPayload [%s]", strPayload.c_str());
 		    if (m_sock.SendMesg() < 0) 
 			{
-	        	g_pcLog->INFO("Fail to Send Message : %s", m_sock.CSocket::m_strErrorMsg.c_str());
+	        	g_pcLog->ERROR("Fail to Send Message : %s", m_sock.CSocket::m_strErrorMsg.c_str());
 	            m_sock.Clear();
 		        return TRM_NOK;
 	    	}
@@ -617,6 +618,7 @@ int CNMSession::GetTraceData(ST_TRACE_RESPONSE *a_traceresponse)
     } catch(...) {
         g_pcLog->INFO("Unkown Error");
         m_sock.Clear();
+		return TRM_NOK;
     }
 
 	return TRM_OK;
@@ -624,11 +626,11 @@ int CNMSession::GetTraceData(ST_TRACE_RESPONSE *a_traceresponse)
 
 int CNMSession::GetResponseMsg(ST_TRACE_RESPONSE *a_traceresponse)
 {
-    cout << "----- READ Response" << endl;
 	char 						imsi[255];
 	std::string					strTraceResponse;
 
 #ifdef TRM_DEBUG
+    cout << "----- READ Response" << endl;
 	CheckRecvMsg();
 #endif
 
@@ -690,7 +692,6 @@ int CNMSession::GetResponseMsg(ST_TRACE_RESPONSE *a_traceresponse)
 
 int CNMSession::GetRequestMsg(int nOnOff, ST_TRACE_REQUEST *a_tracerequest)
 {
-    cout << "----- READ Request" << endl;
 	char 				imsi[255];
 	std::string			strTraceRequest;
 	long long 			nOper_no = 0;
@@ -707,6 +708,7 @@ int CNMSession::GetRequestMsg(int nOnOff, ST_TRACE_REQUEST *a_tracerequest)
 	string				strUserId;
 
 #ifdef TRM_DEBUG
+    cout << "----- READ Request" << endl;
 	CheckRecvMsg();
 #endif
 
@@ -729,7 +731,7 @@ int CNMSession::GetRequestMsg(int nOnOff, ST_TRACE_REQUEST *a_tracerequest)
 		a_tracerequest->node_no = nNode_no;
 
         strTrace = string(doc["BODY"]["trace"].as_string());
-		strncpy(a_tracerequest->trace, strTrace.c_str(), strTrace.length());
+		strncpy(a_tracerequest->trace, strTrace.c_str(), sizeof(strTrace));
 
         nProtocol = doc["BODY"]["protocol"].as_int();
 		a_tracerequest->protocol = nProtocol;
@@ -838,7 +840,7 @@ int CNMSession::GetRegistRouteInfo(ST_TRACE_ROUTE *a_traceroute)
         cout << e.what() << endl;
         m_sock.Clear();
     } catch(...) {
-        g_pcLog->INFO("Unkown Error");
+        g_pcLog->ERROR("JSON Unkown Error");
         m_sock.Clear();
     }
 

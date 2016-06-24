@@ -20,6 +20,7 @@ const char *SNMP_COLUMN[] =
 typedef struct _snmp_value
 {
 	bool bFind;
+	std::string strValue;
 }SNMP_VALUE;
 
 double Rounding (double x, int digit)

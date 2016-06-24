@@ -30,6 +30,36 @@
 CFileLog* g_pclsLogPra = NULL;
 
 
+// APP의 현재 상태를 확인하여 상태 변화가 발생하면 Alarm 및 GUI에 전송
+void AppStatusChange(CProcessManager& a_clsPM, 
+					CProcStatus::EN_STATUS& a_enLastStat, time_t& a_tLastTime)
+{
+#if 0
+	// APP 의 마지막 상태와 현재 상태 비교
+	CProcStatus::EN_STATUS enCurrentStat = a_clsPM.GetStatusWorst();
+	if (m_enAppLastStatus == enCurrentStat) {
+		return;
+	}
+	
+	// 마지막 상태 전송 후 1초가 지났는가?
+	// APP의 비정상 종료 와 시작 을 반복하는 경우 과도한 Status 전송을 방지
+	time_t tCurrTime = time(NULL);
+	if (a_tLastTime + 1 <= tCurrTime) {
+		return;
+	}
+
+	CCmdBase clsBase;
+	clsBase.
+	
+	CCommandPra clsCmd;
+	clsCmd.GenAppStatus(a_clsPM, clsBase);
+
+	time_t					m_tAppLastStatusTime;	// 프로세스 미자막 상태 확인 시간	
+#endif
+
+	return;
+}
+
 void* PRAStart(void* pArg)
 {
 	CModule::ST_MODULE_OPTIONS stOption = *static_cast<CModule::ST_MODULE_OPTIONS*>(pArg);
@@ -81,6 +111,8 @@ void* PRAStart(void* pArg)
 	CCommandPra clsPraCmd;
 	CProcessManager clsPM;
 
+	CProcStatus::EN_STATUS	enAppLastStatus = CProcStatus::NONE;
+	time_t					tAppLastStatusTime = time(NULL);
 
 	while (true) {
 		
@@ -98,10 +130,14 @@ void* PRAStart(void* pArg)
 			bIdle = false;
 		}
 		
+		// APP 종료 처리
 		clsPM.CheckExit();
 		
-		// TODO
-		// manual 기동 프로세스 확인
+		// APP manual 기동 프로세스 확인
+		clsPM.CheckManualRun();
+		
+		// APP 상태 변경 확인
+		AppStatusChange(clsPM, enAppLastStatus, tAppLastStatusTime);
 		
 		// 처리한 메세지가 없다면 sleep		
 		if (bIdle) {

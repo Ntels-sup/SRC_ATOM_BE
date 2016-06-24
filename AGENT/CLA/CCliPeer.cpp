@@ -17,7 +17,9 @@ CCliPeer::CCliPeer(time_t a_timestamp, CSocket *a_cSock)
 
 CCliPeer::~CCliPeer()
 {
-	delete m_cSock;
+	if(m_cSock != NULL){
+		delete m_cSock;
+	}
 }
 
 CProtocol* CCliPeer::Receive()

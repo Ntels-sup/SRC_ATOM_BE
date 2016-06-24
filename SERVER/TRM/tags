@@ -238,7 +238,7 @@ Initial	TRM_WEB/CConfigTRM.cpp	/^int CConfigTRM::Initial()$/;"	f	class:CConfigTR
 Initial	TRM_WEB/CNMSession.cpp	/^int CNMSession::Initial()$/;"	f	class:CNMSession
 Initial	TRM_WEB/CScheduler.cpp	/^int CScheduler::Initial()$/;"	f	class:CScheduler
 InsertHist	BACKUP/20160531/CTraceHist.cpp	/^int	CTraceHist::InsertHist(ST_TRACE_HIST *a_tracehist)$/;"	f	class:CTraceHist
-InsertHist	CTraceHist.cpp	/^int	CTraceHist::InsertHist(ST_TRACE_HIST *a_tracehist)$/;"	f	class:CTraceHist
+InsertHist	CTraceHist.cpp	/^int	CTraceHist::InsertHist(DB * a_pDB, ST_TRACE_HIST *a_tracehist)$/;"	f	class:CTraceHist
 InsertHist	TRM_WEB/CTraceHist.cpp	/^int	CTraceHist::InsertHist(ST_TRACE_HIST *a_tracehist)$/;"	f	class:CTraceHist
 InsertRouteInfo	BACKUP/20160531/CTraceRoute.cpp	/^int CTraceRoute::InsertRouteInfo(ST_TRACE_ROUTE *a_traceroute)$/;"	f	class:CTraceRoute
 InsertRouteInfo	CTraceRoute.cpp	/^int CTraceRoute::InsertRouteInfo(ST_TRACE_ROUTE *a_traceroute)$/;"	f	class:CTraceRoute
@@ -776,10 +776,10 @@ __BJ_DefinesHpp__	BACKUP/20160531/TRM_Define.hpp	2;"	d
 __BJ_DefinesHpp__	TRM_Define.hpp	2;"	d
 __BJ_DefinesHpp__	TRM_WEB/TRM_Define.hpp	2;"	d
 __CATMCONV_HPP__	BACKUP/20160531/CATMConv.hpp	70;"	d
-__CATMCONV_HPP__	CATMConv.hpp	70;"	d
+__CATMCONV_HPP__	CATMConv.hpp	2;"	d
 __CATMCONV_HPP__	TRM_WEB/CATMConv.hpp	70;"	d
 __CATMDate_Hpp__	BACKUP/20160531/CATMDate.hpp	72;"	d
-__CATMDate_Hpp__	CATMDate.hpp	72;"	d
+__CATMDate_Hpp__	CATMDate.hpp	2;"	d
 __CATMDate_Hpp__	TRM_WEB/CATMDate.hpp	72;"	d
 __CATMTimeHpp	BACKUP/20160531/CATMTime.hpp	9;"	d
 __CATMTimeHpp	CATMTime.hpp	9;"	d
@@ -1039,22 +1039,20 @@ m_strWsmName	BACKUP/20160531/CConfigTRM.hpp	/^            string      m_strWsmNa
 m_strWsmName	CConfigTRM.hpp	/^            string      m_strWsmName;$/;"	m	struct:CConfigTRM::ST_LOG_CFG
 m_strWsmName	TRM_WEB/CConfigTRM.hpp	/^            string      m_strWsmName;$/;"	m	struct:CConfigTRM::ST_LOG_CFG
 m_strtracerequest	BACKUP/20160531/CNMSession.hpp	/^	std::string         m_strtracerequest;$/;"	m	class:CNMSession
-m_strtracerequest	CNMSession.hpp	/^	std::string         m_strtracerequest;$/;"	m	class:CNMSession
+m_strtracerequest	CNMSession.hpp	/^	string      		m_strtracerequest;$/;"	m	class:CNMSession
 m_strtracerequest	TRM_WEB/CNMSession.hpp	/^	std::string         m_strtracerequest;$/;"	m	class:CNMSession
 m_strtraceresponse	BACKUP/20160531/CNMSession.hpp	/^	std::string         m_strtraceresponse;$/;"	m	class:CNMSession
-m_strtraceresponse	CNMSession.hpp	/^	std::string         m_strtraceresponse;$/;"	m	class:CNMSession
+m_strtraceresponse	CNMSession.hpp	/^	string 		        m_strtraceresponse;$/;"	m	class:CNMSession
 m_strtraceresponse	TRM_WEB/CNMSession.hpp	/^	std::string         m_strtraceresponse;$/;"	m	class:CNMSession
 m_vProcess	BACKUP/20160531/CScheduler.hpp	/^	vector<ST_PROCESS *>	m_vProcess;$/;"	m	class:CScheduler
 m_vProcess	CScheduler.hpp	/^	vector<ST_PROCESS *>	m_vProcess;$/;"	m	class:CScheduler
 m_vProcess	TRM_WEB/CScheduler.hpp	/^	vector<ST_PROCESS *>	m_vProcess;$/;"	m	class:CScheduler
 m_vTraceHist	BACKUP/20160531/CScheduler.hpp	/^	vector<ST_TRACE_HIST *> m_vTraceHist;$/;"	m	class:CScheduler
-m_vTraceHist	CScheduler.hpp	/^	vector<ST_TRACE_HIST *> m_vTraceHist;$/;"	m	class:CScheduler
 m_vTraceHist	TRM_WEB/CScheduler.hpp	/^	vector<ST_TRACE_HIST *> m_vTraceHist;$/;"	m	class:CScheduler
 m_vTraceRoute	BACKUP/20160531/CScheduler.hpp	/^	vector<ST_TRACE_ROUTE *> m_vTraceRoute;$/;"	m	class:CScheduler
 m_vTraceRoute	CScheduler.hpp	/^	vector<ST_TRACE_ROUTE *> m_vTraceRoute;$/;"	m	class:CScheduler
 m_vTraceRoute	TRM_WEB/CScheduler.hpp	/^	vector<ST_TRACE_ROUTE *> m_vTraceRoute;$/;"	m	class:CScheduler
 m_vbatchrequest	BACKUP/20160531/CNMSession.hpp	/^	vector<char>		m_vbatchrequest;$/;"	m	class:CNMSession
-m_vbatchrequest	CNMSession.hpp	/^	vector<char>		m_vbatchrequest;$/;"	m	class:CNMSession
 m_vbatchrequest	TRM_WEB/CNMSession.hpp	/^	vector<char>		m_vbatchrequest;$/;"	m	class:CNMSession
 main	BACKUP/20160531/CMain.cpp	/^int main(int argc, char *args[])$/;"	f
 main	CMain.cpp	/^int main(int argc, char *args[])$/;"	f

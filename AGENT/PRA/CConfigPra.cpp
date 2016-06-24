@@ -139,8 +139,8 @@ int CConfigPra::LoadProcess(list<CProcessManager::ST_APPINFO>& a_lstProcess)
             
 		CProcessManager::ST_APPINFO stAppInfo;
 
-		g_pclsLogPra->INFO("Loading Process list ======================");
-		g_pclsLogPra->INFO("procno, procname, svc, bin, sorder, eorder");
+		g_pclsLogPra->INFO("Loading APP list ===================================================");
+		g_pclsLogPra->INFO("%-6s %-25s %-10s %-4s %s", "pno", "pname", "svc", "type", "bin");
 		
 		for (int i=0; i < cnt; i++) {
 			if (fdata.Fetch() == false) {
@@ -149,6 +149,8 @@ int CConfigPra::LoadProcess(list<CProcessManager::ST_APPINFO>& a_lstProcess)
 			}
 
 			if (strcmp(szProcName, "NA") == 0) {
+				m_strNaSvcNo = atoi(szSvcNo);
+				m_strNaSvcName = szSvcName;
 				// NodeAgent 는 PRA 관리대상이 아니다.
 				continue;
 			}
@@ -188,9 +190,10 @@ int CConfigPra::LoadProcess(list<CProcessManager::ST_APPINFO>& a_lstProcess)
 			
 			a_lstProcess.push_back(stAppInfo);
 
-			g_pclsLogPra->INFO("%s, %s, %s, %s, %s, %s", 
-								szProcNo, szProcName, szSvcName, 
-								szExecBin, szStartOrder, szStopOrder);
+			g_pclsLogPra->INFO("%-6s %-25s %-10s %-4s %s", 
+								szProcNo, szProcName, szSvcName,
+							    (stAppInfo.m_bIsBatch) ? "BAT" : "APP",
+								szExecBin);
 		} //end for
 
 	} else if (cnt == 0) {
@@ -242,9 +245,9 @@ CConfigPra::CConfigPra()
     m_strLogPath = getenv("HOME");
 	m_strLogPath += "/ATOM/LOG";
 
-	m_strPkgName = "vOFCS";
-	m_strNodeType = "AP";
-	m_strProcName = "NA";
+	m_strPkgName = "";
+	m_strNodeType = "";
+	m_strProcName = "PRA";
 	
 	m_nNodeNo = 0;
 	m_nProcNo = -1;
@@ -254,6 +257,8 @@ CConfigPra::CConfigPra()
 	m_strDbUser = "atom";
 	m_strDbPasswd = "atom";
 	m_strDbName = "ATOM";
+
+	m_tNaStartTime = time(NULL);
 	
 	return;
 }

@@ -37,7 +37,6 @@ private:
 
     TimeOutCheck        m_timerTryInit;
     TimeOutCheck        m_timerForReportPerf;
-    TimeOutCheck        m_timerKeepAliveForEvent;
 
     DashBoard           m_board;
 

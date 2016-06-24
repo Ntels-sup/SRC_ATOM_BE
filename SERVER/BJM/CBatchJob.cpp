@@ -66,7 +66,7 @@ int CBatchJob::LoadJobInfo(ST_BatchJob *_batchjob)
 
     if(NULL == m_pDB)
     {
-        g_pcLog->INFO("DB table is empty");
+        g_pcLog->WARNING("DB table is empty");
         return BJM_NOK;
     }
 

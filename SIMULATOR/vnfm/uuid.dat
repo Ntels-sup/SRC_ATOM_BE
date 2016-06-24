@@ -1,6 +1,10 @@
 (dp0
-Vhttp://192.168.32.94:9000/vnf/action
+Vhttp://100.100.1.100:9000/vnf/action
 p1
-S'bb51777-d-cc1de-afc4a725-e186405'
+S'4fe05e45437a84d6-ffb3fb8-9cd4f2e'
 p2
+sVhttp://192.168.10.43:9000/vnf/action
+p3
+S'-5c536cd0b2ea-c7eccf32e0-58f0-55'
+p4
 s.

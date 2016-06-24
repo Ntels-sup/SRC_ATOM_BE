@@ -25,7 +25,7 @@ public:
 	std::string	m_strStatus;
 	std::string	m_strPkgName;
 	std::string	m_strNodeType;
-	int		m_nNodeNo;
+	int			m_nNodeNo;
 	std::string	m_strNodeName;
 	std::string	m_strIp;
 	std::string	m_strVersion;

@@ -55,6 +55,10 @@ bool CCommandNm::MesgProcess(CProtocol& a_clsProto, CMesgExchSocketServer& a_cls
 			return CmdRegistNode(a_clsProto, a_clsServ, a_pclsCli);
 		case CMD_PING :
 			return CmdPing(a_clsProto);
+		case CMD_NODE_STATUS :
+			return CmdNodeStatus(a_clsProto);
+		case CMD_NODE_LIST :
+			return CmdNodeList(a_clsProto);
 		default :
 			g_pclsLog->ERROR("MSGP, unknown command: %d", nCmd);
 			return false;
@@ -114,6 +118,7 @@ bool CCommandNm::CmdRegist(CProtocol& a_clsReq, CMesgExchSocketServer& a_clsServ
 	stInfo.m_strNodeType	= clsRegist.m_strNodeType;
 	stInfo.m_strNodeProcName= clsRegist.m_strProcName;
 	stInfo.m_nNodeProcNo	= clsRegist.m_nProcNo;
+	stInfo.m_bIsNode		= false;
 	clsNPTab.AddAtomProc(a_pclsCli->GetSocket(), stInfo);
 
 	g_pclsLog->INFO("MSGP, Registed, pkgnm: %s ntype: %s pname: %s procno: %d", 
@@ -191,6 +196,8 @@ bool CCommandNm::CmdRegistNode(CProtocol& a_clsReq,
 		clsRegist.m_nNodeNo		= clsDbIO.m_nNodeNo;
 		clsRegist.m_strNodeName	= clsDbIO.m_strNodeName;		
 		strBody = clsRegist.ErrorGen(0, "node regist ok");
+
+		clsDbIO.NodeUse(clsRegist.m_strUuid);
 		
 	} else if (nNodeNo == 0) {					// not found
 		nNodeNo = clsDbIO.NodeCreate(clsRegist.m_strPkgName, clsRegist.m_strNodeType,
@@ -204,10 +211,6 @@ bool CCommandNm::CmdRegistNode(CProtocol& a_clsReq,
 		clsRegist.m_nNodeNo		= clsDbIO.m_nNodeNo;
 		clsRegist.m_strNodeName	= clsDbIO.m_strNodeName;
 		
-		//clsDbIO.NodeStatus(clsRegist.m_strUuid, "SCALEOUT");
-		// Node 상태 alarm 전송
-		AlarmNodeStatus(a_pclsCli->GetSocket(), "SCALEOUT");
-
 	} else {
 		g_pclsLog->WARNING("MSGP, find node failed");
 		strBody = clsRegist.ErrorGen(1, "find node failed");
@@ -231,7 +234,10 @@ bool CCommandNm::CmdRegistNode(CProtocol& a_clsReq,
 	stInfo.m_strNodeProcName= clsRegist.m_strNodeName;
 	stInfo.m_nNodeProcNo	= clsRegist.m_nNodeNo;
 	stInfo.m_strIp			= clsRegist.m_strIp;	
+	stInfo.m_bIsNode		= true;
 	clsNPTb.AddNode(a_pclsCli->GetSocket(), stInfo);
+
+	AlarmNodeStatus(stInfo, "RUNNING");
 
 	g_pclsLog->INFO("MSGP, node registed");
 	g_pclsLog->INFO("      - pkgnm: %s, ntype: %s, pname: %s, nodeno: %d, nname: %s", 
@@ -317,9 +323,17 @@ bool CCommandNm::CmdNodeStatus(CProtocol& a_clsReq)
 	}
 
 	// 노드 상태 update는 NM이 알람으로 알려주면 ALM에서 update 한다.
-	//CDBInOut clsDbIO;
-	//clsDbIO.NodeStatus(clsStatus.m_strUuid, clsStatus.m_strStatus.c_str());
-	//AlarmNodeStatus(a_pclsCli->GetSocket(), clsStatus.m_strStatus.c_str());
+	if (clsStatus.m_strStatus.compare("SCALEIN") == 0) {
+		CDBInOut clsDbIO;
+		clsDbIO.NodeUse(clsStatus.m_strUuid, 'N');
+	}
+
+	CNodeProcTB::ST_INFO stNode;
+	if (CNodeProcTB::Instance().GetNodeByNodeNo(clsStatus.m_nNodeNo, stNode)) {
+		AlarmNodeStatus(stNode, clsStatus.m_strStatus.c_str());
+	} else {
+		g_pclsLog->WARNING("CMD, not found node information");
+	}
 	
 	return true;
 }
@@ -384,24 +398,19 @@ Response_:
 	return true;
 }
 
-bool CCommandNm::AlarmNodeStatus(int a_nId, const char* a_szStatus)
+bool CCommandNm::AlarmNodeStatus(CNodeProcTB::ST_INFO& a_stNode, const char* a_szStatus)
 {
 	CConfigNm& clsCfg = CConfigNm::Instance();
 	CNodeProcTB& clsNodeProc = CNodeProcTB::Instance();
 	
-	CNodeProcTB::ST_INFO stNode;
-	if (clsNodeProc.GetNode(a_nId, stNode) == 0) {
-		// Node가 아닌 ATOM server process 다.
-		return true;
-	}
 
 	CCmdStatusNodeEvent clsStatus;
 	clsStatus.m_strMessage		= "node status change";
-	clsStatus.m_strPkgName		= stNode.m_strPkgName;
-	clsStatus.m_nNodeNo			= stNode.m_nNodeProcNo;
-	clsStatus.m_strNodeName		= stNode.m_strNodeProcName;
-	clsStatus.m_strNodeVersion	= stNode.m_strNodeVersion;
-	clsStatus.m_strNodeType		= stNode.m_strNodeType;
+	clsStatus.m_strPkgName		= a_stNode.m_strPkgName;
+	clsStatus.m_nNodeNo			= a_stNode.m_nNodeProcNo;
+	clsStatus.m_strNodeName		= a_stNode.m_strNodeProcName;
+	clsStatus.m_strNodeVersion	= a_stNode.m_strNodeVersion;
+	clsStatus.m_strNodeType		= a_stNode.m_strNodeType;
 	clsStatus.m_strNodeStatus	= a_szStatus;
 
 	// Alarm Manager process no을 찾는다.

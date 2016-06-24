@@ -11,6 +11,7 @@
  */
 
 #include <string>
+#include <vector>
 
 #include "MariaDB.hpp"
 
@@ -22,6 +23,12 @@ public:
 	std::string	m_strNodeName;
 	int			m_nProcNo;
 	
+	struct ST_GUINODE {
+		std::string	m_strNodeName;
+		int			m_nNodeGrpId;
+		int			m_nImageNo;
+	};
+	
 public:
 	CDBInOut();
 	~CDBInOut();
@@ -32,7 +39,9 @@ public:
 												std::string& a_strProcName);
 	int		NodeCreate(std::string& a_strPkgName, std::string& a_strNodeType,
 						std::string& a_strUuid, std::string& a_strIp);
-	bool	NodeStatus(std::string& a_strUuid, const char* a_szStatus);
+	bool	NodeUse(std::string& a_strUuid, char a_cUsed = 'Y');
+	int		NodeName(std::string& a_strPkgName, std::string& a_strNodeType,
+									std::vector<ST_GUINODE>& a_vecNodeName);
 
 private:
 	bool	DBOpen();

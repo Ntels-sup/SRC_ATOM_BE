@@ -37,8 +37,7 @@ bool CConfigNm::LoadCfgFile(const char* a_szCfgFile)
 	if (a_szCfgFile != NULL) {
 		m_strCfgFile = a_szCfgFile;
 	} else {
-		m_strCfgFile = getenv("HOME");
-		m_strCfgFile += "/CFG/ATOM.cfg";
+		m_strCfgFile = getenv("ATOM_CFG_HOME");
 	}
 	
 	CConfig clsCF;

@@ -22,6 +22,12 @@ class CCliPeer{
 		int ReceiveProcess();
 		time_t GetTimestamp() { return m_timestamp; };
 		unsigned int GetSocketFd() { return (unsigned int)m_cSock->GetSocket(); };
+		CSocket *GetSocket() { 
+			CSocket *cTmp = NULL;
+			cTmp = m_cSock;
+			m_cSock = NULL;
+			return cTmp;
+		}
 		CProtocol* Receive();
 		int SendError(unsigned int a_nSessionId, unsigned int a_nResultCode);
 		int Send(CProtocol &cProto);

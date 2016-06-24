@@ -1749,7 +1749,7 @@ int CCli::CheckDefaultCmd(CliDoc *a_stDoc)
 				strLocalBin.append("/BIN/");
 				chdir(strLocalBin.c_str());
 
-				system("./run.sh&");
+				system("./startATOM");
 			}
 			break;
 		case CMD_CODE_DISP_NA:

@@ -34,11 +34,11 @@ fprintf(stderr,__VA_ARGS__);\
 #define TRM_RECV_PROC_STOP          9
 #define TRM_RECV_REGIST_ROUTE		10
 
-#define TRM_MAX_PROCESS		       1024
+#define TRM_MAX_PROCESS		       512
 #define TRM_MAX_TRACE_ROUTE	       1024
 #define TRM_MAX_TRACE_HIST	       1024
-#define TRM_MAX_REQUEST		       1024
-#define TRM_MAX_RESPONSE	       1024
+#define TRM_MAX_REQUEST		       512
+#define TRM_MAX_RESPONSE	       512
 
 //20160328 kjjy7 TAT_TRC_ROUTE
 #define TRM_GROUP_GROUP_NAME_SIZE     40

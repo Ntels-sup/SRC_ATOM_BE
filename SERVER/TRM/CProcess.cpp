@@ -68,7 +68,7 @@ int CProcess::LoadProcInfo(ST_PROCESS *a_process, ST_TRACE_ROUTE * a_traceroute)
 
 	if(NULL == m_pDB)
 	{
-		g_pcLog->INFO("DB table is empty");
+		g_pcLog->WARNING("DB table is empty");
 		return TRM_NOK;
 	}
 	
@@ -79,7 +79,7 @@ int CProcess::LoadProcInfo(ST_PROCESS *a_process, ST_TRACE_ROUTE * a_traceroute)
 	nRet = m_pDB->Query(&f, query, strlen(query));
 	if(nRet < 0)
 	{	
-		g_pcLog->INFO("Query Fail [%d:%s]", nRet, m_pDB->GetErrorMsg(nRet));
+		g_pcLog->ERROR("Query Fail [%d:%s]", nRet, m_pDB->GetErrorMsg(nRet));
 		return TRM_NOK;
 	}
 
@@ -181,7 +181,7 @@ int CProcess::LoadCoworkNo(char* a_NodeNm, char* a_NmPrcNm, char* a_TrmPrcNm, ch
 
     if(NULL == m_pDB)
     {
-        g_pcLog->INFO("DB table is empty");
+        g_pcLog->WARNING("DB table is empty");
         return TRM_NOK;
     }
 
@@ -191,7 +191,7 @@ int CProcess::LoadCoworkNo(char* a_NodeNm, char* a_NmPrcNm, char* a_TrmPrcNm, ch
 
     if(m_pDB->Query(&f, strQuery, strlen(strQuery)) < 0)
     {
-        g_pcLog->INFO("Query Fail [%d:%s]", nRet, m_pDB->GetErrorMsg(nRet));
+        g_pcLog->ERROR("Query Fail [%d:%s]", nRet, m_pDB->GetErrorMsg(nRet));
         return TRM_NOK;
     }
 

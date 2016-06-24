@@ -27,13 +27,15 @@ public:
 		std::string	m_strNodeVersion;
 		std::string	m_strNodeType;
 		std::string	m_strIp;
+		bool		m_bIsNode;
 	};
 	
 public:
 	static CNodeProcTB& Instance(void);
 
 	bool	AddNode(int a_nId, ST_INFO& a_stNode);
-	int		GetNode(int a_nId, ST_INFO& a_stNode);
+	bool	GetNode(int a_nId, ST_INFO& a_stNode);
+	bool	GetNodeByNodeNo(int a_nNodeNo, ST_INFO& a_stNode);
 	int		FindNode(std::string& a_strPkgName, std::string& a_strNodeType, 
 											std::vector<ST_INFO>& a_vecNode);
 

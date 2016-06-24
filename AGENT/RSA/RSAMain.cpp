@@ -274,6 +274,12 @@ int RSAMain::InitSharedLibrary()
 		if(m_pstRsc[i].bRoot)
 			continue;
 
+		if(m_pstRsc[i].mapRsc.size() == 0)
+		{
+			m_pclsLog->INFO("Resource Group (%s) don't have Resource Attr, Skip Init Shared Library", m_pstRsc[i].szGroupName);
+			continue;
+		}
+
 		sprintf(szBuff, "%s/%s.so"
 						, m_pclsConfig->GetConfigValue("RSA", "SHARED_LIB_PATH")
 						, m_pstRsc[i].szPlugName

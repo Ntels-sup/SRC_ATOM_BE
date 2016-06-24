@@ -92,8 +92,31 @@ int RSAMain::Initialize(CModule::ST_MODULE_OPTIONS* a_pstModuleOption)
     }
 
     m_pclsMsg = new RSAMsg(m_pclsLog, m_pclsConfig, m_pclsEvent, m_pstModuleOption);
+
+	int ret = 0;
+	int nAlmProcNo = 0;
+	char szAlmProcNo[DEF_MEM_BUF_64];
+	FetchMaria fData;
+	fData.Set(szAlmProcNo, sizeof(szAlmProcNo));
+
+	char szQuery[DEF_MEM_BUF_1024];
+	memset(szQuery, 0x00, sizeof(szQuery));
+	snprintf(szQuery, sizeof(szQuery), "SELECT PROC_NO FROM TAT_PROCESS WHERE PROC_NAME='ALM' AND NODE_TYPE='%s'"
+									, m_pstModuleOption->m_szNodeType
+			);
+
+	ret = m_pclsDB->Query( &fData, szQuery, strlen(szQuery)); 
+	if(ret < 0)
+	{
+		m_pclsLog->ERROR("Fail to Query (%s) [%d:%s]", szQuery, ret, m_pclsDB->GetErrorMsg(ret));
+		return -1;
+	}
+
+	if(fData.Fetch() != false)
+		nAlmProcNo = atoi(szAlmProcNo);
+
     //Root 와의 연결이 완료되지 않아도 RSA 를 기동
-    if(m_pclsMsg->Initialize() < 0)
+    if(m_pclsMsg->Initialize(nAlmProcNo) < 0)
     {
         m_pclsLog->WARNING("Fail to Init RSA Msg");
         return -1;

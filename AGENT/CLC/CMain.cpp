@@ -34,6 +34,8 @@ int CMain::Init()
     uid_t stUserId;
     struct passwd *stUserPw;
     const char *szTmpCfg[5];
+	char szTmpPath[1024];
+	unsigned int nEndOfPath = 0;
     CGlobal *cGlob = NULL;
     CFileLog *cLog = NULL;
     string strLocalPath;
@@ -164,11 +166,33 @@ int CMain::Init()
         return CLC_NOK;
     }
 
+	cGlob->GetPathLen(szTmpCfg[0], &nEndOfPath);
+	if(sizeof(szTmpPath) <= nEndOfPath){
+        CLC_LOG(CLC_ERR,true,"USER_DUMP_FILE too long\n");
+        return CLC_NOK;
+	}
+	strncpy(szTmpPath, szTmpCfg[0], nEndOfPath);
+	szTmpPath[nEndOfPath] = '\0';
+
+	cGlob->ForceDir(szTmpPath);
+
     szTmpCfg[1] = m_cConfig.GetConfigValue("CLC","CMD_DUMP_FILE");
     if(szTmpCfg[1] == NULL){
         CLC_LOG(CLC_ERR,true,"CMD_DUMP_FILE not exist\n");
         return CLC_NOK;
     }
+
+	cGlob->GetPathLen(szTmpCfg[0], &nEndOfPath);
+	if(sizeof(szTmpPath) <= nEndOfPath){
+        CLC_LOG(CLC_ERR,true,"CMD_DUMP_FILE too long\n");
+        return CLC_NOK;
+	}
+	strncpy(szTmpPath, szTmpCfg[0], nEndOfPath);
+	szTmpPath[nEndOfPath] = '\0';
+
+	fprintf(stderr,"PATH=%s\n",szTmpPath);
+	cGlob->ForceDir(szTmpPath);
+
 
     cConsoleThread->InitPathCfg( strLocalPath,
             szTmpCfg[0], szTmpCfg[1]);

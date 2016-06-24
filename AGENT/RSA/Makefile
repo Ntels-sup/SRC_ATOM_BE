@@ -23,10 +23,10 @@ LIBS     += -latomqueue_common
 LIBS     += -latomlog
 LIBS     += -latomconfig
 LIBS     += -latomstmresapi
+LIBS     += -latomcliapi
 LIBS     += -latomrabbitalloc
 LIBS     += -latommodule
 LIBS     += -latomutil
-LIBS     += -latomcliapi
 LIBS     += -lrt
 
 

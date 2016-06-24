@@ -30,3 +30,34 @@ CGlobal* CGlobal::GetInstance()
     return m_cInstance;
 }
 
+int CGlobal::ForceDir(const char *a_szDir)
+{
+	unsigned int nDirLen = 0;
+	char    buff[1024];
+	char   *p_dirc  = buff;
+
+
+	nDirLen = strlen(a_szDir);
+	if(nDirLen >= sizeof(buff)){
+		return CLA_NOK;
+	}
+
+	memcpy(buff, a_szDir, nDirLen);
+
+	buff[nDirLen]   = '\0';
+
+	while( *p_dirc){
+		if ( '/' == *p_dirc){
+			*p_dirc = '\0';
+			if ( 0 != access( buff, F_OK)){
+				mkdir( buff, 0777);
+			}
+			*p_dirc = '/';
+		}
+		p_dirc++;
+	}
+	if ( 0 != access( buff, F_OK)){
+		mkdir( buff, 0777);
+	}
+	return CLA_OK;
+}

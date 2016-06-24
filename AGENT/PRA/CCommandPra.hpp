@@ -30,6 +30,9 @@ public:
 	bool	ProcMesgModule(CProtocol& a_clsProto, CProcessManager& a_clsPM);
 	bool	ProcMesgApp(CProtocol& a_clsProto, CProcessManager& a_clsPM);
 
+	void	GenAppStatus(CProcessManager& a_clsPMng, CCmdBase& a_clsBase);
+	void	GenNaStatus(CCmdBase& a_clsBase);
+
 private:
 	bool	Command(CProtocol& a_clsProto, CProcessManager& a_clsPMng);
 	
@@ -54,9 +57,6 @@ private:
 	void	CmdCli_StartProc(CProtocol& a_clsRecvP, CCliReq& clsCliReq, CProcessManager& a_clsPM);
 	void	CmdCli_StopProc(CProtocol& a_clsRecvP, CCliReq& clsCliReq, CProcessManager& a_clsPM);
 	void	CmdCli_InitProc(CProtocol& a_clsRecvP, CCliReq& clsCliReq, CProcessManager& a_clsPM);
-
-	
-	void	GetAppStatus(CProcessManager& a_clsPMng, CCmdBase& a_clsBase);
 };
 
 #endif //CCOMMANDPRA_HPP_

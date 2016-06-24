@@ -11,6 +11,7 @@ RSARoot::RSARoot(CFileLog *a_pclsLog, CConfig *a_pclsConfig)
 	m_nNodeID = 0;
 	m_pclsDB = NULL;
 	memset(m_pszDBInfo, 0x00, sizeof(m_pszDBInfo));
+	m_bInit = false;
 }
 
 
@@ -37,8 +38,48 @@ RSARoot::~RSARoot()
 
 int RSARoot::Initialize()
 {
-	m_pclsLog->INFO("RSA Root Initialize Func Start");
+#if 0
+	if(LoadConfig() < 0)
+	{
+		m_pclsLog->ERROR("Fail to Load Config");
+		return -1;
+	}
 
+	if(InitSharedLibrary() < 0)
+	{
+		m_pclsLog->ERROR("Fail to Load Shared Library");
+		return -1;
+	}
+#endif
+	m_pclsSock = new CMesgExchSocketServer();
+	if(NULL == m_pclsSock)
+	{
+		m_pclsLog->ERROR("Fail to Create Socket");
+		return -1;
+	}	
+
+	if(Run() < 0)
+	{
+		m_pclsLog->ERROR("Fail to Run Process");
+		return -1;
+	}
+
+	m_pclsLog->INFO("Wait RSA Init Msg");
+
+	return 0;
+}
+
+int RSARoot::LoadConfig()
+{
+	if(m_pclsConfig)
+		delete m_pclsConfig;
+
+	m_pclsConfig = new CConfig();
+	if(m_pclsConfig->Initialize() < 0)
+	{
+		m_pclsLog->ERROR("Config Class Init Failed");
+		return -1;
+	}
 
 	snprintf(m_pszDBInfo[IDX_DB_CONN_INFO_HOST], sizeof(m_pszDBInfo[IDX_DB_CONN_INFO_HOST]), "%s"
 							, m_pclsConfig->GetGlobalConfigValue("DB_HOST"));
@@ -57,35 +98,6 @@ int RSARoot::Initialize()
 	m_pclsLog->INFO("DB PASS : %s", m_pszDBInfo[IDX_DB_CONN_INFO_PASS]);
 	m_pclsLog->INFO("DB DATABASE : %s", m_pszDBInfo[IDX_DB_CONN_INFO_DB]);
 
-	if(LoadConfig() < 0)
-	{
-		m_pclsLog->ERROR("Fail to Load Config");
-		return -1;
-	}
-
-	if(InitSharedLibrary() < 0)
-	{
-		m_pclsLog->ERROR("Fail to Load Shared Library");
-		return -1;
-	}
-
-	m_pclsSock = new CMesgExchSocketServer();
-	if(NULL == m_pclsSock)
-	{
-		m_pclsLog->ERROR("Fail to Create Socket");
-		return -1;
-	}	
-
-	if(Run() < 0)
-	{
-		m_pclsLog->ERROR("Fail to Run Process");
-		return -1;
-	}
-	return 0;
-}
-
-int RSARoot::LoadConfig()
-{
 	int ret = 0;
 	char szQuery[DEF_MEM_BUF_1024];
 
@@ -297,7 +309,7 @@ int RSARoot::SendResponseToRSA(CSocket *a_pclsClient, int a_nCmd)
 
 	snprintf(szBuffer, sizeof(szBuffer), "%d", a_nCmd);
 	m_pclsSock->SetCommand(szBuffer);
-	m_pclsSock->SetFlagResponse();
+//	m_pclsSock->SetFlagResponse();
 	m_pclsSock->SetSource(0, PROCID_ATOM_NA_RSA);
 	m_pclsSock->SetDestination(0, PROCID_ATOM_NA_RSA);
 
@@ -342,8 +354,27 @@ int RSARoot::ProcessInitMsg(string &a_strBuff)
 	memset(m_szNodeType, 0x00, sizeof(m_szNodeType));
 
 	m_nNodeID = atoi(o_node_no.str().c_str());
-	snprintf(m_szPkgName, sizeof(m_szPkgName), "%s", m_szPkgName);
-	snprintf(m_szNodeType, sizeof(m_szNodeType), "%s", m_szNodeType);
+	snprintf(m_szPkgName, sizeof(m_szPkgName), "%s", o_pkg.str().c_str());
+	snprintf(m_szNodeType, sizeof(m_szNodeType), "%s", o_node_type.str().c_str());
+
+	m_pclsLog->INFO("PKG NAME  : %s", m_szPkgName);
+	m_pclsLog->INFO("NODE TYPE : %s", m_szNodeType);
+
+	if( false == m_bInit )
+	{
+		if(LoadConfig() < 0)
+		{
+			m_pclsLog->ERROR("Fail to Load Config");
+			return -1;
+		}
+
+		if(InitSharedLibrary() < 0)
+		{
+			m_pclsLog->ERROR("Fail to Load Shared Library");
+			return -1;
+		}
+		m_bInit = true;
+	}
 
 	return 0;
 }

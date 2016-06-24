@@ -15,6 +15,9 @@ RSAMsg::RSAMsg(CFileLog *a_pclsLog, CConfig *a_pclsConfig, EventAPI *a_pclsEvent
 	m_strFull.clear();
 	m_strSummary.clear();
 	m_strStat.clear();
+
+	m_unAlmSeq = 0;
+	m_nAlmProcNo = 0;
 }
 
 
@@ -55,7 +58,7 @@ RSAMsg::~RSAMsg()
 		delete m_pclsRootSock;
 }
 
-int RSAMsg::Initialize()
+int RSAMsg::Initialize(int a_nAlmProcNo)
 {
     if( NULL == m_pclsLog )
         return -1;
@@ -69,6 +72,8 @@ int RSAMsg::Initialize()
     if( NULL == m_pclsEvent )
         return -1;
 
+	m_nAlmProcNo = a_nAlmProcNo;
+	m_pclsLog->DEBUG("ALM Proc No %d", m_nAlmProcNo);
 	return 0;
 }
 
@@ -477,9 +482,77 @@ int RSAMsg::RecvMesgFromRoot(RESOURCE *a_pstRsc)
 	return 0;
 }
 
+void RSAMsg::MakeTrapBody(const char *a_szCode, const char *a_szTarget, const char *a_szValue, std::string &a_strBody)
+{
+	std::string strTimeStamp;
+	char dst;
+	int nServerity = ALM::eSTATUS; //Fault
+
+	char szBuff[DEF_MEM_BUF_64];
+	rabbit::object root;
+	rabbit::object      body = root["BODY"];
+
+	body["message"]         =   "alarm";
+	body["node_seq_id"]     =   m_unAlmSeq++;
+
+	body["node_no"]         =   m_pstModuleOption->m_nNodeNo;
+	body["node_name"]       =   m_pstModuleOption->m_szNodeName;
+	body["proc_no"]         =   PROCID_ATOM_NM_RSA;
+
+	if( strncmp(a_szValue, "CRITICAL", strlen("CRITICAL")) == 0 )
+		nServerity = ALM::eCRITICAL;
+	if( strncmp(a_szValue, "MAJOR", strlen("MAJOR")) == 0 )
+		nServerity = ALM::eMAJOR;
+	if( strncmp(a_szValue, "MINOR", strlen("MINOR")) == 0 )
+		nServerity = ALM::eMINOR;
+	if( strncmp(a_szValue, "CLEAR", strlen("CLEAR")) == 0 )
+		nServerity = ALM::eCLEARED;
+	
+	body["severity_id"]     =   nServerity;
+	body["pkg_name"]        =   m_pstModuleOption->m_szPkgName;
+
+	if(nServerity != ALM::eSTATUS)
+		body["event_type_id"]   =   ALM::eALARM;
+	else
+		body["event_type_id"]   =   ALM::eFAULT;
+
+	body["event_group_id"]  =   5;
+	body["code"]            =   a_szCode;
+	body["alias_code"]      =   a_szCode;
+	body["probable_cause"]  =   "";
+	body["additional_text"] =   "";
+
+	snprintf(szBuff, sizeof(szBuff), "%s/%s", m_pstModuleOption->m_szNodeName, m_pstModuleOption->m_szProcName);
+	body["location"]        =   szBuff;
+	body["target"]          =   a_szTarget;
+	body["complement"]      =   "";
+	body["value"]           =   a_szValue;
+	body["node_version"]    =   "1.0.0";
+	body["node_type"]       =   m_pstModuleOption->m_szNodeType;
+
+	CTimeUtil::SetTimestampAndDstYn(strTimeStamp, dst, 2);
+	body["prc_date"]        =   strTimeStamp.c_str();
+
+	body["dst_yn"]          =   dst == 'Y' ? "Y" : "N";
+	body["vnfm_yn"]         =   "N";
+
+	a_strBody.assign(root.str().c_str());
+}
+
+
 int RSAMsg::SendTrapMsg(RESOURCE *a_pstRsc, const char* a_strMsg)
 {
 	try {
+		char szBuffer[DEF_MEM_BUF_64];
+
+		CModuleIPC* clsIPC = m_pstModuleOption->m_pclsModIpc;
+
+		snprintf(szBuffer, sizeof(szBuffer), "%010d", CMD_ALM_EVENT);
+
+		CProtocol clsResp;
+		
+		std::string strBody;
+
 	    rabbit::document doc;
 	    doc.parse(a_strMsg);
 
@@ -499,38 +572,27 @@ int RSAMsg::SendTrapMsg(RESOURCE *a_pstRsc, const char* a_strMsg)
     	    o_target = o_attr["TARGET"];
         	o_value = o_attr["VALUE"];
 
-	        m_pclsLog->DEBUG("SendTrap : Code, %s, Target, %s, Value, %s", o_code.str().c_str(), o_target.str().c_str(), o_value.str().c_str());
-    	    m_pclsEvent->SendTrap(
-        	                    o_code.str().c_str(),
-            	                o_target.str().c_str(),
-                	            o_value.str().c_str(),
-                    	        NULL,
-                        	    NULL
-	                         );
-			
+			MakeTrapBody(o_code.str().c_str(), o_target.str().c_str(), o_value.str().c_str(), strBody);
+	        m_pclsLog->DEBUG("Send To ALM %s", strBody.c_str());
+
+			clsResp.Clear();
+			clsResp.SetCommand(szBuffer);
+			clsResp.SetSequence(0);
+			clsResp.SetFlagNotify();
+
+			clsResp.SetSource(m_pstModuleOption->m_nNodeNo, PROCID_ATOM_NM_RSA);
+			clsResp.SetDestination(m_pstModuleOption->m_nNodeNo, m_nAlmProcNo);
+			clsResp.SetPayload(strBody);
+
+			clsResp.Print(m_pclsLog, LV_DEBUG, true);
+
+			if(clsIPC->SendMesg(clsResp) == false)
+			{
+				m_pclsLog->ERROR("Failed to Send ALM Msg : [%s]\n", clsIPC->m_strErrorMsg.c_str());
+			}
 
 		}
 
-#if 0
-	    map<string, RESOURCE_ATTR *>::iterator it;
-    	for(it = a_pstRsc->mapRsc.begin(); it != a_pstRsc->mapRsc.end(); ++it)
-	    {
-    	    pstRsc = it->second;
-        	o_attr = doc[pstRsc->szName];
-	        o_code = o_attr["CODE"];
-    	    o_target = o_attr["TARGET"];
-        	o_value = o_attr["VALUE"];
-
-	        m_pclsLog->DEBUG("SendTrap : Code, %s, Target, %s, Value, %s", o_code.str().c_str(), o_target.str().c_str(), o_value.str().c_str());
-    	    m_pclsEvent->SendTrap(
-        	                    o_code.str().c_str(),
-            	                o_target.str().c_str(),
-                	            o_value.str().c_str(),
-                    	        NULL,
-                        	    NULL
-	                         );
-    	}
-#endif
 	} catch(rabbit::type_mismatch &e) {
         m_pclsLog->ERROR("RSAMsg SendTrapMsg, %s", e.what());
         return -1;

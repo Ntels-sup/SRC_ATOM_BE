@@ -42,6 +42,13 @@ public:
 
 	DB*			m_pclsDB;
 
+	// NA의 상태 정보를 GUI에 보내 주기 위해 정보만 유지 한다.
+	// PRA에서 NA의 상태 정보를 GUI에 전송해 주는 것은 맞지 않는 것 같다.
+	// GUI의 개선이 필요하다.
+	int			m_strNaSvcNo;
+	std::string	m_strNaSvcName;
+	time_t		m_tNaStartTime;
+	std::string	m_strNaVersion;
 
 public:
 	static CConfigPra& Instance(void);

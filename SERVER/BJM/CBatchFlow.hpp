@@ -15,7 +15,7 @@ public:
     ~CBatchFlow();
 
     bool			    Init(DB * a_pDB);
-	int					LoadFlowInfo(ST_BatchFlow *_batchFlow);
+	int					LoadFlowInfo(ST_BATCHFLOW *_batchFlow);
 	int					FlowSelect(ST_MULTI_JOB_FLOW *a_MultiFlow);
 	int					GetMultiFlowCount(int a_nExit_cd);
 	int					FlowCount();
@@ -29,7 +29,7 @@ public:
 	std::string 		GetNextJobName () { return m_stbatchFlowInfo.next_job_name; }
 
 private:
-	ST_BatchFlow		m_stbatchFlowInfo;
+	ST_BATCHFLOW		m_stbatchFlowInfo;
 	DB * 				m_pDB;
 
 };

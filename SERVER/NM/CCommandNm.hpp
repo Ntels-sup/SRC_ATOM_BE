@@ -18,6 +18,8 @@
 #include "CMesgExchSocket.hpp"
 #include "CMesgExchSocketServer.hpp"
 
+#include "CNodeProcTB.hpp"
+
 
 class CCommandNm
 {
@@ -30,7 +32,7 @@ public:
 
 	bool	MesgProcess(CProtocol& a_clsProto, CMesgExchSocketServer& a_clsServ,
 															CSocket* a_pclsCli);
-	static bool	AlarmNodeStatus(int a_nId, const char* a_szStatus);
+	static bool	AlarmNodeStatus(CNodeProcTB::ST_INFO& a_stInfo, const char* a_szStatus);
 
 private:
 	bool	CmdRegist(CProtocol& a_clsReq, CMesgExchSocketServer& a_clsServ, 

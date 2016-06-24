@@ -27,7 +27,10 @@ class CNodeInfo{
 				~CNodeInfo();
 				void SetLastRcvTm() { m_nLastRcvTime = time(NULL); };
 				int GetState() { return m_nStatus; };
-				void SetActiveState() { m_nStatus = ACTIVE_STATUS; };
+				void SetActiveState() { 
+					STM_LOG(STM_ERR,"NODE ACTIVE(node=%s)\n",m_strNodeName.c_str());
+					m_nStatus = ACTIVE_STATUS; 
+				};
 				void SetInactiveState() { m_nStatus = INACTIVE_STATUS; };
 				int Init(int a_nNodeNo, const char *a_strNodeType, const char *a_chNodeName, int a_nLastCollectTime);
 				int GetNodeNo() { return m_nNodeNo; };

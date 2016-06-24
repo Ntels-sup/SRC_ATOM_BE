@@ -263,6 +263,7 @@ int CMain::InsertPeer(CSocket *a_cSock)
 	cPeer  = new CCliPeer(curTm, a_cSock);
 
 	m_lstPeer.push_back(cPeer);
+	CLA_LOG(CLA_ERR,false, "INSERT PEER(FD=%d)\n",a_cSock->GetSocket());
 
 	m_mapPeer.insert(map<unsigned int,list<CCliPeer*>::iterator>::value_type(a_cSock->GetSocket(), --m_lstPeer.end()));
 
@@ -273,16 +274,24 @@ int CMain::DelPeer(CCliPeer *cPeer)
 {
 	map<unsigned int,list<CCliPeer*>::iterator>::iterator iter;
 	unsigned int fd = 0;
+	CSocket *cSock = NULL;
 
 	fd = cPeer->GetSocketFd();
 
+	/* delete select value (deletet by m_cSock)*/
+	cSock = cPeer->GetSocket();
+	/* free cSock by fd */
+	m_cSock.DelPeer(fd);
+
 	iter = m_mapPeer.find(fd);
 	if(iter == m_mapPeer.end()){
+		CLA_LOG(CLA_ERR,false ,"PEER NOT EXIST(FD=%d)\n",fd);
 		return CLA_NOK;
 	}
 
 	m_lstPeer.erase(iter->second);
 	m_mapPeer.erase(iter);
+	CLA_LOG(CLA_ERR,false, "DELTET PEER SUCCESS(FD=%d)\n",fd);
 
 	delete cPeer;
 
@@ -416,11 +425,13 @@ int CMain::ReceiveCliHandler()
 		return CLA_OK;
 	}
 	else if(nRet == CLA_RSLT_PEER_CLOSED){
-		CLA_LOG(CLA_ERR,false,"Delete peer(fd=%d)\n",cPeer->GetSocketFd());
-
-		//m_cSock.DelPeer(cPeer->GetSocketFd());
+		int nFd = 0;
+		nFd = cPeer->GetSocketFd();
+		CLA_LOG(CLA_ERR,false,"Delete peer(fd=%d)\n",nFd);
 		/* close Peer */
 		DelPeer(cPeer);
+
+		//m_cSock.DelPeer(nFd);
 
 		return CLA_OK;
 	}
@@ -580,17 +591,25 @@ int CMain::Init(DB *a_cDb, char *a_szCfgFile)
     }
 
 
-    szTmpCfg[0] = m_cConfig.GetConfigValue("CLC","CLI_HIST_FILE");
-    if(szTmpCfg[0] != NULL){
-        m_cHistLog = new CFileLog();
-        m_cHistLog->Initialize(szTmpCfg[0], NULL, (char*)"CLILOG", 0, LV_INFO);
-        if(nRet != 0){
-            CLA_LOG(CLA_ERR, true,"Hist Log init failed(nRet=%d)\n", nRet);
-            return CLA_NOK;
+    szTmpCfg[0] = m_cConfig.GetConfigValue("CLA","CLI_HIST_FILE");
+	if(szTmpCfg[0] != NULL){
+		/* Make direcotry */
+		nRet = cGlob->ForceDir(szTmpCfg[0]);
+		if(nRet == CLA_OK){
 
-        }
-        m_cHistLog->SetThreadLock();
-    }
+			m_cHistLog = new CFileLog();
+			m_cHistLog->Initialize(szTmpCfg[0], NULL, (char*)"CLILOG", 0, LV_INFO);
+			if(nRet != 0){
+				CLA_LOG(CLA_ERR, true,"Hist Log init failed(nRet=%d)\n", nRet);
+				return CLA_NOK;
+
+			}
+			m_cHistLog->SetThreadLock();
+		}
+		else {
+			CLA_LOG(CLA_ERR,true, "History log directory create failed(nRet=%d)\n",nRet);
+		}
+	}
 
 
     szTmpCfg[0] = m_cConfig.GetConfigValue("CLA","MESSAGE_TIMEOUT");

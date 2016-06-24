@@ -39,3 +39,55 @@ CGlobal* CGlobal::GetInstance()
 
     return m_cInstance;
 }
+
+int CGlobal::GetPathLen(const char *a_szDir, unsigned int *a_nLastCur)
+{
+	unsigned int i = 0;
+	unsigned int nDirLen = 0;
+	unsigned int nLastCur = 0;
+
+	nDirLen = strlen(a_szDir);
+
+	for(i=0;i<nDirLen;i++){
+		if(a_szDir[i] == '/'){
+			nLastCur = i;
+		}
+	}
+
+	(*a_nLastCur) = nLastCur;
+
+	return CLC_OK;
+}
+
+int CGlobal::ForceDir(const char *a_szDir)
+{
+	unsigned int nDirLen = 0;
+	char    buff[1024];
+	char   *p_dirc  = buff;
+
+
+	nDirLen = strlen(a_szDir);
+	if(nDirLen >= sizeof(buff)){
+		return CLC_NOK;
+	}
+
+	memcpy(buff, a_szDir, nDirLen);
+
+	buff[nDirLen]   = '\0';
+
+	while( *p_dirc){
+		if ( '/' == *p_dirc){
+			*p_dirc = '\0';
+			if ( 0 != access( buff, F_OK)){
+				mkdir( buff, 0777);
+			}
+			*p_dirc = '/';
+		}
+		p_dirc++;
+	}
+	if ( 0 != access( buff, F_OK)){
+		mkdir( buff, 0777);
+	}
+	return CLC_OK;
+}
+

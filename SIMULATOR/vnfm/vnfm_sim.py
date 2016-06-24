@@ -21,7 +21,6 @@ class HttpData(object):
         self.body = ''
 
     def RecvHeader(self, _conn):
-        self.headers = {}
         d = []
 
         while True:
@@ -183,9 +182,9 @@ class Vnfm(object):
                 print '----- DEBUG fail'
 
             if not uuid:
-                print '---------  DEBUG uuid is ', uuid
                 uuid = self.generateUUID(js['ready']['action-uri'])
                 data = self.makeReadyResponse(uuid)
+                print '---------  DEBUG uuid is ', uuid
                 self.Send(_conn, data)
 
                 client.Send(self.makeInstallRequest(uuid))
@@ -224,6 +223,8 @@ class Vnfm(object):
     
         with open('./uuid.dat', 'w') as f:    
             pickle.dump(self.dic_uuid, f)
+
+        return self.dic_uuid[_uri]
 
     def getUUID(self, _uri):
         self.dic_uuid = {}
@@ -292,6 +293,9 @@ class Vnfm(object):
 
         self.httpData.RecvHeader(conn)
 
+        print '*****'
+        self.httpData.Prn()
+        print '*****'
         if int(self.httpData.GetHeader('Content-Length')) > 0:
             self.httpData.RecvBody(conn,
                                    int(self.httpData.GetHeader('Content-Length')))

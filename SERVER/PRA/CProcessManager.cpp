@@ -131,7 +131,7 @@ void CProcessManager::Run(int a_nProcNo)
 				g_pclsLogPra->INFO("PM, process execute ok, pname: %s",
 										P[i]->second.m_stAppInfo.m_strProcName.c_str());
 			} else {
-				g_pclsLogPra->INFO("PM, process execute failed, pname: %s",
+				g_pclsLogPra->ERROR("PM, process execute failed, pname: %s",
 										P[i]->second.m_stAppInfo.m_strProcName.c_str());
 			}
 

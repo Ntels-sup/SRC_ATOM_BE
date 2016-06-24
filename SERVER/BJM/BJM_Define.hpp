@@ -24,6 +24,13 @@ fprintf(stderr,__VA_ARGS__);\
 #define BJM_ACTION_INIT			"INIT"
 #define BJM_ACTION_LOGLEVEL		"LOGLEVEL"
 
+#define FLG_REQUEST					0
+#define FLG_RESPONSE				1
+#define FLG_NOTIFY					2
+#define FLG_RETRANS					3
+#define FLG_BROAD					4
+#define FLG_ERROR					5
+
 #define BJM_NOK 					0
 #define BJM_OK 						1
 #define BJM_RECV_START				2
@@ -42,8 +49,8 @@ fprintf(stderr,__VA_ARGS__);\
 #define APPLY_DATE_SIZE            	14
 
 #define BJM_MAX_BATCH_GROUP        	256
-#define BJM_MAX_BATCH_JOB          	1024
-#define BJM_MAX_BATCH_JOB_NEXT     	1024
+#define BJM_MAX_BATCH_JOB          	2048
+#define BJM_MAX_BATCH_JOB_NEXT     	2048
 #define BJM_MAX_BATCH_CMD          	1024
 #define BJM_MAX_BATCH_FLOW         	256
 #define BJM_MAX_BATCH_HIST         	1024
@@ -114,7 +121,7 @@ typedef struct
 	int  exit_cd;				
 	char job_name				[BJM_FLOW_JOB_NAME_SIZE +1];
 	char next_job_name			[BJM_FLOW_JOB_NAME_SIZE +1];
-} ST_BatchFlow;
+} ST_BATCHFLOW;
 
 typedef struct
 {

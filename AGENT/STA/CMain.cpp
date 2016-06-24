@@ -48,6 +48,9 @@ CMain::CMain(const char *a_szPackageName, const char *a_szCfgFile, int &nRet)
         return ;
     }
 
+	/* create direcory */
+	cGlob->ForceDir(m_strStsDumpLogPath.c_str());
+
     m_cCollectTableList = new CTableList();
     m_cEmsInfo = new CEmsInfo(m_cCollectTableList, strPackageName, nRet);
     if(nRet != STA_OK){

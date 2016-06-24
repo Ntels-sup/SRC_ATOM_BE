@@ -4,7 +4,7 @@
 include ../../Makefile.inc
 
 CXXFLAGS += -g
-CXXFLAGS += -DNM_DEBUG
+#CXXFLAGS += -DNM_DEBUG
 
 INC_PATH += -I$(MYSQL_INC) 
 LIB_PATH += -L$(MYSQL_LIB)

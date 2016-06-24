@@ -8,11 +8,15 @@ CXXFLAGS += -DPRA_DEBUG
 
 INC_PATH += -I$(MYSQL_INC)
 INC_PATH += -I../INCLUDE/QUEUE
+INC_PATH += -I../API/INCLUDE
+
 LIB_PATH += -L$(MYSQL_LIB)
+LIB_PATH += -L../API/LIB
 
 LIBS     += -latomlog
 LIBS	 += -latomsocket
 LIBS     += -latommodule
+LIBS	 += -latomeventapi
 LIBS     += -latomutil
 LIBS	 += -latomqueue
 LIBS	 += -latomqueue_common

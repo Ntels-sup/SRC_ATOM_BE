@@ -90,7 +90,7 @@ bool CCommandPra::ProcMesgApp(CProtocol& a_clsRecvP, CProcessManager& a_clsPM)
 	if (nDstNode == 0 && nDstProc == 0) {
 		int nCmd = atoi(a_clsRecvP.GetCommand().c_str());
 		switch (nCmd) {
-			case CMD_NODELIST :
+			case CMD_NODE_LIST :
 				CAddress::Instance().LookupAtom("ATOM_NM", nDstNode, nDstProc);
 				a_clsRecvP.SetDestination(nDstNode, nDstProc);
 				break;
@@ -121,6 +121,106 @@ bool CCommandPra::ProcMesgApp(CProtocol& a_clsRecvP, CProcessManager& a_clsPM)
 
 	return true;
 }
+
+void CCommandPra::GenAppStatus(CProcessManager& a_clsPM, CCmdBase& a_clsBase)
+{
+	list<CProcessManager::ST_APPRUNINFO> lstInfo;
+
+	if (a_clsBase.m_bIsAll) {
+		// 전체 프로세스의 상태 정보를 요청
+		a_clsPM.GetStatus(lstInfo, -1);
+		GenNaStatus(a_clsBase);
+	} else {
+		// 지정 프로세스의 상태 정보를 요청
+		list<pair<int, string> >::iterator iter = a_clsBase.m_lstTarget.begin();
+		for (; iter != a_clsBase.m_lstTarget.end(); ++iter) {
+			if (iter->second.compare("NA") == 0) {
+				GenNaStatus(a_clsBase);
+				continue;
+			}
+			a_clsPM.GetStatus(lstInfo, iter->first);
+		}
+	}
+
+	CCmdBase::ST_PROCESS stProc;
+	struct tm ltm;
+	char ltmbuf[40] = {0x00,};
+	
+	map<int, CCmdBase::ST_RESPONSE>::iterator miter;
+	
+	for (auto liter = lstInfo.begin(); liter != lstInfo.end(); ++liter) {
+		stProc.m_nProcNo 		= liter->m_stInfo.m_nProcNo;
+		stProc.m_strProcName	= liter->m_stInfo.m_strProcName;
+		stProc.m_strStatus		= CProcStatus::StatusToString(liter->m_stRun.m_enStatus);
+		if (liter->m_stRun.m_tStartTime > 0) {
+			localtime_r(&liter->m_stRun.m_tStartTime, &ltm);
+			snprintf(ltmbuf, sizeof(ltmbuf), "%04d-%02d-%02d %02d:%02d:%02d", 
+									ltm.tm_year + 1900, ltm.tm_mon+1, ltm.tm_mday,
+									ltm.tm_hour, ltm.tm_min, ltm.tm_sec);
+			stProc.m_strStartDate	= ltmbuf;
+		}
+		if (liter->m_stRun.m_tStopTime > 0) {
+			localtime_r(&liter->m_stRun.m_tStopTime, &ltm);
+			snprintf(ltmbuf, sizeof(ltmbuf), "%04d-%02d-%02d %02d:%02d:%02d", 
+									ltm.tm_year + 1900, ltm.tm_mon+1, ltm.tm_mday,
+									ltm.tm_hour, ltm.tm_min, ltm.tm_sec);		
+			stProc.m_strStopDate	= ltmbuf;
+		}
+		stProc.m_strVersion		= liter->m_stRun.m_strVersion;
+		
+		miter = a_clsBase.m_mapResponse.find(liter->m_stInfo.m_nSvcNo);
+		if (miter == a_clsBase.m_mapResponse.end()) {
+			miter = a_clsBase.m_mapResponse.insert(a_clsBase.m_mapResponse.end(),
+							map<int, CCmdBase::ST_RESPONSE>::value_type(
+								liter->m_stInfo.m_nSvcNo, CCmdBase::ST_RESPONSE()));
+			miter->second.m_strSvcName = liter->m_stInfo.m_strSvcName;
+			miter->second.m_strWorstStatus = CProcStatus::StatusToString(a_clsPM.GetStatusWorst());
+		}
+		miter->second.m_vecProcess.push_back(stProc);
+	}
+
+	a_clsBase.m_strWorstStatus = CProcStatus::StatusToString(a_clsPM.GetStatusWorst());
+
+	return;
+}
+
+void CCommandPra::GenNaStatus(CCmdBase& a_clsBase)
+{
+	CConfigPra& clsCfg = CConfigPra::Instance();
+
+	// service 정보 
+	map<int, CCmdBase::ST_RESPONSE>::iterator miter;
+	miter = a_clsBase.m_mapResponse.insert(a_clsBase.m_mapResponse.end(),
+							map<int, CCmdBase::ST_RESPONSE>::value_type(
+								clsCfg.m_strNaSvcNo, CCmdBase::ST_RESPONSE()));
+	miter->second.m_strSvcName = clsCfg.m_strNaSvcName;
+	miter->second.m_strWorstStatus = "RUNNING";
+
+	// NA process no 정보
+	int nNodeNo = 0;
+	int nProcNo = 0;
+	CAddress::Instance().LookupAtom("ATOM_NA", nNodeNo, nProcNo);
+
+	char ltmbuf[40] = {0x00,};
+	struct tm ltm;
+	localtime_r(&clsCfg.m_tNaStartTime, &ltm);
+	snprintf(ltmbuf, sizeof(ltmbuf), "%04d-%02d-%02d %02d:%02d:%02d", 
+									ltm.tm_year + 1900, ltm.tm_mon+1, ltm.tm_mday,
+									ltm.tm_hour, ltm.tm_min, ltm.tm_sec);		
+
+	CCmdBase::ST_PROCESS stProc;
+	stProc.m_nProcNo 		= nProcNo;
+	stProc.m_strProcName	= "NA";
+	stProc.m_strStatus		= "RUNNING";
+	stProc.m_strStartDate	= ltmbuf;
+	//stProc.m_strStopDate;
+	stProc.m_strVersion		= clsCfg.m_strNaVersion;
+
+	miter->second.m_vecProcess.push_back(stProc);
+
+	return;
+}
+
 
 bool CCommandPra::Command(CProtocol& a_clsRecvP, CProcessManager& a_clsPM)
 {
@@ -227,6 +327,9 @@ void CCommandPra::CmdAppReconfig(CProtocol& a_clsRecvP, CProcessManager& a_clsPM
 	
 	for (auto iter = lstProcess.begin(); iter != lstProcess.end(); ++iter) {
 		a_clsPM.Add(*iter);
+		if (iter->m_bIsExec) {
+			a_clsPM.Run(iter->m_nProcNo);
+		}
 		clsAddr.AddApp(iter->m_strPkgName.c_str(), iter->m_strNodeType.c_str(),
 						iter->m_strProcName.c_str(), iter->m_nProcNo);
 		clsRoute.AddRoute(iter->m_nProcNo, clsCfg.m_nProcNo);
@@ -255,7 +358,7 @@ void CCommandPra::CmdAppStatus(CProtocol& a_clsRecvP, CProcessManager& a_clsPM)
 		goto JumpSend;
 	}
 
-	GetAppStatus(a_clsPM, clsBase);
+	GenAppStatus(a_clsPM, clsBase);
 	strBody = clsBase.ResponseGen();
 
 JumpSend:
@@ -982,61 +1085,4 @@ void CCommandPra::CmdCli_InitProc(CProtocol& a_clsRecvP, CCliReq& clsCliReq,
 	#endif
 	
 	return;	
-}
-
-void CCommandPra::GetAppStatus(CProcessManager& a_clsPM, CCmdBase& a_clsBase)
-{
-	list<CProcessManager::ST_APPRUNINFO> lstInfo;
-
-	if (a_clsBase.m_bIsAll) {
-		// 전체 프로세스의 상태 정보를 요청
-		a_clsPM.GetStatus(lstInfo, -1);
-	} else {
-		// 지정 프로세스의 상태 정보를 요청
-		list<pair<int, string> >::iterator iter = a_clsBase.m_lstTarget.begin();
-		for (; iter != a_clsBase.m_lstTarget.end(); ++iter) {
-			a_clsPM.GetStatus(lstInfo, iter->first);
-		}
-	}
-
-	CCmdBase::ST_PROCESS stProc;
-	struct tm ltm;
-	char ltmbuf[40] = {0x00,};
-	
-	map<int, CCmdBase::ST_RESPONSE>::iterator miter;
-	
-	for (auto liter = lstInfo.begin(); liter != lstInfo.end(); ++liter) {
-		stProc.m_nProcNo 		= liter->m_stInfo.m_nProcNo;
-		stProc.m_strProcName	= liter->m_stInfo.m_strProcName;
-		stProc.m_strStatus		= CProcStatus::StatusToString(liter->m_stRun.m_enStatus);
-		if (liter->m_stRun.m_tStartTime > 0) {
-			localtime_r(&liter->m_stRun.m_tStartTime, &ltm);
-			snprintf(ltmbuf, sizeof(ltmbuf), "%04d-%02d-%02d %02d:%02d:%02d", 
-									ltm.tm_year + 1900, ltm.tm_mon+1, ltm.tm_mday,
-									ltm.tm_hour, ltm.tm_min, ltm.tm_sec);
-			stProc.m_strStartDate	= ltmbuf;
-		}
-		if (liter->m_stRun.m_tStopTime > 0) {
-			localtime_r(&liter->m_stRun.m_tStopTime, &ltm);
-			snprintf(ltmbuf, sizeof(ltmbuf), "%04d-%02d-%02d %02d:%02d:%02d", 
-									ltm.tm_year + 1900, ltm.tm_mon+1, ltm.tm_mday,
-									ltm.tm_hour, ltm.tm_min, ltm.tm_sec);		
-			stProc.m_strStopDate	= ltmbuf;
-		}
-		stProc.m_strVersion		= liter->m_stRun.m_strVersion;
-		
-		miter = a_clsBase.m_mapResponse.find(liter->m_stInfo.m_nSvcNo);
-		if (miter == a_clsBase.m_mapResponse.end()) {
-			miter = a_clsBase.m_mapResponse.insert(a_clsBase.m_mapResponse.end(),
-							map<int, CCmdBase::ST_RESPONSE>::value_type(
-								liter->m_stInfo.m_nSvcNo, CCmdBase::ST_RESPONSE()));
-			miter->second.m_strSvcName = liter->m_stInfo.m_strSvcName;
-			miter->second.m_strWorstStatus = CProcStatus::StatusToString(a_clsPM.GetStatusWorst());
-		}
-		miter->second.m_vecProcess.push_back(stProc);
-	}
-
-	a_clsBase.m_strWorstStatus = CProcStatus::StatusToString(a_clsPM.GetStatusWorst());
-
-	return;
 }

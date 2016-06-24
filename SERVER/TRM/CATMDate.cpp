@@ -1,19 +1,14 @@
-/*
- ***************************************************************************
- * CATMConv.cpp -  nTels Library -  conversion clss.
- ***************************************************************************
- */
 #include "CATMDate.hpp"
 #include <string>
 
 using namespace std;
 
-/*****************************************************************************
+/*
 * Function Name : CATMDate
 * Description   : CATMDate constructor.
 * Parameters    : None.
 * Return value  : None
-*****************************************************************************/
+*/
 CATMDate::CATMDate(void)
 {
     time_t now;
@@ -26,25 +21,25 @@ CATMDate::CATMDate(void)
     this->ToJulian(dt->tm_year + 1900, dt->tm_mon + 1, dt->tm_mday);
 }
 
-/*****************************************************************************
+/*
 * Function Name : CATMDate
 * Description   : CATMDate constructor.
 * Parameters    : None.
 *     Input     : struct tm *dt 
 * Return value  : None
-*****************************************************************************/
+*/
 CATMDate::CATMDate(struct tm *_dt)
 {
     this->ToJulian(_dt->tm_year + 1900, _dt->tm_mon + 1, _dt->tm_mday);
 }
 
-/*****************************************************************************
+/*
 * Function Name : CATMDate
 * Description   : CATMDate constructor.
 * Parameters    : None.
 *     Input     : time_t tm 
 * Return value  : None
-*****************************************************************************/
+*/
 CATMDate::CATMDate(time_t _tm)
 {
     SetDate(_tm) ;
@@ -59,13 +54,13 @@ void CATMDate::SetDate(time_t _tm)
 }
 
 
-/*****************************************************************************
+/*
 * Function Name : CATMDate
 * Description   : CATMDate constructor.
 * Parameters    : 
 *     Input     : char *_str ( YYYYMMDD format )
 * Return value  : None
-*****************************************************************************/
+*/
 CATMDate::CATMDate(char *_str)
 {
     long year,month,day ;
@@ -98,11 +93,11 @@ CATMDate::CATMDate(char *_str)
     }
 }
 
-/*****************************************************************************
+/*
 * Function Name : IsValid
 * Parameters    : None.
-* Return value  :
-*****************************************************************************/
+* Return value  : bool
+*/
 boolean CATMDate::IsValid(void)
 {
     if(this->julian_ == NL_INVALID_DATE )
@@ -113,11 +108,11 @@ boolean CATMDate::IsValid(void)
     return NL_TRUE ;
 }
 
-/*****************************************************************************
+/*
 * Function Name : Get
 * Parameters    : None.
 * Return value  : time_t
-*****************************************************************************/
+*/
 time_t CATMDate::Get(void)
 {
 	struct tm dt;
@@ -146,11 +141,11 @@ time_t CATMDate::Get(void)
 	return mktime(&dt);
 }
 
-/*****************************************************************************
+/*
 * Function Name : GetYear
 * Parameters    : None.
 * Return value  : int
-*****************************************************************************/
+*/
 int CATMDate::GetYear(void)
 {
     char str[9];
@@ -165,11 +160,11 @@ int CATMDate::GetYear(void)
     return  CATMConv::Str2Int(str,4) ;
 }
 
-/*****************************************************************************
+/*
 * Function Name : GetYear
 * Parameters    : None.
 * Return value  : int
-*****************************************************************************/
+*/
 int CATMDate::GetMonth(void)
 {
     char str[9];
@@ -184,11 +179,11 @@ int CATMDate::GetMonth(void)
     return  CATMConv::Str2Int(str+4,2) ;
 }
 
-/*****************************************************************************
+/*
 * Function Name : GetDay
 * Parameters    : None.
 * Return value  : int
-*****************************************************************************/
+*/
 int CATMDate::GetDay(void)
 {
     char str[9];
@@ -203,11 +198,11 @@ int CATMDate::GetDay(void)
     return  CATMConv::Str2Int(str+6,2) ;
 }
 
-/*****************************************************************************
+/*
 * Function Name : GetDayOfWeek
 * Parameters    : None.
 * Return value  : int (0~6) 
-*****************************************************************************/
+*/
 int CATMDate::GetDayOfWeek(void)
 {
     if ( this->julian_ == NL_INVALID_DATE )
@@ -218,12 +213,12 @@ int CATMDate::GetDayOfWeek(void)
     return (unsigned)((this->julian_ + 1l) % 7l) ;
 }
 
-/*****************************************************************************
+/*
 * Function Name : operator()
 * Description   : .
 * Parameters    : None.
 * Return value  : char * : Date (YYYYMMDD)
-*****************************************************************************/
+*/
 char *CATMDate::operator()()
 {
     static char buf[9];
@@ -233,12 +228,12 @@ char *CATMDate::operator()()
     return buf;
 }
 
-/*****************************************************************************
+/*
 * Function Name : operator++
 * Description   : .
 * Parameters    : None.
 * Return value  :
-*****************************************************************************/
+*/
 CATMDate & CATMDate::operator++()
 {
     ++this->julian_;
@@ -253,12 +248,12 @@ CATMDate & CATMDate::operator++(int)
     return *this;
 }
 
-/*****************************************************************************
+/*
 * Function Name : operator--
 * Description   : .
 * Parameters    : None.
 * Return value  :
-*****************************************************************************/
+*/
 CATMDate & CATMDate::operator--()
 {
     --this->julian_;
@@ -273,12 +268,12 @@ CATMDate & CATMDate::operator--(int)
     return *this;
 }
 
-/*****************************************************************************
+/*
 * Function Name : operator+=
 * Description   : .
 * Parameters    : None.
 * Return value  :
-*****************************************************************************/
+*/
 CATMDate & CATMDate::operator+=(long _val)
 {
     this->julian_ += _val;
@@ -286,12 +281,12 @@ CATMDate & CATMDate::operator+=(long _val)
     return *this;
 }
 
-/*****************************************************************************
+/*
 * Function Name : operator-=
 * Description   : .
 * Parameters    : None.
 * Return value  :
-*****************************************************************************/
+*/
 CATMDate & CATMDate::operator-=(long _val)
 {
     this->julian_ -= _val;
@@ -299,79 +294,79 @@ CATMDate & CATMDate::operator-=(long _val)
     return *this;
 }
 
-/*****************************************************************************
+/*
 * Function Name : operator==
 * Description   : .
 * Parameters    : None.
 * Return value  :
-*****************************************************************************/
+*/
 int CATMDate::operator==(CATMDate &d)
 {
     return this->julian_ == d.julian_;
 }
 
-/*****************************************************************************
+/*
 * Function Name : operator!=
 * Description   : .
 * Parameters    : None.
 * Return value  :
-*****************************************************************************/
+*/
 int CATMDate::operator!=(CATMDate &d)
 {
     return this->julian_ != d.julian_;
 }
 
-/*****************************************************************************
+/*
 * Function Name : operator<
 * Description   : .
 * Parameters    : None.
 * Return value  :
-*****************************************************************************/
+*/
 int CATMDate::operator<(CATMDate &d)
 {
     return this->julian_ < d.julian_;
 }
 
-/*****************************************************************************
+/*
 * Function Name : operator<=
 * Description   : .
 * Parameters    : None.
 * Return value  :
-*****************************************************************************/
+*/
 int CATMDate::operator<=(CATMDate &d)
 {
     return this->julian_ <= d.julian_;
 }
 
-/*****************************************************************************
+/*
 * Function Name : operator>
 * Description   : .
 * Parameters    : None.
 * Return value  :
-*****************************************************************************/
+*/
 int CATMDate::operator>(CATMDate &d)
 {
     return this->julian_ > d.julian_;
 }
 
-/*****************************************************************************
+/*
 * Function Name : operator>=
 * Description   : .
 * Parameters    : None.
 * Return value  :
-*****************************************************************************/
+*/
 int CATMDate::operator>=(CATMDate &d)
 {
     return this->julian_ >= d.julian_;
 }
 
 
-/*****************************************************************************
+/*
 * Function Name : operator+
 * Description   : .
 * Parameters    : None.
 * Return value  :
-*****************************************************************************/
+*/
 CATMDate operator+(CATMDate &date, long val)
 {
     CATMDate d = date;
@@ -380,12 +375,12 @@ CATMDate operator+(CATMDate &date, long val)
     return d;
 }
 
-/*****************************************************************************
+/*
 * Function Name : operator+
 * Description   : .
 * Parameters    : None.
 * Return value  :
-*****************************************************************************/
+*/
 CATMDate operator+(long val, CATMDate &date)
 {
     CATMDate d = date;
@@ -394,12 +389,12 @@ CATMDate operator+(long val, CATMDate &date)
     return d;
 }
 
-/*****************************************************************************
+/*
 * Function Name : operator-
 * Description   : .
 * Parameters    : None.
 * Return value  :
-*****************************************************************************/
+*/
 CATMDate operator-(CATMDate &date, long val)
 {
     CATMDate d = date;
@@ -407,22 +402,22 @@ CATMDate operator-(CATMDate &date, long val)
     return d;
 }
 
-/*****************************************************************************
+/*
 * Function Name : operator-
 * Description   : .
 * Parameters    : None.
 * Return value  :
-*****************************************************************************/
+*/
 CATMDate operator-(long val, CATMDate &date)
 {
     CATMDate d = date;
     d.julian_ -= val;
     return d;
 }
-/*****************************************************************************
+/*
 * Function Name : ToJulian
 * Return value  : None
-*****************************************************************************/
+*/
 void CATMDate::ToJulian(long year, long month, long day)
 {
     this->julian_ = NL_INVALID_DATE ;
@@ -453,12 +448,12 @@ void CATMDate::ToJulian(long year, long month, long day)
 	3l * ((year + 4900l + (month - 14l) / 12l) / 100l) / 4l;
 }
 
-/*****************************************************************************
+/*
 * Function Name : ToJulian
 * Parameters    : 
 *     Outpur    : char *buffer :
 * Return value  : None
-*****************************************************************************/
+*/
 void CATMDate::FromJulian(char *buffer)
 {
 	double i, j, k, l, n;
@@ -477,13 +472,13 @@ void CATMDate::FromJulian(char *buffer)
     sprintf(buffer,"%04d%02d%02d",(int)i,(int)j,(int)k) ;
 }
 
-/*****************************************************************************
+/*
 * Function Name : AscDate
 * Parameters    : 
 *     Input     : char *picture : asc string format
 * Return value  :
 *                 char *
-*****************************************************************************/
+*/
 const char *CATMDate::AscDate(const char *picture)
 {
     char        dateStr[9] ;

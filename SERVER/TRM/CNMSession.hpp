@@ -17,14 +17,12 @@ private:
 	DB *            	m_pDB;
     CTraceHist      	m_TraceHist;
 	rabbit::object  	m_root;
-	std::string         m_strtraceresponse;
-	std::string         m_strtracerequest;
-
-	vector<char>		m_vbatchrequest;
+	string 		        m_strtraceresponse;
+	string      		m_strtracerequest;
 
 	int 				m_nStartFlag;
 
-	int 				SetRequestMsg(ST_TRACE_REQUEST *batchrequest_);
+	int 				SetRequestMsg(ST_TRACE_REQUEST *a_batchrequest);
 #ifdef TRM_DEBUG	
 	int					CheckRecvMsg();
 #endif
@@ -51,15 +49,14 @@ public:
 	int 				GetTraceData(ST_TRACE_RESPONSE *a_traceresponse);
 	int					GetRegistRouteInfo(ST_TRACE_ROUTE *a_traceroute);
 #ifdef TRM_DEBUG	
-	// for test
 	int 				TestWebGetTraceData(double a_oper_no, char* start_date, char* end_date, ST_TRACE_RESPONSE *a_traceresponse);
 #endif
 
-	int					SendInitResponseMsg(int ret, ST_COWORK_INFO *a_coworkinfo, ST_TRACE_REQUEST *batchrequest_);
+	int					SendInitResponseMsg(int ret, ST_COWORK_INFO *a_coworkinfo, ST_TRACE_REQUEST *a_batchrequest);
 	int					SendWSMResponseMsg(ST_COWORK_INFO *a_coworkinfo, ST_TRACE_RESPONSE *a_traceresponse, int a_nOffData, int a_nRet);
     int                 SendWSMResponseMg(ST_COWORK_INFO *a_coworkinfo, ST_TRACE_REQUEST *a_tracerequest, int a_nOnOffData, int a_nRet);
 	int					SendResponseMsg(DB * a_pDB, ST_COWORK_INFO *a_coworkinfo, ST_TRACE_RESPONSE *a_traceresponse);
-	int					SendRequestMsg(ST_COWORK_INFO *a_coworkinfo, ST_TRACE_REQUEST *batchrequest_);
+	int					SendRequestMsg(ST_COWORK_INFO *a_coworkinfo, ST_TRACE_REQUEST *a_batchrequest);
 
 };
 
